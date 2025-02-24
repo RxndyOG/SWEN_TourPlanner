@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FH Technikum\\Semester 4\\SWEN\\SWEN_TourPlanner\\SWEN_TourPlanner.csproj",
+      "projectUniqueName": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\SWEN_TourPlanner.csproj",
       "projectName": "SWEN_TourPlanner",
-      "projectPath": "D:\\FH Technikum\\Semester 4\\SWEN\\SWEN_TourPlanner\\SWEN_TourPlanner.csproj",
+      "projectPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\SWEN_TourPlanner.csproj",
       "packagesPath": "C:\\Users\\stefa\\.nuget\\packages\\",
-      "outputPath": "D:\\FH Technikum\\Semester 4\\SWEN\\SWEN_TourPlanner\\obj\\",
+      "outputPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

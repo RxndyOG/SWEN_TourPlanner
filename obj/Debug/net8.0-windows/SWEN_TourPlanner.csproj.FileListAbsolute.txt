@@ -18,3 +18,35 @@ D:\FH Technikum\Semester 4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\refint
 D:\FH Technikum\Semester 4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.pdb
 D:\FH Technikum\Semester 4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.genruntimeconfig.cache
 D:\FH Technikum\Semester 4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\ref\SWEN_TourPlanner.dll
+D:\FH Technikum\Semester 4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.sourcelink.json
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\bin\Debug\net8.0-windows\SWEN_TourPlanner.exe
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\bin\Debug\net8.0-windows\SWEN_TourPlanner.deps.json
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\bin\Debug\net8.0-windows\SWEN_TourPlanner.runtimeconfig.json
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\bin\Debug\net8.0-windows\SWEN_TourPlanner.dll
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\bin\Debug\net8.0-windows\SWEN_TourPlanner.pdb
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\MainWindow.g.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\App.g.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner_MarkupCompile.cache
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner_MarkupCompile.lref
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\MainWindow.baml
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.g.resources
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.GeneratedMSBuildEditorConfig.editorconfig
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.AssemblyInfoInputs.cache
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.AssemblyInfo.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.csproj.CoreCompileInputs.cache
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.sourcelink.json
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.dll
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\refint\SWEN_TourPlanner.dll
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.pdb
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SWEN_TourPlanner.genruntimeconfig.cache
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\ref\SWEN_TourPlanner.dll
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\TitleUserControl.g.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\TitleUserControl.baml
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\ItemBarUserControl.g.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\ItemBarUserControl.baml
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SearchBarUserControl.g.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\SearchBarUserControl.baml
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\TourItemBarUserControl.g.cs
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\TourItemBarUserControl.baml
+D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\obj\Debug\net8.0-windows\UserControl1.g.cs

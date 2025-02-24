@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SWEN_TourPlanner"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
 
@@ -17,65 +20,28 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="20" VerticalContentAlignment="center" >TourPlanner</Label>
-            <Grid Grid.Column="2">
+        
+        <local:TitleUserControl Grid.Row="0"/>
+        <local:SearchBarUserControl Grid.Row="2"/>
+        <local:ItemBarUserControl Grid.Row="1"/>
+
+        <local:TourItemBarUserControl Grid.Row="3"/>
+
+
+        <Border Grid.Row="4" BorderThickness="0,1,0,0" BorderBrush="Black">
+            <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="10*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" x:Name="HelloWorld" Content="{Binding Output}"></Label>
+                <Button Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0" Content="Submit" x:Name="HelloWorldBtn" Command="{Binding ExecuteCommand}"></Button>
+                <TextBox Grid.Row="0" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </Grid>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="16" VerticalContentAlignment="center" HorizontalContentAlignment="center" >File</Label>
-            <Label Grid.Column="1" FontSize="16" VerticalContentAlignment="center" HorizontalContentAlignment="center" >Edit</Label>
-            <Label Grid.Column="2" FontSize="16" VerticalContentAlignment="center" HorizontalContentAlignment="center" >Options</Label>
-            <Label Grid.Column="5" FontSize="16" VerticalContentAlignment="center" HorizontalContentAlignment="center" >Help</Label>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="16" VerticalContentAlignment="center" >Search</Label>
-        </Grid>
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="8*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontSize="16" VerticalContentAlignment="center" >Tours</Label>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="6*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontSize="16" VerticalContentAlignment="center" >Route</Label>
-                <Label Grid.Column="1" FontSize="16" VerticalContentAlignment="center" >General</Label>
-                <Label Grid.Column="2" FontSize="16" VerticalContentAlignment="center" >Misc</Label>
-            </Grid>
-        </Grid>
+        </Border>
     </Grid>
 </Window>

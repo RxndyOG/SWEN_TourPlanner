@@ -20,5 +20,23 @@ namespace SWEN_TourPlanner
         {
             InitializeComponent();
         }
+
+        bool test = false;
+
+        void HelloWorld_Click(object sender, RoutedEventArgs e)
+        {
+            if (test == false)
+            {
+               
+                HelloWorld.Content = "Hello World";
+                test = true;
+            }
+            else
+            {
+                HelloWorld.Content = "";
+                test = false;
+            }
+            
+        }
     }
 }
