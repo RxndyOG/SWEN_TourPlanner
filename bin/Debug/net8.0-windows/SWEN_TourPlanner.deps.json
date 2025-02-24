@@ -7,14 +7,30 @@
   "targets": {
     ".NETCoreApp,Version=v8.0": {
       "SWEN_TourPlanner/1.0.0": {
+        "dependencies": {
+          "PlaceholderTextboxControl": "1.0.0"
+        },
         "runtime": {
           "SWEN_TourPlanner.dll": {}
+        }
+      },
+      "PlaceholderTextboxControl/1.0.0": {
+        "runtime": {
+          "PlaceholderTextboxControl.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "SWEN_TourPlanner/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PlaceholderTextboxControl/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

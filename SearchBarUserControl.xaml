@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="SWEN_TourPlanner.SearchBarUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:custom="clr-namespace:PlaceholderTextboxControl;assembly=PlaceholderTextboxControl"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SWEN_TourPlanner"
@@ -13,7 +14,7 @@
                     <ColumnDefinition Width="10*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontSize="16" VerticalContentAlignment="center" >Search</Label>
+                <custom:PlaceholderTextbox Placeholder="search" Grid.Column="0" FontSize="16" VerticalContentAlignment="center" VerticalAlignment="Center"></custom:PlaceholderTextbox>
             </Grid>
         </Border>
     </Grid>

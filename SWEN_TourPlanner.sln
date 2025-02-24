@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWEN_TourPlanner", "SWEN_TourPlanner.csproj", "{63BCE256-1110-4043-B172-E6EF38E8415A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceholderTextboxControl", "..\PlaceholderTextboxControl\PlaceholderTextboxControl.csproj", "{BE34595B-8ADF-4236-B756-4A376F9EB351}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{63BCE256-1110-4043-B172-E6EF38E8415A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63BCE256-1110-4043-B172-E6EF38E8415A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63BCE256-1110-4043-B172-E6EF38E8415A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE34595B-8ADF-4236-B756-4A376F9EB351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE34595B-8ADF-4236-B756-4A376F9EB351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE34595B-8ADF-4236-B756-4A376F9EB351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE34595B-8ADF-4236-B756-4A376F9EB351}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
