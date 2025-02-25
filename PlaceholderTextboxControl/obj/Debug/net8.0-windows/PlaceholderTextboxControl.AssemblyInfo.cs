@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlaceholderTextboxControl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72600d44644b6f42e9c071c603ca673190eb5a07")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87f30fbf034c53bd8a0ab1e123f7582767d30e54")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlaceholderTextboxControl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlaceholderTextboxControl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
