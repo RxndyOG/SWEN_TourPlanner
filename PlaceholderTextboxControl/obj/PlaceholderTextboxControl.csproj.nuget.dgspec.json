@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\FHTechnikum\\Semester 4\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {}
+    "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {}
   },
   "projects": {
-    "F:\\FHTechnikum\\Semester 4\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
+    "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\FHTechnikum\\Semester 4\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
+        "projectUniqueName": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
         "projectName": "PlaceholderTextboxControl",
-        "projectPath": "F:\\FHTechnikum\\Semester 4\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
+        "projectPath": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
         "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "F:\\FHTechnikum\\Semester 4\\PlaceholderTextboxControl\\obj\\",
+        "outputPath": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,7 +43,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -60,12 +60,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.Net.Sdk.Compilers.Toolset",
-              "version": "[9.0.101, 9.0.101]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -74,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
