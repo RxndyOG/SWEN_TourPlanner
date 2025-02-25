@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 F:\FHTechnikum\Semester 4\Swen\GuiUserControls\App.xaml
-6-49733721
+8-1788516058
 
-13-1803619089
+151450245607
 199-1079121861
-ItemBarUserControl.xaml;MainWindow.xaml;OutputUserControl.xaml;SearchBarUserControl.xaml;TitleUserControl.xaml;TourItemBarUserControl.xaml;
+ItemBarUserControl.xaml;ListItemUserControl.xaml;MainWindow.xaml;MapAndListUserControl.xaml;OutputUserControl.xaml;SearchBarUserControl.xaml;TitleUserControl.xaml;TourItemBarUserControl.xaml;
 
 True
 

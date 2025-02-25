@@ -3,60 +3,44 @@
   "WorkspaceRootPath": "F:\\FHTechnikum\\Semester 4\\Swen\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9705113-AF15-4743-ADB2-795187F09F5C}|PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj|f:\\fhtechnikum\\semester 4\\swen\\placeholdertextboxcontrol\\placeholdertextboxcontrol.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{F9705113-AF15-4743-ADB2-795187F09F5C}|PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj|solutionrelative:placeholdertextboxcontrol\\placeholdertextboxcontrol.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\swen_tourplanner.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\swen_tourplanner.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\listitemusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\listitemusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\itembarusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\itembarusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\SWEN_TourPlanner.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SWEN_TourPlanner.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\TitleUserControl.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TitleUserControl.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\mapandlistusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\mapandlistusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\SearchBarUserControl.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SearchBarUserControl.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\itembarusercontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\itembarusercontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\ExecuteCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ExecuteCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\listitemusercontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\listitemusercontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\SearchBarUserControl.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SearchBarUserControl.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\outputusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\outputusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\OutputUserControl.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:OutputUserControl.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\searchbarusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\searchbarusercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\OutputUserControl.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:OutputUserControl.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\MainWindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:MainWindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\FHTechnikum\\Semester 4\\Swen\\App.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:App.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|f:\\fhtechnikum\\semester 4\\swen\\guiusercontrols\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}|GuiUserControls\\SWEN_TourPlanner.csproj|solutionrelative:guiusercontrols\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,160 +58,127 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PlaceholderTextboxControl.csproj",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
-              "RelativeDocumentMoniker": "PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
-              "RelativeToolTip": "PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-25T08:35:24.05Z",
+              "DocumentIndex": 5,
+              "Title": "ListItemUserControl.xaml.cs",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ListItemUserControl.xaml.cs",
+              "RelativeDocumentMoniker": "GuiUserControls\\ListItemUserControl.xaml.cs",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ListItemUserControl.xaml.cs",
+              "RelativeToolTip": "GuiUserControls\\ListItemUserControl.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T09:18:08.181Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
+              "Title": "ItemBarUserControl.xaml.cs",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ItemBarUserControl.xaml.cs",
+              "RelativeDocumentMoniker": "GuiUserControls\\ItemBarUserControl.xaml.cs",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ItemBarUserControl.xaml.cs",
+              "RelativeToolTip": "GuiUserControls\\ItemBarUserControl.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T09:18:04.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ItemBarUserControl.xaml",
               "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ItemBarUserControl.xaml",
               "RelativeDocumentMoniker": "GuiUserControls\\ItemBarUserControl.xaml",
               "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ItemBarUserControl.xaml",
               "RelativeToolTip": "GuiUserControls\\ItemBarUserControl.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-25T08:33:15.24Z"
+              "WhenOpened": "2025-02-25T09:18:01.81Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SWEN_TourPlanner.csproj",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SWEN_TourPlanner.csproj",
-              "RelativeDocumentMoniker": "GuiUserControls\\SWEN_TourPlanner.csproj",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SWEN_TourPlanner.csproj",
-              "RelativeToolTip": "GuiUserControls\\SWEN_TourPlanner.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-25T08:24:41.492Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SWEN_TourPlanner.csproj",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\SWEN_TourPlanner.csproj",
-              "RelativeDocumentMoniker": "SWEN_TourPlanner.csproj",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\SWEN_TourPlanner.csproj",
-              "RelativeToolTip": "SWEN_TourPlanner.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-25T08:16:36.489Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TitleUserControl.xaml",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\TitleUserControl.xaml",
-              "RelativeDocumentMoniker": "TitleUserControl.xaml",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\TitleUserControl.xaml",
-              "RelativeToolTip": "TitleUserControl.xaml",
+              "DocumentIndex": 0,
+              "Title": "ListItemUserControl.xaml",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ListItemUserControl.xaml",
+              "RelativeDocumentMoniker": "GuiUserControls\\ListItemUserControl.xaml",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\ListItemUserControl.xaml",
+              "RelativeToolTip": "GuiUserControls\\ListItemUserControl.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-24T19:23:33.275Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SearchBarUserControl.xaml",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\SearchBarUserControl.xaml",
-              "RelativeDocumentMoniker": "SearchBarUserControl.xaml",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\SearchBarUserControl.xaml",
-              "RelativeToolTip": "SearchBarUserControl.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-24T19:23:30.728Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ExecuteCommand.cs",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\ExecuteCommand.cs",
-              "RelativeDocumentMoniker": "ExecuteCommand.cs",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\ExecuteCommand.cs",
-              "RelativeToolTip": "ExecuteCommand.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T19:21:01.226Z"
+              "WhenOpened": "2025-02-25T09:16:53.171Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "SearchBarUserControl.xaml.cs",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\SearchBarUserControl.xaml.cs",
-              "RelativeDocumentMoniker": "SearchBarUserControl.xaml.cs",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\SearchBarUserControl.xaml.cs",
-              "RelativeToolTip": "SearchBarUserControl.xaml.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T09:48:30.147Z"
+              "Title": "OutputUserControl.xaml",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\OutputUserControl.xaml",
+              "RelativeDocumentMoniker": "GuiUserControls\\OutputUserControl.xaml",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\OutputUserControl.xaml",
+              "RelativeToolTip": "GuiUserControls\\OutputUserControl.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-25T09:06:35.201Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
+              "Title": "SearchBarUserControl.xaml",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SearchBarUserControl.xaml",
+              "RelativeDocumentMoniker": "GuiUserControls\\SearchBarUserControl.xaml",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SearchBarUserControl.xaml",
+              "RelativeToolTip": "GuiUserControls\\SearchBarUserControl.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-25T09:06:27.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MapAndListUserControl.xaml",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\MapAndListUserControl.xaml",
+              "RelativeDocumentMoniker": "GuiUserControls\\MapAndListUserControl.xaml",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\MapAndListUserControl.xaml",
+              "RelativeToolTip": "GuiUserControls\\MapAndListUserControl.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-25T08:53:15.671Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "GuiUserControls\\MainWindow.xaml",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\MainWindow.xaml",
+              "RelativeToolTip": "GuiUserControls\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-25T08:48:14.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "GuiUserControls\\MainViewModel.cs",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\MainViewModel.cs",
+              "RelativeToolTip": "GuiUserControls\\MainViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T09:40:18.155Z"
+              "WhenOpened": "2025-02-25T08:48:13.006Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "OutputUserControl.xaml.cs",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\OutputUserControl.xaml.cs",
-              "RelativeDocumentMoniker": "OutputUserControl.xaml.cs",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\OutputUserControl.xaml.cs",
-              "RelativeToolTip": "OutputUserControl.xaml.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T09:35:20.78Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "OutputUserControl.xaml",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\OutputUserControl.xaml",
-              "RelativeDocumentMoniker": "OutputUserControl.xaml",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\OutputUserControl.xaml",
-              "RelativeToolTip": "OutputUserControl.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-24T09:34:20.711Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-24T09:33:25.192Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "AssemblyInfo.cs",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\AssemblyInfo.cs",
-              "RelativeDocumentMoniker": "AssemblyInfo.cs",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\AssemblyInfo.cs",
-              "RelativeToolTip": "AssemblyInfo.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T09:33:21.972Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "App.xaml",
-              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\App.xaml",
-              "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\App.xaml",
-              "RelativeToolTip": "App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-24T09:33:20.944Z"
+              "Title": "README.md",
+              "DocumentMoniker": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\README.md",
+              "RelativeDocumentMoniker": "GuiUserControls\\README.md",
+              "ToolTip": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\README.md",
+              "RelativeToolTip": "GuiUserControls\\README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-02-25T08:47:52.631Z",
+              "EditorCaption": ""
             }
           ]
         },

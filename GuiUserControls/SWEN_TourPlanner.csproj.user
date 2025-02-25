@@ -7,6 +7,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ListItemUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MapAndListUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="OutputUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -24,7 +30,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="ListItemUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MapAndListUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="OutputUserControl.xaml">

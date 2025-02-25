@@ -25,8 +25,9 @@
         <local:SearchBarUserControl Grid.Row="2"/>
         <local:ItemBarUserControl Grid.Row="1"/>
         <local:TourItemBarUserControl Grid.Row="3"/>
+        <local:MapAndListUserControl Grid.Row="4" />
 
-        <local:OutputUserControl x:Name="OutputControl" Grid.Row="4"/>
+        <!-- <local:OutputUserControl x:Name="OutputControl" Grid.Row="4"/>     -->
 
     </Grid>
 </Window>

@@ -34,3 +34,7 @@ F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\refint\S
 F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\SWEN_TourPlanner.pdb
 F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\SWEN_TourPlanner.genruntimeconfig.cache
 F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\ref\SWEN_TourPlanner.dll
+F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\MapAndListUserControl.g.cs
+F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\MapAndListUserControl.baml
+F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\ListItemUserControl.g.cs
+F:\FHTechnikum\Semester 4\Swen\GuiUserControls\obj\Debug\net8.0-windows\ListItemUserControl.baml
