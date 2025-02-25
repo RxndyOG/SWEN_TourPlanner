@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace SWEN_TourPlanner
@@ -9,6 +11,7 @@ namespace SWEN_TourPlanner
     {
         private string _output = "Hello World!";
         private string? _input;
+        public ObservableCollection<TableRow> TableData { get; set; }
 
         public string? Input
         {
@@ -74,10 +77,23 @@ namespace SWEN_TourPlanner
             }
         }
 
+        public class TableRow
+        {
+            public string Column1 { get; set; }
+            public string Column2 { get; set; }
+            public string Column3 { get; set; }
+        }
+
         public MainViewModel()
         {
             Debug.Print("ctor MainViewModel");
             this.ExecuteCommand = new ExecuteCommand(this);
+            TableData = new ObservableCollection<TableRow>
+            {
+                new TableRow { Column1 = "Wert 1", Column2 = "Wert A", Column3 = "Wert X" },
+                new TableRow { Column1 = "Wert 2", Column2 = "Wert B", Column3 = "Wert Y" }
+                
+            };
 
             #region Simpler Solution
 
