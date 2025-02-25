@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Yz9FKGfDXDA=",
+  "dgSpecHash": "c1Mueq9c6U8=",
   "success": true,
   "projectFilePath": "F:\\FHTechnikum\\Semester 4\\Swen\\SWEN_TourPlanner.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Stefan\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.101\\microsoft.net.sdk.compilers.toolset.9.0.101.nupkg.sha512"
+  ],
   "logs": []
 }
