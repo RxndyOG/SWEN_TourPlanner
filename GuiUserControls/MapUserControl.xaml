@@ -8,9 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border Grid.Row="0" Margin="20" BorderBrush="Black" BorderThickness="2">
-            <Image Stretch="UniformToFill" Source="D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\Images\hero_maps_static_api.png">
-
-            </Image>
+            <Image Stretch="UniformToFill" Source="/hero_maps_static_api.png" />
         </Border>
     </Grid>
 </UserControl>

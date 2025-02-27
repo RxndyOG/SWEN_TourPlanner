@@ -21,5 +21,10 @@ namespace SWEN_TourPlanner
             InitializeComponent();
             
         }
+
+        private void MapAndListUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

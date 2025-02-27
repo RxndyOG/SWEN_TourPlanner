@@ -12,4 +12,10 @@
     <ProjectReference Include="..\PlaceholderTextboxControl\PlaceholderTextboxControl.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="hero_maps_static_api.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
