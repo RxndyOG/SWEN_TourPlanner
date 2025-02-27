@@ -1,17 +1,6 @@
-﻿D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.i.cs
+﻿
 
-<<<<<<< HEAD
-FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\ItemBarUserControl.xaml;;
-FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\ListItemUserControl.xaml;;
-FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\MainWindow.xaml;;
 FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\MapAndListUserControl.xaml;;
-FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\OutputUserControl.xaml;;
-FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\SearchBarUserControl.xaml;;
-FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\TitleUserControl.xaml;;
-FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\TourItemBarUserControl.xaml;;
-=======
-FF:\FHTechnikum\Semester 4\Swen\GuiUserControls\MainWindow.xaml;;
-FF:\FHTechnikum\Semester 4\Swen\GuiUserControls\MapAndListUserControl.xaml;;
-FF:\FHTechnikum\Semester 4\Swen\GuiUserControls\TourItemBarUserControl.xaml;;
->>>>>>> 5cb1f7be206d3ce19e67a11fb92eb798ec8759dd
+FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\MapUserControl.xaml;;
+FD:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\TableUserControl.xaml;;
 

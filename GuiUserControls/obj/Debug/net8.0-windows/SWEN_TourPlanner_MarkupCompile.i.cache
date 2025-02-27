@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\FHTechnikum\Semester4\SWEN\SWEN_TourPlanner\GuiUserControls\App.xaml
-8-1788516058
+10-63709939
 
-151450245607
+171306117820
 199-1966363366
-ItemBarUserControl.xaml;ListItemUserControl.xaml;MainWindow.xaml;MapAndListUserControl.xaml;OutputUserControl.xaml;SearchBarUserControl.xaml;TitleUserControl.xaml;TourItemBarUserControl.xaml;
+ItemBarUserControl.xaml;ListItemUserControl.xaml;MainWindow.xaml;MapAndListUserControl.xaml;MapUserControl.xaml;OutputUserControl.xaml;SearchBarUserControl.xaml;TableUserControl.xaml;TitleUserControl.xaml;TourItemBarUserControl.xaml;
 
 True
 

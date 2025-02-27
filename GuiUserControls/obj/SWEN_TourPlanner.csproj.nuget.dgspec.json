@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SWEN_TourPlanner.csproj": {}
+    "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\GuiUserControls\\SWEN_TourPlanner.csproj": {}
   },
   "projects": {
-    "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SWEN_TourPlanner.csproj": {
+    "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\GuiUserControls\\SWEN_TourPlanner.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SWEN_TourPlanner.csproj",
+        "projectUniqueName": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\GuiUserControls\\SWEN_TourPlanner.csproj",
         "projectName": "SWEN_TourPlanner",
-        "projectPath": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\SWEN_TourPlanner.csproj",
-        "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "F:\\FHTechnikum\\Semester 4\\Swen\\GuiUserControls\\obj\\",
+        "projectPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\GuiUserControls\\SWEN_TourPlanner.csproj",
+        "packagesPath": "C:\\Users\\stefa\\.nuget\\packages\\",
+        "outputPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\GuiUserControls\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\stefa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,8 +33,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
-                "projectPath": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj"
+              "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
+                "projectPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj"
               }
             }
           }
@@ -76,20 +76,20 @@
         }
       }
     },
-    "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
+    "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
+        "projectUniqueName": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
         "projectName": "PlaceholderTextboxControl",
-        "projectPath": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
-        "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\obj\\",
+        "projectPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
+        "packagesPath": "C:\\Users\\stefa\\.nuget\\packages\\",
+        "outputPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\stefa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

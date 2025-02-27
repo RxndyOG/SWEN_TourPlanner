@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {}
+    "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {}
   },
   "projects": {
-    "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
+    "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
+        "projectUniqueName": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
         "projectName": "PlaceholderTextboxControl",
-        "projectPath": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
-        "packagesPath": "C:\\Users\\Stefan\\.nuget\\packages\\",
-        "outputPath": "F:\\FHTechnikum\\Semester 4\\Swen\\PlaceholderTextboxControl\\obj\\",
+        "projectPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\PlaceholderTextboxControl.csproj",
+        "packagesPath": "C:\\Users\\stefa\\.nuget\\packages\\",
+        "outputPath": "D:\\FHTechnikum\\Semester4\\SWEN\\SWEN_TourPlanner\\PlaceholderTextboxControl\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Stefan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\stefa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

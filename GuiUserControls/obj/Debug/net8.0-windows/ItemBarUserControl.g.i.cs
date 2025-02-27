@@ -85,7 +85,7 @@ namespace SWEN_TourPlanner {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SWEN_TourPlanner;V1.0.0.0;component/itembarusercontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/SWEN_TourPlanner;component/itembarusercontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ItemBarUserControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
