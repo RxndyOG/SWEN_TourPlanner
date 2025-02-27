@@ -55,6 +55,13 @@
                             <Label Grid.Column="0" VerticalAlignment="center" FontSize="18">Tour Logs</Label>
                         </Grid>
                     </Border>
+                    <Grid Grid.Row="2">
+                        <DataGrid ItemsSource="{Binding TableData}" AutoGenerateColumns="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <DataGrid.Columns>
+                                
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>
