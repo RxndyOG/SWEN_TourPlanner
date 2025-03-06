@@ -27,7 +27,7 @@
         <local:TourItemBarUserControl Grid.Row="3"/>
         <local:MapAndListUserControl Grid.Row="4" Loaded="MapAndListUserControl_Loaded" />
 
-        <!-- <local:OutputUserControl x:Name="OutputControl" Grid.Row="4"/>     -->
+        
 
     </Grid>
 </Window>

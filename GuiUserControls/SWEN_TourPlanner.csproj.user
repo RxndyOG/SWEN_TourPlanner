@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="FileControlUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ListItemUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -36,6 +39,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="FileControlUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="ListItemUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
