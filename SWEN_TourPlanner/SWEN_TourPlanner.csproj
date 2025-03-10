@@ -9,13 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PlaceholderTextboxControl\PlaceholderTextboxControl.csproj" />
+    <None Remove="GUI\Images\hero_maps_static_api.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="hero_maps_static_api.png">
+    <Content Include="GUI\Images\hero_maps_static_api.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlaceholderTextboxControl\PlaceholderTextboxControl.csproj" />
   </ItemGroup>
 
 </Project>

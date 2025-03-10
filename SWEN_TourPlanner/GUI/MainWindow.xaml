@@ -4,12 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWEN_TourPlanner"
+        xmlns:gui="clr-namespace:SWEN_TourPlanner.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="900" Width="1600">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
-    <Grid Margin="10">
+    <Grid>
+        <gui:MainWindowGridBackground />
+        <!--
         <Grid.ColumnDefinitions>
 
         </Grid.ColumnDefinitions>
@@ -27,7 +30,7 @@
         <local:TourItemBarUserControl Grid.Row="3"/>
         <local:MapAndListUserControl Grid.Row="4" Loaded="MapAndListUserControl_Loaded" />
 
-        
+        -->
 
     </Grid>
 </Window>
