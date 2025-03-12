@@ -1,9 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using SWEN_TourPlanner.GUI;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace SWEN_TourPlanner
 {
@@ -12,6 +16,43 @@ namespace SWEN_TourPlanner
         private string _output = "Hello World!";
         private string? _input;
         public ObservableCollection<TableRow> TableData { get; set; }
+        public ObservableCollection<BlockModel> Blocks { get; set; } = new();
+
+        private string _newBlockText;
+        public string NewBlockText
+        {
+            get => _newBlockText;
+            set
+            {
+                _newBlockText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Page _currentPage;
+
+        public Page CurrentPageMiddle
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                OnPropertyChanged(nameof(CurrentPageMiddle));
+            }
+        }
+
+        private Page _currentPageRight;
+
+        public Page CurrentPageRight
+        {
+            get => _currentPageRight;
+            set
+            {
+                _currentPageRight = value;
+                OnPropertyChanged(nameof(CurrentPageRight));
+            }
+        }
+
 
         public string? Input
         {
@@ -60,6 +101,10 @@ namespace SWEN_TourPlanner
         }
 
         public ICommand ExecuteCommand { get; }
+        public ICommand NavigateCommand { get; }
+        public ICommand NavigateCommandRight { get; }
+        public ICommand AddBlockCommand { get; }
+        public ICommand RemoveBlockCommand { get; }
 
         //public event PropertyChangedEventHandler PropertyChanged;
         private PropertyChangedEventHandler? _propertyChangedEventHandler;
@@ -84,10 +129,20 @@ namespace SWEN_TourPlanner
             public string Column3 { get; set; }
         }
 
+        
+
         public MainViewModel()
         {
             Debug.Print("ctor MainViewModel");
+
+            NavigateCommand = new RelayCommand(Navigate);
+            NavigateCommandRight = new RelayCommand(NavigateRight);
+
             this.ExecuteCommand = new ExecuteCommand(this);
+
+            AddBlockCommand = new RelayCommand(_ => AddBlock());
+            RemoveBlockCommand = new RelayCommand(RemoveBlock);
+
             TableData = new ObservableCollection<TableRow>
             {
                 new TableRow { Column1 = "Wert 1", Column2 = "Wert A", Column3 = "Wert X" },
@@ -106,6 +161,64 @@ namespace SWEN_TourPlanner
             */
 
             #endregion
+        }
+
+        private void AddBlock()
+        {
+            if (string.IsNullOrWhiteSpace(NewBlockText))
+            {
+                MessageBox.Show("Bitte einen Text eingeben!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var newBlock = new BlockModel
+            {
+                Text = NewBlockText,
+                RemoveCommand = RemoveBlockCommand
+            };
+
+            Blocks.Add(newBlock);
+            NewBlockText = "";  // Eingabefeld zurücksetzen
+        }
+
+        private void RemoveBlock(object block)
+        {
+            if (block is BlockModel blockModel && Blocks.Contains(blockModel))
+            {
+                Blocks.Remove(blockModel);
+            }
+        }
+
+        private void Navigate(object parameter)
+        {
+            if (parameter is string pageName)
+            {
+                switch (pageName)
+                {
+                    case "Page1":
+                        CurrentPageMiddle = new MainPageMiddleHome();
+                        break;
+                    case "Page2":
+                        CurrentPageMiddle = new secondPageMiddleSearch();
+                        break;
+                }
+            }
+        }
+
+        private void NavigateRight(object parameter)
+        {
+            if (parameter is string pageName)
+            {
+                switch (pageName)
+                {
+                    case "Page1":
+                        CurrentPageRight = new MainPageMiddleHome();
+                        break;
+                    case "Page2":
+                        CurrentPageRight = new secondPageMiddleSearch();
+                        break;
+                }
+            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

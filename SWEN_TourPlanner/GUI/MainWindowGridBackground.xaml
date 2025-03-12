@@ -20,8 +20,8 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <local:MainWindowToolBarLeftScreen Grid.Column="0"/>
-            <Rectangle Grid.Column="1" Fill="#262626"></Rectangle>
-            <Rectangle Grid.Column="2" Fill="#262626"></Rectangle>
+            <Frame Grid.Column="1" Content="{Binding CurrentPageMiddle}" NavigationUIVisibility="Hidden" />
+            <Frame Grid.Column="2" Content="{Binding CurrentPageRight}" NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>
 </UserControl>

@@ -1,5 +1,8 @@
-﻿using SWEN_TourPlanner.GUI;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,17 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SWEN_TourPlanner
+namespace SWEN_TourPlanner.GUI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainPageMiddleHome.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainPageMiddleHome : Page
     {
-        public MainWindow()
+        public MainPageMiddleHome()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
-
     }
 }

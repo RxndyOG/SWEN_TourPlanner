@@ -20,9 +20,11 @@ namespace SWEN_TourPlanner.GUI
     /// </summary>
     public partial class MainWindowGridBackground : UserControl
     {
+
         public MainWindowGridBackground()
         {
             InitializeComponent();
+            
         }
     }
 }

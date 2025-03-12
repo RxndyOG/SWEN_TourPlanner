@@ -10,10 +10,50 @@
 
   <ItemGroup>
     <None Remove="GUI\Images\hero_maps_static_api.png" />
+    <None Remove="GUI\Images\HomeIcon.png" />
+    <None Remove="GUI\Images\HomeIcon2.png" />
+    <None Remove="GUI\Images\ListIcon.png" />
+    <None Remove="GUI\Images\ListIcon2.png" />
+    <None Remove="GUI\Images\MapIcon.png" />
+    <None Remove="GUI\Images\MapIcon2.png" />
+    <None Remove="GUI\Images\SearchIcon.png" />
+    <None Remove="GUI\Images\SearchIcon2.png" />
+    <None Remove="GUI\Images\SettingsIcon.png" />
+    <None Remove="GUI\Images\SettingsIcon2.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="GUI\Images\hero_maps_static_api.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\HomeIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\HomeIcon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\ListIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\ListIcon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\MapIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\MapIcon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\SearchIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\SearchIcon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\SettingsIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Images\SettingsIcon2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

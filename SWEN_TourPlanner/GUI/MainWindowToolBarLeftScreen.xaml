@@ -7,37 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1600
              ">
-    <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="0"
-                            Padding="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <!-- Hover-Farbe -->
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkSlateGray"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
 
     <Grid Background="#1F1F1F">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition MaxHeight="200" Height="*"></RowDefinition>
-            <RowDefinition MaxHeight="100" Height="*"></RowDefinition>
+            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition MaxHeight="100" Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
@@ -46,20 +21,21 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Background="Transparent" Grid.Row="0">
-                <Label Foreground="White" FontSize="30">Main</Label></Button>
-            <Button Background="Transparent" Grid.Row="1">
-                <Label Foreground="White" FontSize="30">Option</Label>
+            <Button Background="Transparent" Grid.Row="0" x:Name="HomeButtonLeftMainView" Command="{Binding NavigateCommand}" CommandParameter="Page1">
+                <Image Source="Images/HomeIcon2.png" Width="Auto" Height="Auto" MaxHeight="35" MaxWidth="35" />
             </Button>
-            <Button Background="Transparent" Grid.Row="2">
-                <Label Foreground="White" FontSize="30">General</Label>
+            <Button Background="Transparent" Grid.Row="1" Command="{Binding NavigateCommand}" CommandParameter="Page2">
+                <Image Source="Images/SearchIcon2.png" Width="Auto" Height="Auto" MaxHeight="35" MaxWidth="35"/>
             </Button>
-            <Button Background="Transparent" Grid.Row="3">
-                <Label Foreground="White" FontSize="30">File</Label>
+            <Button Background="Transparent" Grid.Row="2" Command="{Binding NavigateCommandRight}" CommandParameter="Page1">
+                <Image Source="Images/MapIcon2.png" Width="Auto" Height="Auto" MaxHeight="35" MaxWidth="35"/>
+            </Button>
+            <Button Background="Transparent" Grid.Row="3" Command="{Binding NavigateCommandRight}" CommandParameter="Page2">
+                <Image Source="Images/ListIcon2.png" Width="Auto" Height="Auto" MaxHeight="35" MaxWidth="35"/>
             </Button>
         </Grid>
         <Button Grid.Row="2" Background="Transparent">
-            <Image Stretch="Fill" Source="Images/hero_maps_static_api.png" />
+            <Image Source="Images/SettingsIcon2.png" Width="Auto" Height="Auto" MaxHeight="45" MaxWidth="45"/>
         </Button>
     </Grid>
 </UserControl>
