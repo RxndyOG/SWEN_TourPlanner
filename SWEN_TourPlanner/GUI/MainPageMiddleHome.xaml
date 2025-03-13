@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="1*" MaxHeight="100"/>
         </Grid.RowDefinitions>
 
         <TextBox Text="{Binding NewBlockText, UpdateSourceTrigger=PropertyChanged}" 
@@ -31,5 +32,22 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="10*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Grid.Column="1" Background="#333333">
+                <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32">Add A New Tour</Label>
+            </Button>
+        </Grid>
+        
     </Grid>
 </Page>
