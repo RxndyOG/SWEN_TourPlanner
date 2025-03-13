@@ -67,4 +67,8 @@
     <ProjectReference Include="..\PlaceholderTextboxControl\PlaceholderTextboxControl.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
+
 </Project>
