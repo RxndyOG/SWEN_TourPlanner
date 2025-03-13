@@ -12,25 +12,5 @@
     </Window.DataContext>
     <Grid>
         <gui:MainWindowGridBackground />
-        <!--
-        <Grid.ColumnDefinitions>
-
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="8*"></RowDefinition>
-        </Grid.RowDefinitions>
-        
-        <local:TitleUserControl Grid.Row="0"/>
-        <local:SearchBarUserControl Grid.Row="2"/>
-        <local:ItemBarUserControl Grid.Row="1"/>
-        <local:TourItemBarUserControl Grid.Row="3"/>
-        <local:MapAndListUserControl Grid.Row="4" Loaded="MapAndListUserControl_Loaded" />
-
-        -->
-
     </Grid>
 </Window>

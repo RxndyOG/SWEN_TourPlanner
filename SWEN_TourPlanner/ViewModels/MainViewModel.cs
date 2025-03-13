@@ -1,4 +1,6 @@
-﻿using SWEN_TourPlanner.GUI;
+﻿using Microsoft.Win32;
+using SWEN_TourPlanner.GUI;
+using SWEN_TourPlanner.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -17,6 +19,25 @@ namespace SWEN_TourPlanner
         private string? _input;
         public ObservableCollection<TableRow> TableData { get; set; }
         public ObservableCollection<BlockModel> Blocks { get; set; } = new();
+
+        public string Input
+        {
+            get => _input;
+            set
+            {
+                _input = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Output
+        {
+            get => _output;
+            set
+            {
+                _output = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _newBlockText;
         public string NewBlockText
@@ -44,6 +65,8 @@ namespace SWEN_TourPlanner
             }
         }
 
+
+
         private Page _currentPageRight;
 
         public Page CurrentPageRight
@@ -58,59 +81,12 @@ namespace SWEN_TourPlanner
                 }
             }
         }
-
-
-        public string? Input
-        {
-            get
-            {
-                Debug.Print("read Input");
-                return _input;
-            }
-            set
-            {
-                Debug.Print("write Input");
-                if (Input != value)
-                {
-                    Debug.Print("set Input-value");
-                    _input = value;
-
-                    // it does not work to fire an event from outside in C#
-                    // can be achieved by creating a method like "RaiseCanExecuteChanged".
-                    // this.ExecuteCommand.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-
-                    // this triggers the UI and the ExecuteCommand
-                    Debug.Print("fire propertyChanged: Input");
-                    OnPropertyChanged(nameof(Input));
-                }
-            }
-        }
-
-        public string Output
-        {
-            get
-            {
-                Debug.Print("read Output");
-                return _output;
-            }
-            set
-            {
-                Debug.Print("write Output");
-                if (_output != value)
-                {
-                    Debug.Print("set Output");
-                    _output = value;
-                    Debug.Print("fire propertyChanged: Output");
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public ICommand ExecuteCommand { get; }
         public ICommand NavigateCommand { get; }
         public ICommand NavigateCommandRight { get; }
         public ICommand AddBlockCommand { get; }
         public ICommand RemoveBlockCommand { get; }
+
+        public ICommand UploadImage { get; }
 
         //public event PropertyChangedEventHandler PropertyChanged;
         private PropertyChangedEventHandler? _propertyChangedEventHandler;
@@ -144,7 +120,7 @@ namespace SWEN_TourPlanner
             NavigateCommand = new RelayCommand(Navigate);
             NavigateCommandRight = new RelayCommand(NavigateRight);
 
-            this.ExecuteCommand = new ExecuteCommand(this);
+            UploadImage = new RelayCommand(UploadImageFunc);
 
             AddBlockCommand = new RelayCommand(_ => AddBlock());
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
@@ -194,6 +170,28 @@ namespace SWEN_TourPlanner
             }
         }
 
+        private BitmapImage _userUploadedImage;
+        public BitmapImage UserUploadedImage
+        {
+            get { return _userUploadedImage; }
+            set
+            {
+                _userUploadedImage = value;
+                OnPropertyChanged(nameof(UserUploadedImage)); // Ensure property change notification
+            }
+        }
+
+        private void UploadImageFunc(object parameter)
+        {
+            OpenFileDialog openDialogue = new OpenFileDialog();
+            openDialogue.Filter = "Image files*.bmp;*.jpg;*png";
+            openDialogue.FilterIndex = 1;
+            if (openDialogue.ShowDialog() == true)
+            {
+                UserUploadedImage = new BitmapImage(new Uri(openDialogue.FileName));
+            }
+        }
+
         private void Navigate(object parameter)
         {
             if (parameter is string pageName)
@@ -225,6 +223,9 @@ namespace SWEN_TourPlanner
                         break;
                     case "Page2":
                         CurrentPageRight = new secondPageMiddleSearch();
+                        break;
+                    case "AddTour":
+                        CurrentPageRight = new HomeMenuAddTour();
                         break;
                 }
             }
