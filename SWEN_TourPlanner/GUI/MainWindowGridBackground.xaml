@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Rectangle Grid.Row="0" Fill="#1F93FF"></Rectangle>
         <Label Grid.Row="0" FontSize="30" FontStretch="Expanded" FontWeight="Bold" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center">Tour Planner</Label>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="#262626">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MaxWidth="100" Width="*"></ColumnDefinition>
                 <ColumnDefinition MaxWidth="400" Width="*"></ColumnDefinition>
@@ -21,6 +21,7 @@
             </Grid.ColumnDefinitions>
             <local:MainWindowToolBarLeftScreen Grid.Column="0"/>
             <Frame Grid.Column="1" Content="{Binding CurrentPageMiddle}" NavigationUIVisibility="Hidden" />
+            <Rectangle Grid.Column="2" Fill="#333333"></Rectangle>
             <Frame Grid.Column="2" Content="{Binding CurrentPageRight}" NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>

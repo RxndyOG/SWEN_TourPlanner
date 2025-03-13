@@ -34,7 +34,7 @@
                 <Image Source="Images/ListIcon2.png" Width="Auto" Height="Auto" MaxHeight="35" MaxWidth="35"/>
             </Button>
         </Grid>
-        <Button Grid.Row="2" Background="Transparent">
+        <Button Grid.Row="2" Background="Transparent" Command="{Binding NavigateCommand}" CommandParameter="Setting">
             <Image Source="Images/SettingsIcon2.png" Width="Auto" Height="Auto" MaxHeight="45" MaxWidth="45"/>
         </Button>
     </Grid>

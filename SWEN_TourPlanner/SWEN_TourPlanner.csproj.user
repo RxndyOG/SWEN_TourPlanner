@@ -18,6 +18,12 @@
     <Compile Update="GUI\secondPageMiddleSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\SettingPageMiddle.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\SettingsPage1Right.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="GUI\BlockUserControl.xaml">
@@ -33,6 +39,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\secondPageMiddleSearch.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\SettingPageMiddle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\SettingsPage1Right.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

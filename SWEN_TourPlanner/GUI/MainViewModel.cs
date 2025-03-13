@@ -36,8 +36,11 @@ namespace SWEN_TourPlanner
             get => _currentPage;
             set
             {
-                _currentPage = value;
-                OnPropertyChanged(nameof(CurrentPageMiddle));
+                if (_currentPage != value)  
+                {
+                    _currentPage = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -48,8 +51,11 @@ namespace SWEN_TourPlanner
             get => _currentPageRight;
             set
             {
-                _currentPageRight = value;
-                OnPropertyChanged(nameof(CurrentPageRight));
+                if (_currentPageRight != value)
+                {
+                    _currentPageRight = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -149,7 +155,6 @@ namespace SWEN_TourPlanner
                 new TableRow { Column1 = "Wert 2", Column2 = "Wert B", Column3 = "Wert Y" }
                 
             };
-
             #region Simpler Solution
 
             // Alternative: https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern#id0090030
@@ -200,6 +205,10 @@ namespace SWEN_TourPlanner
                         break;
                     case "Page2":
                         CurrentPageMiddle = new secondPageMiddleSearch();
+                        break;
+                    case "Setting":
+                        CurrentPageMiddle = new SettingPageMiddle();
+                        CurrentPageRight = new SettingsPage1Right();
                         break;
                 }
             }
