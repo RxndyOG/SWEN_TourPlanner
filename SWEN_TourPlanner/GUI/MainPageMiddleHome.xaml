@@ -3,14 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SWEN_TourPlanner.GUI"
-      xmlns:view="clr-namespace:SWEN_TourPlanner.ViewModels"
+      xmlns:local="clr-namespace:SWEN_TourPlanner"
+      xmlns:gui="clr-namespace:SWEN_TourPlanner.GUI"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPageMiddleHome">
-    <Window.DataContext>
-        <View:MainViewModel />
-    </Window.DataContext>
 
     <Grid Background="#262626">
         <Grid.RowDefinitions>
@@ -32,7 +29,7 @@
         <ListBox ItemsSource="{Binding Blocks}" Background="Transparent" Grid.Row="2"  HorizontalContentAlignment="Stretch" Padding="0" Margin="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:BlockUserControl />
+                    <gui:BlockUserControl />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -49,7 +46,7 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Button Grid.Row="1" Grid.Column="1" Background="White" Command="{Binding NavigateCommandRight}" CommandParameter="AddTour">
-                <Label Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Add A New Tour</Label>
+                <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Add A New Tour</TextBlock>
             </Button>
         </Grid>
         

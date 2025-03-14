@@ -227,6 +227,9 @@ namespace SWEN_TourPlanner
                     case "AddTour":
                         CurrentPageRight = new HomeMenuAddTour();
                         break;
+                    default:
+                        Debug.Print("Ungültiger Seitenname");
+                        break;
                 }
             }
         }

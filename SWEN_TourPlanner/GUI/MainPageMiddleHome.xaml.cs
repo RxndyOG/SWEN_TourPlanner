@@ -23,7 +23,6 @@ namespace SWEN_TourPlanner.GUI
         public MainPageMiddleHome()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
