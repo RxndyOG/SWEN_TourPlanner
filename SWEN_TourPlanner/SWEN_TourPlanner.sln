@@ -5,14 +5,14 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWEN_TourPlanner", "SWEN_TourPlanner.csproj", "{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaceholderTextboxControl", "..\PlaceholderTextboxControl\PlaceholderTextboxControl.csproj", "{F9705113-AF15-4743-ADB2-795187F09F5C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{376889A7-3E2E-4E7F-B040-310BB0059A1E}"
 	ProjectSection(SolutionItems) = preProject
 		Images\hero_maps_static_api.png = Images\hero_maps_static_api.png
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWEN_TourPlanner.Tests", "..\SWEN_TourPlanner.Tests\SWEN_TourPlanner.Tests.csproj", "{86190C32-1CEF-4C05-A202-43F2AC0CF365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceholderTextBox", "..\PlaceholderTextBox\PlaceholderTextBox.csproj", "{E6829D2C-8160-49AA-9C6D-6E512402607B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,14 +24,14 @@ Global
 		{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B87FCCE-4A70-452F-B6C8-AB3972F7FCD7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9705113-AF15-4743-ADB2-795187F09F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9705113-AF15-4743-ADB2-795187F09F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9705113-AF15-4743-ADB2-795187F09F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9705113-AF15-4743-ADB2-795187F09F5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86190C32-1CEF-4C05-A202-43F2AC0CF365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86190C32-1CEF-4C05-A202-43F2AC0CF365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86190C32-1CEF-4C05-A202-43F2AC0CF365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86190C32-1CEF-4C05-A202-43F2AC0CF365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6829D2C-8160-49AA-9C6D-6E512402607B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6829D2C-8160-49AA-9C6D-6E512402607B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6829D2C-8160-49AA-9C6D-6E512402607B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6829D2C-8160-49AA-9C6D-6E512402607B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

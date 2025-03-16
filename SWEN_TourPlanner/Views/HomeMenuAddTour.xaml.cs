@@ -23,6 +23,7 @@ namespace SWEN_TourPlanner.Views
         public HomeMenuAddTour()
         {
             InitializeComponent();
+            DataContext = Application.Current.MainWindow.DataContext;
         }
     }
 }

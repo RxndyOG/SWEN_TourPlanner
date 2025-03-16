@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using SWEN_TourPlanner.GUI;
+using SWEN_TourPlanner.ViewModels;
 using SWEN_TourPlanner.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,27 +19,22 @@ namespace SWEN_TourPlanner
     {
         private string _output = "Hello World!";
         private string? _input;
-        public ObservableCollection<TableRow> TableData { get; set; }
         public ObservableCollection<BlockModel> Blocks { get; set; } = new();
 
-        public string Input
+        public ObservableCollection<AddTourModel> Tours { get; set; } = new ObservableCollection<AddTourModel>();
+
+        private AddTourModel _newTour = new AddTourModel();
+        public AddTourModel NewTour
         {
-            get => _input;
+            get => _newTour;
             set
             {
-                _input = value;
+                _newTour = value;
                 OnPropertyChanged();
             }
         }
-        public string Output
-        {
-            get => _output;
-            set
-            {
-                _output = value;
-                OnPropertyChanged();
-            }
-        }
+
+        public ICommand SaveTourCommand { get; }
 
         private string _newBlockText;
         public string NewBlockText
@@ -86,7 +83,7 @@ namespace SWEN_TourPlanner
         public ICommand AddBlockCommand { get; }
         public ICommand RemoveBlockCommand { get; }
 
-        public ICommand UploadImage { get; }
+        public ICommand UploadImageCommand { get; }
 
         //public event PropertyChangedEventHandler PropertyChanged;
         private PropertyChangedEventHandler? _propertyChangedEventHandler;
@@ -104,15 +101,6 @@ namespace SWEN_TourPlanner
             }
         }
 
-        public class TableRow
-        {
-            public string Column1 { get; set; }
-            public string Column2 { get; set; }
-            public string Column3 { get; set; }
-        }
-
-        
-
         public MainViewModel()
         {
             Debug.Print("ctor MainViewModel");
@@ -120,17 +108,12 @@ namespace SWEN_TourPlanner
             NavigateCommand = new RelayCommand(Navigate);
             NavigateCommandRight = new RelayCommand(NavigateRight);
 
-            UploadImage = new RelayCommand(UploadImageFunc);
+            SaveTourCommand = new RelayCommand(SaveTour);
+            UploadImageCommand = new RelayCommand(UploadImageFunc);
 
             AddBlockCommand = new RelayCommand(_ => AddBlock());
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
 
-            TableData = new ObservableCollection<TableRow>
-            {
-                new TableRow { Column1 = "Wert 1", Column2 = "Wert A", Column3 = "Wert X" },
-                new TableRow { Column1 = "Wert 2", Column2 = "Wert B", Column3 = "Wert Y" }
-                
-            };
             #region Simpler Solution
 
             // Alternative: https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern#id0090030
@@ -142,6 +125,52 @@ namespace SWEN_TourPlanner
             */
 
             #endregion
+        }
+
+        private void SaveTour(object parameter)
+        {
+            Console.WriteLine("SaveTour aufgerufen");
+            if (string.IsNullOrWhiteSpace(NewTour.Name) || string.IsNullOrWhiteSpace(NewTour.From) || string.IsNullOrWhiteSpace(NewTour.To) || string.IsNullOrWhiteSpace(NewTour.Transport) || string.IsNullOrWhiteSpace(NewTour.Distance) || string.IsNullOrWhiteSpace(NewTour.Description) || string.IsNullOrWhiteSpace(NewTour.RouteInfo) || string.IsNullOrWhiteSpace(NewTour.EstimatedTime))
+            {
+                MessageBox.Show("Bitte füllen Sie alle Pflichtfelder aus!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+                return;
+            }
+
+            AddTourModel Tour = new AddTourModel
+            {
+                ID = Tours.Count,
+                Name = NewTour.Name,
+                From = NewTour.From,
+                To = NewTour.To,
+                Description = NewTour.Description,
+                Transport = NewTour.Transport,
+                Distance = NewTour.Distance,
+                EstimatedTime = NewTour.EstimatedTime,
+                RouteInfo = NewTour.RouteInfo,
+                ImagePath = NewTour.ImagePath
+            };
+
+            Tours.Add(Tour);
+
+            AddTour(Tour);
+
+            Console.WriteLine(Tour.ID);
+
+            NewTour = new AddTourModel();
+        }
+        private void AddTour(AddTourModel Tour)
+        {
+           
+            var newBlock = new BlockModel
+            {
+                TourID = Tour.ID,
+                Text = Tour.Name,
+                RemoveCommand = RemoveBlockCommand
+            };
+
+            Blocks.Add(newBlock);
+            NewBlockText = "";
         }
 
         private void AddBlock()
@@ -159,14 +188,17 @@ namespace SWEN_TourPlanner
             };
 
             Blocks.Add(newBlock);
-            NewBlockText = "";  // Eingabefeld zurücksetzen
+            NewBlockText = "";
         }
 
         private void RemoveBlock(object block)
         {
             if (block is BlockModel blockModel && Blocks.Contains(blockModel))
             {
+                
+
                 Blocks.Remove(blockModel);
+                
             }
         }
 
@@ -177,18 +209,41 @@ namespace SWEN_TourPlanner
             set
             {
                 _userUploadedImage = value;
-                OnPropertyChanged(nameof(UserUploadedImage)); // Ensure property change notification
+                OnPropertyChanged(nameof(UserUploadedImage));
             }
         }
 
         private void UploadImageFunc(object parameter)
         {
-            OpenFileDialog openDialogue = new OpenFileDialog();
-            openDialogue.Filter = "Image files*.bmp;*.jpg;*png";
-            openDialogue.FilterIndex = 1;
-            if (openDialogue.ShowDialog() == true)
+            OpenFileDialog openDialog = new OpenFileDialog
             {
-                UserUploadedImage = new BitmapImage(new Uri(openDialogue.FileName));
+                Filter = "Image files (*.bmp;*.jpg;*.png)|*.bmp;*.jpg;*.png",
+                FilterIndex = 1
+            };
+
+            if (openDialog.ShowDialog() == true)
+            {
+                
+                string projectRoot = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", ".."));
+                string destinationFolder = Path.Combine(projectRoot, "UserImages");
+
+            
+                if (!Directory.Exists(destinationFolder))
+                {
+                    Directory.CreateDirectory(destinationFolder);
+                }
+
+      
+                string fileName = Path.GetFileName(openDialog.FileName);
+                string destinationPath = Path.Combine(destinationFolder, fileName);
+
+                File.Copy(openDialog.FileName, destinationPath, true);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    NewTour.ImagePath = destinationPath;
+                    OnPropertyChanged(nameof(NewTour));
+                });
             }
         }
 
@@ -199,7 +254,8 @@ namespace SWEN_TourPlanner
                 switch (pageName)
                 {
                     case "Page1":
-                        CurrentPageMiddle = new MainPageMiddleHome();
+                        CurrentPageMiddle = new MainPageMiddleHome(this);
+                        CurrentPageRight = new HomeMenuAddTour();
                         break;
                     case "Page2":
                         CurrentPageMiddle = new secondPageMiddleSearch();
@@ -219,12 +275,13 @@ namespace SWEN_TourPlanner
                 switch (pageName)
                 {
                     case "Page1":
-                        CurrentPageRight = new MainPageMiddleHome();
+                        CurrentPageRight = new MainPageMiddleHome(this);
                         break;
                     case "Page2":
                         CurrentPageRight = new secondPageMiddleSearch();
                         break;
                     case "AddTour":
+                        Debug.Print("Lade AddTour-Seite...");
                         CurrentPageRight = new HomeMenuAddTour();
                         break;
                     default:

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SWEN_TourPlanner.Views"
+      xmlns:custom="clr-namespace:PlaceholderTextBox;assembly=PlaceholderTextBox"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1600"
       Title="HomeMenuAddTour">
@@ -12,6 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MaxHeight="100"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*" MaxHeight="15"></RowDefinition>
             <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" FontSize="48" VerticalAlignment="Center" Foreground="White">Add A Tour</Label>
@@ -38,7 +40,9 @@
                     <RowDefinition Height="6*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Name:</Label>
-                <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+                <ScrollViewer Grid.Column="1" Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="64" Text="{Binding NewTour.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </ScrollViewer>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -57,7 +61,7 @@
                         <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">From:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -71,7 +75,7 @@
                         <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">To:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+                     <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </Grid>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
@@ -86,7 +90,9 @@
                     <RowDefinition Height="6*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Beschreibung:</Label>
-                <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+                <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="300" TextWrapping="Wrap" Text="{Binding NewTour.Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </ScrollViewer>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.ColumnDefinitions>
@@ -100,7 +106,7 @@
                     <RowDefinition Height="6*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Tour Transport:</Label>
-                <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+                <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="64" Text="{Binding NewTour.Transport, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -119,7 +125,7 @@
                         <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Tour Distance:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Distance, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -133,7 +139,8 @@
                         <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Estimated Time:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+
+                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.EstimatedTime, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </Grid>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="0">
@@ -148,7 +155,9 @@
                     <RowDefinition Height="6*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Rout Information:</Label>
-                <TextBox Grid.Column="1" Grid.Row="2"></TextBox>
+                <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                    <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </ScrollViewer>
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -162,16 +171,18 @@
                     <RowDefinition Height="6*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Map:</Label>
-                <Button Grid.Column="1" Grid.Row="2" Content="Upload Image" Command="{Binding UploadImage}"></Button>
-                <Image Grid.Column="1" Grid.Row="2"  Source="{Binding UserUploadedImage}"></Image>
+                <Button Grid.Column="1" Grid.Row="2" Content="Upload Image" Command="{Binding UploadImageCommand}">
+                    
+                </Button>
+                <Image Grid.Column="1" Grid.Row="2"  Source="{Binding NewTour.ImagePath}" ></Image>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1">Submit</Button>
+            <Button Grid.Column="1" Command="{Binding SaveTourCommand}">Submit</Button>
         </Grid>
     </Grid>
 </Page>

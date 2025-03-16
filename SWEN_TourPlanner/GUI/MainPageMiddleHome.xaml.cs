@@ -20,9 +20,10 @@ namespace SWEN_TourPlanner.GUI
     /// </summary>
     public partial class MainPageMiddleHome : Page
     {
-        public MainPageMiddleHome()
+        public MainPageMiddleHome(MainViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

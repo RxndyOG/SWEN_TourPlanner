@@ -64,11 +64,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PlaceholderTextboxControl\PlaceholderTextboxControl.csproj" />
+    <Folder Include="Models\" />
+    <Folder Include="UserImages\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserImages\" />
+    <ProjectReference Include="..\PlaceholderTextBox\PlaceholderTextBox.csproj" />
   </ItemGroup>
 
 </Project>

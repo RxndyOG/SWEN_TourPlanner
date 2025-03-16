@@ -11,6 +11,7 @@ namespace SWEN_TourPlanner.GUI
 {
     public class BlockModel
     {
+        public int TourID { get; set; }
         public string Text { get; set; }
         public ImageSource Image { get; set; }
         public ICommand RemoveCommand { get; set; }

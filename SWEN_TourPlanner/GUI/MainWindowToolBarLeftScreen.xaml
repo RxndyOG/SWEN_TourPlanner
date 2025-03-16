@@ -30,7 +30,7 @@
             <Button Background="Transparent" Grid.Row="2" Command="{Binding NavigateCommandRight}" CommandParameter="Page1">
                 <Image Source="Images/MapIcon2.png" Width="Auto" Height="Auto" MaxHeight="35" MaxWidth="35"/>
             </Button>
-            <Button Background="Transparent" Grid.Row="3" Command="{Binding NavigateCommandRight}" CommandParameter="Page2">
+            <Button Background="Transparent" Grid.Row="3" Command="{Binding NavigateCommandRight}" CommandParameter="AddTour">
                 <Image Source="Images/ListIcon2.png" Width="Auto" Height="Auto" MaxHeight="35" MaxWidth="35"/>
             </Button>
         </Grid>
