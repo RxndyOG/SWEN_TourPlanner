@@ -135,7 +135,6 @@ namespace SWEN_TourPlanner
 
             Tours.Add(Tour);
 
-
             AddTour(Tour);
 
             Console.WriteLine(Tour.ID);
