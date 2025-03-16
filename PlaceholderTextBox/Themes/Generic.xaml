@@ -21,9 +21,8 @@
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 IsHitTestVisible="False"
                                 Opacity="0.5"
-                                Text="filter"
-                                Visibility="{TemplateBinding IsEmpty,
-                                                             Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Text="{TemplateBinding Placeholder}"
+                                Visibility="{TemplateBinding IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </Grid>
                     </Border>
                 </ControlTemplate>

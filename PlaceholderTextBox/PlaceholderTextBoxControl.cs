@@ -21,6 +21,15 @@ namespace PlaceholderTextBox
             DependencyProperty.Register("IsEmpty", typeof(bool), typeof(PlaceholderTextBoxControl), 
                 new PropertyMetadata(false));
 
+        public static readonly DependencyProperty PlaceholderProperty =
+            DependencyProperty.Register("Placeholder", typeof(string), typeof(PlaceholderTextBoxControl), new PropertyMetadata(string.Empty));
+
+        public string Placeholder
+        {
+            get { return (string)GetValue(PlaceholderProperty); }
+            set { SetValue(PlaceholderProperty, value); }
+        }
+
         public bool IsEmpty
         {
             get { return (bool)GetValue(IsEmptyProperty); }

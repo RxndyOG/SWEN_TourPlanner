@@ -1,0 +1,239 @@
+﻿<Page x:Class="SWEN_TourPlanner.Views.TourDetail"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SWEN_TourPlanner.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="1800" d:DesignWidth="1600"
+      Title="TourDetail">
+
+    <Grid VerticalAlignment="Top">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Height="900" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" MaxHeight="100"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="64" Foreground="White" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding Name}"></Label>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="300"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="300"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="From:"></Label>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <Label Grid.Column="2" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding From}"></Label>
+                            <Label Grid.Column="4" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="To:"></Label>
+                            <Rectangle Grid.Column="5" Fill="White"></Rectangle>
+                            <Label Grid.Column="5" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding To}"></Label>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Decription:"></Label>
+                            </Grid>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <TextBlock Grid.Column="2" TextWrapping="Wrap" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Top"  HorizontalAlignment="Left" Text="{Binding Description}"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="1" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Transport:"></Label>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <TextBlock Grid.Column="2" TextWrapping="Wrap" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Top"  HorizontalAlignment="Left" Text="{Binding Transport}"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Distance:"></Label>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <Label Grid.Column="2" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding Distance}"></Label>
+                            <Label Grid.Column="4" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Est. Time:"></Label>
+                            <Rectangle Grid.Column="5" Fill="White"></Rectangle>
+                            <Label Grid.Column="5" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding EstimatedTime}"></Label>
+                        </Grid>
+                        <Grid Grid.Row="9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Route Info:"></Label>
+                            </Grid>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <TextBlock Grid.Column="2" TextWrapping="Wrap" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Top"  HorizontalAlignment="Left" Text="{Binding RouteInfo}"></TextBlock>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Height="900" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" MaxHeight="100"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="64" Foreground="White" FontWeight="Bold" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding Name}"></Label>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="300"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="300"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="From:"></Label>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <Label Grid.Column="2" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding From}"></Label>
+                            <Label Grid.Column="4" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="To:"></Label>
+                            <Rectangle Grid.Column="5" Fill="White"></Rectangle>
+                            <Label Grid.Column="5" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding To}"></Label>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Decription:"></Label>
+                            </Grid>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <TextBlock Grid.Column="2" TextWrapping="Wrap" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Top"  HorizontalAlignment="Left" Text="{Binding Description}"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="1" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Transport:"></Label>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <TextBlock Grid.Column="2" TextWrapping="Wrap" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Top"  HorizontalAlignment="Left" Text="{Binding Transport}"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Distance:"></Label>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <Label Grid.Column="2" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding Distance}"></Label>
+                            <Label Grid.Column="4" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Est. Time:"></Label>
+                            <Rectangle Grid.Column="5" Fill="White"></Rectangle>
+                            <Label Grid.Column="5" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="left" Content="{Binding EstimatedTime}"></Label>
+                        </Grid>
+                        <Grid Grid.Row="9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Route Info:"></Label>
+                            </Grid>
+                            <Rectangle Grid.Column="2" Fill="White"></Rectangle>
+                            <TextBlock Grid.Column="2" TextWrapping="Wrap" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Top"  HorizontalAlignment="Left" Text="{Binding RouteInfo}"></TextBlock>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

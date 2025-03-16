@@ -6,18 +6,41 @@
              xmlns:local="clr-namespace:SWEN_TourPlanner.GUI"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1600">
-    <Grid Background="#333333" Width="Auto" MaxHeight="150px" Margin="0">
-        <StackPanel Height="200px">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Text}" FontSize="16"/>
-                <Image Grid.Row="1" Source="{Binding Image}" MaxHeight="50px" MaxWidth="50px"/>
-                <Button Grid.Row="2" Content="Löschen" Command="{Binding RemoveCommand}" CommandParameter="{Binding}" Margin="5,5,5,0"/>
-            </Grid>
-        </StackPanel>
+    <Grid Background="#333333" Margin="0" MaxWidth="398">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="1*" MaxHeight="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MaxWidth="5"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+                <ColumnDefinition Width="1*" MaxWidth="10"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+                <TextBlock  Foreground="White" Text="{Binding Text}" FontSize="28" FontWeight="Bold" TextWrapping="Wrap"/>
+            </ScrollViewer>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MaxWidth="20"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+                <ColumnDefinition Width="1*" MaxWidth="10"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Hidden">
+                <TextBlock Foreground="White" FontSize="14" TextWrapping="Wrap" Text="{Binding Description2}"></TextBlock>
+            </ScrollViewer>
+        </Grid>
+        <Image Grid.Row="2" Source="{Binding ImageTextBlock}" MaxHeight="50px" MaxWidth="50px"/>
+        <Button Grid.Row="3" Content="Detail" Command="{Binding NavigateCommandRight}" CommandParameter="{Binding}" Margin="0,5,0,0"/>
     </Grid>
 </UserControl>

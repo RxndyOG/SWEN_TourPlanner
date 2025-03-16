@@ -10,22 +10,11 @@
       Title="MainPageMiddleHome">
     <Grid Background="#262626">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1*" MaxHeight="50"/>
         </Grid.RowDefinitions>
 
-        <TextBox Text="{Binding NewBlockText, UpdateSourceTrigger=PropertyChanged}" 
-             Margin="0,0,0,5" 
-             Grid.Row="0"/>
-
-        <Button Content="Block hinzufügen" 
-            Command="{Binding AddBlockCommand}" 
-            Margin="0,0,0,5" 
-            Grid.Row="1"/>
-
-        <ListBox ItemsSource="{Binding Blocks}" Background="Transparent" Grid.Row="2"  HorizontalContentAlignment="Stretch" Padding="0" Margin="0">
+        <ListBox ItemsSource="{Binding Blocks}" Background="Transparent" Grid.Row="0"  HorizontalContentAlignment="Stretch" Padding="0" Margin="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <gui:BlockUserControl />
@@ -33,21 +22,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="10*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="10*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="1" Grid.Column="1" Background="White" Command="{Binding NavigateCommandRight}" CommandParameter="AddTour">
-                <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Add A New Tour</TextBlock>
+        <Grid Grid.Row="1">
+            <Button Background="#1F1F1F" Command="{Binding NavigateCommandRight}" CommandParameter="AddTour">
+                <TextBlock Foreground="White" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Add A New Tour</TextBlock>
             </Button>
         </Grid>
-        
+
     </Grid>
 </Page>

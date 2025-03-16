@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UserImages\**" />
+    <EmbeddedResource Remove="UserImages\**" />
+    <None Remove="UserImages\**" />
+    <Page Remove="UserImages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="GUI\Images\hero_maps_static_api.png" />
     <None Remove="GUI\Images\HomeIcon.png" />
     <None Remove="GUI\Images\HomeIcon2.png" />
@@ -65,7 +72,6 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="UserImages\" />
   </ItemGroup>
 
   <ItemGroup>

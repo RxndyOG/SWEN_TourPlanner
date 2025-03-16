@@ -17,13 +17,38 @@ namespace SWEN_TourPlanner
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private string _output = "Hello World!";
-        private string? _input;
-        public ObservableCollection<BlockModel> Blocks { get; set; } = new();
 
+        private Page _currentPage;
+        private Page _currentPageRight;
+
+        private PropertyChangedEventHandler? _propertyChangedEventHandler;
+
+        public ObservableCollection<BlockModel> Blocks { get; set; } = new();
         public ObservableCollection<AddTourModel> Tours { get; set; } = new ObservableCollection<AddTourModel>();
 
         private AddTourModel _newTour = new AddTourModel();
+
+        private BitmapImage _userUploadedImage;
+
+        public ICommand SaveTourCommand { get; }
+        public ICommand NavigateCommand { get; }
+        public ICommand NavigateCommandRight { get; }
+        public ICommand RemoveBlockCommand { get; }
+        public ICommand UploadImageCommand { get; }
+
+        public MainViewModel()
+        {
+
+            NavigateCommand = new RelayCommand(Navigate);
+            NavigateCommandRight = new RelayCommand(NavigateRight);
+
+            SaveTourCommand = new RelayCommand(SaveTour);
+            UploadImageCommand = new RelayCommand(UploadImageFunc);
+
+            RemoveBlockCommand = new RelayCommand(RemoveBlock);
+
+        }
+
         public AddTourModel NewTour
         {
             get => _newTour;
@@ -33,21 +58,6 @@ namespace SWEN_TourPlanner
                 OnPropertyChanged();
             }
         }
-
-        public ICommand SaveTourCommand { get; }
-
-        private string _newBlockText;
-        public string NewBlockText
-        {
-            get => _newBlockText;
-            set
-            {
-                _newBlockText = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private Page _currentPage;
 
         public Page CurrentPageMiddle
         {
@@ -62,10 +72,6 @@ namespace SWEN_TourPlanner
             }
         }
 
-
-
-        private Page _currentPageRight;
-
         public Page CurrentPageRight
         {
             get => _currentPageRight;
@@ -78,15 +84,17 @@ namespace SWEN_TourPlanner
                 }
             }
         }
-        public ICommand NavigateCommand { get; }
-        public ICommand NavigateCommandRight { get; }
-        public ICommand AddBlockCommand { get; }
-        public ICommand RemoveBlockCommand { get; }
 
-        public ICommand UploadImageCommand { get; }
+        public BitmapImage UserUploadedImage
+        {
+            get { return _userUploadedImage; }
+            set
+            {
+                _userUploadedImage = value;
+                OnPropertyChanged(nameof(UserUploadedImage));
+            }
+        }
 
-        //public event PropertyChangedEventHandler PropertyChanged;
-        private PropertyChangedEventHandler? _propertyChangedEventHandler;
         public event PropertyChangedEventHandler? PropertyChanged
         {
             add
@@ -99,32 +107,6 @@ namespace SWEN_TourPlanner
                 Debug.Print($"removed PropertyChanged-handler {value}");
                 _propertyChangedEventHandler -= value;
             }
-        }
-
-        public MainViewModel()
-        {
-            Debug.Print("ctor MainViewModel");
-
-            NavigateCommand = new RelayCommand(Navigate);
-            NavigateCommandRight = new RelayCommand(NavigateRight);
-
-            SaveTourCommand = new RelayCommand(SaveTour);
-            UploadImageCommand = new RelayCommand(UploadImageFunc);
-
-            AddBlockCommand = new RelayCommand(_ => AddBlock());
-            RemoveBlockCommand = new RelayCommand(RemoveBlock);
-
-            #region Simpler Solution
-
-            // Alternative: https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern#id0090030
-            /*
-            this.ExecuteCommand = new RelayCommand((_) => {
-                Output = $"Hello {Input}!";
-                Input = string.Empty;
-            }, (_) => !string.IsNullOrWhiteSpace(Input));
-            */
-
-            #endregion
         }
 
         private void SaveTour(object parameter)
@@ -153,63 +135,33 @@ namespace SWEN_TourPlanner
 
             Tours.Add(Tour);
 
+
             AddTour(Tour);
 
             Console.WriteLine(Tour.ID);
 
             NewTour = new AddTourModel();
         }
+
         private void AddTour(AddTourModel Tour)
         {
-           
             var newBlock = new BlockModel
             {
                 TourID = Tour.ID,
+                Description2 = Tour.Description,
                 Text = Tour.Name,
-                RemoveCommand = RemoveBlockCommand
+                RemoveCommand = RemoveBlockCommand,
+                NavigateCommandRight = NavigateCommandRight
             };
 
             Blocks.Add(newBlock);
-            NewBlockText = "";
-        }
-
-        private void AddBlock()
-        {
-            if (string.IsNullOrWhiteSpace(NewBlockText))
-            {
-                MessageBox.Show("Bitte einen Text eingeben!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            var newBlock = new BlockModel
-            {
-                Text = NewBlockText,
-                RemoveCommand = RemoveBlockCommand
-            };
-
-            Blocks.Add(newBlock);
-            NewBlockText = "";
         }
 
         private void RemoveBlock(object block)
         {
             if (block is BlockModel blockModel && Blocks.Contains(blockModel))
             {
-                
-
                 Blocks.Remove(blockModel);
-                
-            }
-        }
-
-        private BitmapImage _userUploadedImage;
-        public BitmapImage UserUploadedImage
-        {
-            get { return _userUploadedImage; }
-            set
-            {
-                _userUploadedImage = value;
-                OnPropertyChanged(nameof(UserUploadedImage));
             }
         }
 
@@ -233,11 +185,10 @@ namespace SWEN_TourPlanner
                     Directory.CreateDirectory(destinationFolder);
                 }
 
-      
-                string fileName = Path.GetFileName(openDialog.FileName);
-                string destinationPath = Path.Combine(destinationFolder, fileName);
 
-                File.Copy(openDialog.FileName, destinationPath, true);
+                string uniqueFileName = $"{Path.GetFileNameWithoutExtension(openDialog.FileName)}_{DateTime.Now:yyyyMMddHHmmss}{Path.GetExtension(openDialog.FileName)}";
+                string destinationPath = Path.Combine(destinationFolder, uniqueFileName);
+                File.Copy(openDialog.FileName, destinationPath);
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -288,6 +239,12 @@ namespace SWEN_TourPlanner
                         Debug.Print("Ungültiger Seitenname");
                         break;
                 }
+            }else if (parameter is BlockModel block)
+            {
+                Debug.Print($"Navigiere mit Block: {block.Text}");
+
+                var tour = Tours.FirstOrDefault(t => t.ID == block.TourID);
+                CurrentPageRight = new TourDetail(tour);
             }
         }
 

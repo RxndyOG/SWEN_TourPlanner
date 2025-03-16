@@ -13,7 +13,9 @@ namespace SWEN_TourPlanner.GUI
     {
         public int TourID { get; set; }
         public string Text { get; set; }
-        public ImageSource Image { get; set; }
+        public string Description2 { get; set; }
+        public ImageSource ImageTextBlock { get; set; }
         public ICommand RemoveCommand { get; set; }
+        public ICommand NavigateCommandRight { get; set; }
     }
 }
