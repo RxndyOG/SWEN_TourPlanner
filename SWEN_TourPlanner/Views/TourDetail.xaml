@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SWEN_TourPlanner.Views"
+      xmlns:custom="clr-namespace:PlaceholderTextBox;assembly=PlaceholderTextBox"
       mc:Ignorable="d" 
-      d:DesignHeight="1800" d:DesignWidth="1600"
+      d:DesignHeight="2000" d:DesignWidth="1600"
       Title="TourDetail">
 
     <Grid VerticalAlignment="Top">
@@ -142,11 +143,14 @@
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid MaxHeight="900" Grid.Row="1">
+                <Grid Grid.Row="1">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" MaxHeight="400"></RowDefinition>
                             <RowDefinition Height="*" MinHeight="30"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="*" MaxHeight="600"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -170,6 +174,210 @@
                         <Grid Grid.Row="1"></Grid>
                         <Grid Grid.Row="2">
 
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="3" Command="{Binding RemoveBlock}" CommandParameter="{Binding}" Background="DarkRed">
+                                <Label Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Foreground="White" FontWeight="Bold"></Label>
+                            </Button>
+
+                        </Grid>
+                        <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="1" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Tour Logs:"></Label>
+                            <TextBlock Grid.Column="2" Background="White" FontSize="28">NONE</TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" MaxHeight="100"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*" MaxHeight="15"></RowDefinition>
+                                    <RowDefinition Height="*" MaxHeight="100"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" FontSize="26" VerticalAlignment="center" HorizontalAlignment="Left" FontWeight="bold" Foreground="White">Add Tour Log</Label>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" MinHeight="100"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*" MaxHeight="15"></RowDefinition>
+                                    <RowDefinition Height="*" MaxHeight="100"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"></RowDefinition>
+                                        <RowDefinition Height="5*" MinHeight="200"></RowDefinition>
+                                        <RowDefinition Height="2*"></RowDefinition>
+                                        <RowDefinition Height="*" MinHeight="30"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Row="0" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*" MaxWidth="50"></ColumnDefinition>
+                                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Difficulty:</Label>
+                                            <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="From" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                                            <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From, UpdateSourceTrigger=PropertyChanged}"></TextBox>                                        -->
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*" MaxWidth="50"></ColumnDefinition>
+                                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Distance:</Label>
+                                            <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="To" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                                            <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Date:</Label>
+                                            <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="From" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                                            <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From, UpdateSourceTrigger=PropertyChanged}"></TextBox>                                        -->
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*" MaxWidth="50"></ColumnDefinition>
+                                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Time:</Label>
+                                            <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="To" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                                            <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
+                                        </Grid>
+                                    </Grid>
+                                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" MaxWidth="1"></ColumnDefinition>
+                                            <ColumnDefinition Width="12*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1*" MaxWidth="1"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Description:</Label>
+                                        <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                            <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Description" TextWrapping="Wrap"  FontWeight="Bold" MaxLength="300" Text="{Binding NewTour.Description, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                                            <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="300" TextWrapping="Wrap" Text="{Binding NewTour.Description, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
+                                        </ScrollViewer>
+                                    </Grid>
+                                    <Grid Grid.Row="3" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Time:</Label>
+                                        <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                            <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Rout Information" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                                            <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
+                                        </ScrollViewer>
+                                    </Grid>
+                                    <Grid Grid.Row="3" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" MaxWidth="50"></ColumnDefinition>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Rating:</Label>
+                                        <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                            <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Rout Information" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                                            <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"></RowDefinition>
+                                            <RowDefinition Height="8*"></RowDefinition>
+                                            <RowDefinition Height="2*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Column="1" Background="#1F1F1F" Grid.Row="1" Command="{Binding SaveTourCommand}">
+                                            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="24" Foreground="White">Submit</Label>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            
                         </Grid>
                     </Grid>
                 </Grid>
