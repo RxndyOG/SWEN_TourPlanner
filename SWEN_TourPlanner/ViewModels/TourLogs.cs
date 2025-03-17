@@ -1,60 +1,78 @@
 ﻿using SWEN_TourPlanner.GUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using SWEN_TourPlanner.ViewModels;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SWEN_TourPlanner.ViewModels
 {
-    class TourLogs  : INotifyPropertyChanged
+    class TourLogs : INotifyPropertyChanged
     {
         private int _id;
-        private string _name;
-        private string _from;
-        private string _to;
-        private string _description;
-        private string _transport;
+        private string _date;
+        private string _comment;
+        private string _difficulty;
+        private string _duration;
+        private string _rating;
+        private string _time;
         private string _distance;
-        private string _estimatedTime;
         private string _routeInfo;
         private string _imagePath;
+        public ObservableCollection<TourLog> TourLogsTable { get; set; }
+        public class TourLog
+        {
+            public string Date { get; set; }
+            public string Comment { get; set; }
+            public string Difficulty { get; set; }
+            public string Duration { get; set; }
+            public string Rating { get; set; }
+        }
 
+        public TourLogs()
+        {
+            TourLogsTable = new ObservableCollection<TourLog>
+            {
+                new TourLog { Date = "2024-03-17", Comment = "Great tour!", Difficulty = "Medium", Duration = "2h", Rating = "5/5" }
+            };
+        }
         public int ID
         {
             get => _id;
             set { _id = value; OnPropertyChanged(nameof(ID)); }
         }
 
-        public string Name
+        public string Date
         {
-            get => _name;
-            set { _name = value; OnPropertyChanged(nameof(Name)); }
+            get => _date;
+            set { _date = value; OnPropertyChanged(nameof(Date)); }
         }
 
-        public string From
+        public string Comment
         {
-            get => _from;
-            set { _from = value; OnPropertyChanged(nameof(From)); }
+            get => _comment;
+            set { _comment = value; OnPropertyChanged(nameof(Comment)); }
         }
 
-        public string To
+        public string Difficulty
         {
-            get => _to;
-            set { _to = value; OnPropertyChanged(nameof(To)); }
+            get => _difficulty;
+            set { _difficulty = value; OnPropertyChanged(nameof(Difficulty)); }
         }
 
-        public string Description
+        public string Duration
         {
-            get => _description;
-            set { _description = value; OnPropertyChanged(nameof(Description)); }
+            get => _duration;
+            set { _duration = value; OnPropertyChanged(nameof(Duration)); }
         }
 
-        public string Transport
+        public string Rating
         {
-            get => _transport;
-            set { _transport = value; OnPropertyChanged(nameof(Transport)); }
+            get => _rating;
+            set { _rating = value; OnPropertyChanged(nameof(Rating)); }
         }
 
         public string Distance
@@ -63,10 +81,10 @@ namespace SWEN_TourPlanner.ViewModels
             set { _distance = value; OnPropertyChanged(nameof(Distance)); }
         }
 
-        public string EstimatedTime
+        public string Time
         {
-            get => _estimatedTime;
-            set { _estimatedTime = value; OnPropertyChanged(nameof(EstimatedTime)); }
+            get => _time;
+            set { _time = value; OnPropertyChanged(nameof(Time)); }
         }
 
         public string RouteInfo
@@ -86,6 +104,5 @@ namespace SWEN_TourPlanner.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    
-    }   
+    }
 }

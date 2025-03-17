@@ -138,7 +138,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Tour Distance:</Label>
-                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Tour Transport" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Distance, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Tour Distance" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Distance, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Distance, UpdateSourceTrigger=PropertyChanged}"></TextBox> -->
                 </Grid>
                 <Grid Grid.Column="1">
