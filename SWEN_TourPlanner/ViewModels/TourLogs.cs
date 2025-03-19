@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SWEN_TourPlanner.ViewModels
 {
-    class TourLogs : INotifyPropertyChanged
+    public class TourLogs : INotifyPropertyChanged
     {
         private int _id;
         private string _date;
@@ -25,20 +25,22 @@ namespace SWEN_TourPlanner.ViewModels
         public ObservableCollection<TourLog> TourLogsTable { get; set; }
         public class TourLog
         {
+            public int ID { get; set; }
             public string Date { get; set; }
+            public string Time { get; set; }
             public string Comment { get; set; }
             public string Difficulty { get; set; }
+            public string Distance { get; set; }
             public string Duration { get; set; }
             public string Rating { get; set; }
         }
 
-        public TourLogs()
-        {
-            TourLogsTable = new ObservableCollection<TourLog>
+            public TourLogs()
             {
-                new TourLog { Date = "2024-03-17", Comment = "Great tour!", Difficulty = "Medium", Duration = "2h", Rating = "5/5" }
-            };
-        }
+                TourLogsTable = new ObservableCollection<TourLog>
+                {
+                };
+            }
         public int ID
         {
             get => _id;

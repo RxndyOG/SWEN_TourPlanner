@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Printing.IndexedProperties;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml.Linq;
+using SWEN_TourPlanner.ViewModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SWEN_TourPlanner.ViewModels
 {
@@ -20,6 +29,94 @@ namespace SWEN_TourPlanner.ViewModels
         private string _estimatedTime;
         private string _routeInfo;
         private string _imagePath;
+
+        public ObservableCollection<TourLogs> Tours { get; set; } = new ObservableCollection<TourLogs>();
+
+
+        private TourLogs _newTourLog = new TourLogs();
+
+        public ICommand SaveTourCommand { get; }
+        public ICommand RemoveTourCommand { get; }
+        public AddTourModel()
+        {
+            SaveTourCommand = new RelayCommand(SaveTourLog);
+            RemoveTourCommand = new RelayCommand(RemoveTourLog);
+        }
+
+        private void SaveTourLog(object parameter)
+        {
+            Console.WriteLine("SaveTour aufgerufen");
+
+            if (TourLog == null)
+            {
+                MessageBox.Show("Tour Log is null!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(TourLog.Date) || string.IsNullOrWhiteSpace(TourLog.Time) ||
+                string.IsNullOrWhiteSpace(TourLog.Difficulty) || string.IsNullOrWhiteSpace(TourLog.Duration) ||
+                string.IsNullOrWhiteSpace(TourLog.Distance) || string.IsNullOrWhiteSpace(TourLog.Rating) ||
+                string.IsNullOrWhiteSpace(TourLog.Comment))
+            {
+                MessageBox.Show("Required Input is Missing", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            TourLogs.TourLog newLog = new TourLogs.TourLog
+            {
+                ID = TourLog.TourLogsTable.Count + 1,
+                Date = TourLog.Date,
+                Time = TourLog.Time,
+                Difficulty = TourLog.Difficulty,
+                Comment = TourLog.Comment,
+                Rating = TourLog.Rating,
+                Distance = TourLog.Distance,
+                Duration = TourLog.Duration,
+            };
+
+            TourLog.TourLogsTable.Add(newLog);
+
+            Console.WriteLine($"Neues TourLog hinzugefügt mit ID: {newLog.ID}");
+
+            TourLog.Date = string.Empty;
+            TourLog.Time = string.Empty;
+            TourLog.Difficulty = string.Empty;
+            TourLog.Comment = string.Empty;
+            TourLog.Rating = string.Empty;
+            TourLog.Distance = string.Empty;
+            TourLog.Duration = string.Empty;
+            OnPropertyChanged(nameof(TourLog));
+        }
+
+        private void RemoveTourLog(object parameter)
+        {
+            if (ID <= 0)
+            {
+                MessageBox.Show("Bitte eine gültige ID eingeben!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var tourToRemove = TourLog.TourLogsTable.FirstOrDefault(t => t.ID == ID);
+            if (tourToRemove != null)
+            {
+                TourLog.TourLogsTable.Remove(tourToRemove);
+                Console.WriteLine($"TourLog mit ID {ID} wurde entfernt.");
+            }
+            else
+            {
+                MessageBox.Show($"Kein TourLog mit ID {ID} gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        public TourLogs TourLog
+        {
+            get => _newTourLog;
+            set
+            {
+                _newTourLog = value;
+                OnPropertyChangedLog();
+            }
+        }
 
         public int ID
         {
@@ -85,6 +182,14 @@ namespace SWEN_TourPlanner.ViewModels
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private PropertyChangedEventHandler? _propertyChangedEventHandler;
+        protected virtual void OnPropertyChangedLog([CallerMemberName] string? propertyName = null)
+        {
+            Debug.Print($"propertyChanged \"{propertyName}\"");
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _propertyChangedEventHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

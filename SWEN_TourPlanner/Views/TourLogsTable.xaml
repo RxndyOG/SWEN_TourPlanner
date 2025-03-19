@@ -11,7 +11,7 @@
     <Grid>
         <DataGrid x:Name="TourLogsGrid" HeadersVisibility="Column" Background="White" 
                   RowBackground="#1F1F1F" FontSize="22" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                  ItemsSource="{Binding TourLogsTable}" AutoGenerateColumns="False"
+                  ItemsSource="{Binding TourLog.TourLogsTable}" AutoGenerateColumns="False"
                   CanUserAddRows="True" CanUserDeleteRows="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*" FontSize="16">
