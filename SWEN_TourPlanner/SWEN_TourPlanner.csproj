@@ -69,6 +69,7 @@
 	  <PackageReference Include="Dapper" Version="2.1.66" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
 	  <PackageReference Include="Npgsql" Version="9.0.2" />
+	  <PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
   <ItemGroup>

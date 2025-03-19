@@ -1,8 +1,4 @@
-﻿using SWEN_TourPlanner.Commands;
-using SWEN_TourPlanner.Database;
-using SWEN_TourPlanner.GUI;
-using SWEN_TourPlanner.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,20 +16,13 @@ using System.Windows.Shapes;
 namespace SWEN_TourPlanner.Views
 {
     /// <summary>
-    /// Interaction logic for TourDetail.xaml
+    /// Interaction logic for DeleteWindowNothingHere.xaml
     /// </summary>
-    public partial class TourDetail : Page
+    public partial class DeleteWindowNothingHere : Page
     {
-        public MainViewModel MainVM { get; set; }
-        public TourDetail(AddTourModel Tour, MainViewModel mainVM)
+        public DeleteWindowNothingHere()
         {
             InitializeComponent();
-            DataContext = Tour;
-            MainVM = mainVM;
-
-
         }
-
-        
     }
 }

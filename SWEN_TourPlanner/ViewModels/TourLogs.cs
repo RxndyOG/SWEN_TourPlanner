@@ -7,6 +7,10 @@ using SWEN_TourPlanner.ViewModels;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SWEN_TourPlanner.Commands;
+using SWEN_TourPlanner.Database;
+using System.Windows;
+using Prism.Events;
 
 namespace SWEN_TourPlanner.ViewModels
 {
@@ -35,12 +39,14 @@ namespace SWEN_TourPlanner.ViewModels
             public string Rating { get; set; }
         }
 
-            public TourLogs()
-            {
-                TourLogsTable = new ObservableCollection<TourLog>
-                {
-                };
-            }
+        
+
+        public TourLogs()
+        {
+            TourLogsTable = new ObservableCollection<TourLog>();
+
+        }
+
         public int ID
         {
             get => _id;

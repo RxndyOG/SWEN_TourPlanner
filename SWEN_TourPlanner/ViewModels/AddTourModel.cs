@@ -32,8 +32,9 @@ namespace SWEN_TourPlanner.ViewModels
 
         public ObservableCollection<TourLogs> Tours { get; set; } = new ObservableCollection<TourLogs>();
 
-
         private TourLogs _newTourLog = new TourLogs();
+
+        public event Action<AddTourModel> TourDeleted;
 
         public ICommand SaveTourCommand { get; }
         public ICommand RemoveTourCommand { get; }

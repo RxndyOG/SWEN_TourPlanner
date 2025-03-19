@@ -93,7 +93,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" MaxWidth="49"></ColumnDefinition>
                     <ColumnDefinition Width="10*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*" MaxWidth="49"></ColumnDefinition>
+                    <ColumnDefinition Width="1*" MaxWidth="32"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -176,9 +176,9 @@
             </Grid>
             <Grid Grid.Row="3" Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" MaxWidth="50"></ColumnDefinition>
+                    <ColumnDefinition Width="1*" MaxWidth="32"></ColumnDefinition>
                     <ColumnDefinition Width="10*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*" MaxWidth="50"></ColumnDefinition>
+                    <ColumnDefinition Width="1*" MaxWidth="32"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -211,7 +211,7 @@
                     <RowDefinition Height="8*"></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="1" Background="#1F1F1F" Grid.Row="1" Command="{Binding SaveTourCommand}">
+                <Button Grid.Column="1" Background="#1F93FF" Grid.Row="1" Command="{Binding SaveTourCommand}">
                     <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="24" Foreground="White">Submit</Label></Button>
             </Grid>
         </Grid>

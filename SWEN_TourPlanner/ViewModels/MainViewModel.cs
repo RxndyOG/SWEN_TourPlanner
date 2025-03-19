@@ -2,6 +2,7 @@
 using SWEN_TourPlanner.GUI;
 using SWEN_TourPlanner.ViewModels;
 using SWEN_TourPlanner.Views;
+using SWEN_TourPlanner.Commands;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using Prism.Events;
 
 namespace SWEN_TourPlanner
 {
@@ -35,6 +37,8 @@ namespace SWEN_TourPlanner
         public ICommand NavigateCommandRight { get; }
         public ICommand RemoveBlockCommand { get; }
         public ICommand UploadImageCommand { get; }
+          
+        public ICommand DeleteCommand { get; }
 
         public MainViewModel()
         {
@@ -47,6 +51,24 @@ namespace SWEN_TourPlanner
 
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
 
+
+            DeleteCommand = new RelayCommand(DeleteTour);
+        }
+
+        public void DeleteTour(object parameter)
+        {
+            
+            if (parameter is int tourID)
+            {
+                CurrentPageRight = new DeleteWindowNothingHere();
+                if (tourID >= 0 && tourID < Tours.Count)
+                {
+                    Tours.RemoveAt(tourID);
+                }
+
+                    Blocks.RemoveAt(tourID);
+
+            }
         }
 
         public AddTourModel NewTour
@@ -243,7 +265,7 @@ namespace SWEN_TourPlanner
                 Debug.Print($"Navigiere mit Block: {block.Text}");
 
                 var tour = Tours.FirstOrDefault(t => t.ID == block.TourID);
-                CurrentPageRight = new TourDetail(tour);
+                CurrentPageRight = new TourDetail(tour, this);
             }
         }
 

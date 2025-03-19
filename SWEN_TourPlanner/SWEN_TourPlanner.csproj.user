@@ -24,6 +24,9 @@
     <Compile Update="GUI\SettingsPage1Right.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\DeleteWindowNothingHere.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\HomeMenuAddTour.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -54,6 +57,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\SettingsPage1Right.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DeleteWindowNothingHere.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\HomeMenuAddTour.xaml">
