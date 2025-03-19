@@ -47,7 +47,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Name:</Label>
-                <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Hidden">
                     <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Name" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="64" Text="{Binding NewTour.Name, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="64" Text="{Binding NewTour.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 -->

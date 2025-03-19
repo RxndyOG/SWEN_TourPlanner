@@ -80,7 +80,7 @@
                                     <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Row="0" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Decription:"></Label>
+                                <Label Grid.Row="0" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Description:"></Label>
                             </Grid>
                             <Rectangle Grid.Column="2" Fill="White"></Rectangle>
                             <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -421,8 +421,8 @@
                                 </Grid>
                                 <Grid Grid.Row="3">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="8*"></ColumnDefinition>
                                         <ColumnDefinition Width="4*"></ColumnDefinition>
+                                        <ColumnDefinition Width="8*"></ColumnDefinition>
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="2">
@@ -441,7 +441,7 @@
                                         </Button>
                                         
                                     </Grid>
-                                    <Grid Grid.Column="1">
+                                    <Grid Grid.Column="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1*"></ColumnDefinition>
                                             <ColumnDefinition Width="5*"></ColumnDefinition>
