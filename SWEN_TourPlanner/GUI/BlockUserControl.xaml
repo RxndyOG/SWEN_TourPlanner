@@ -11,7 +11,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition Height="1*" MaxHeight="50"></RowDefinition>
+            <RowDefinition Height="1*" MaxHeight="80"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -41,6 +41,8 @@
             </ScrollViewer>
         </Grid>
         <Image Grid.Row="2" Source="{Binding ImageTextBlock}" MaxHeight="50px" MaxWidth="50px"/>
-        <Button Grid.Row="3" Content="Detail" Command="{Binding NavigateCommandRight}" CommandParameter="{Binding}" Margin="0,5,0,0"/>
+        <Button Grid.Row="3" Background="#1F93FF" Command="{Binding NavigateCommandRight}" CommandParameter="{Binding}" Margin="0,5,0,0">
+            <Label FontSize="30" FontWeight="Bold" Foreground="White">Detailed View</Label>
+        </Button>
     </Grid>
 </UserControl>

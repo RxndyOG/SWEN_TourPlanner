@@ -63,11 +63,8 @@ namespace SWEN_TourPlanner
                 CurrentPageRight = new DeleteWindowNothingHere();
                 if (tourID >= 0 && tourID < Tours.Count)
                 {
-                    Tours.RemoveAt(tourID);
-                }
-
                     Blocks.RemoveAt(tourID);
-
+                }
             }
         }
 
