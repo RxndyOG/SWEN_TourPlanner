@@ -20,6 +20,7 @@ namespace SWEN_TourPlanner.ViewModels
     public class AddTourModel : INotifyPropertyChanged
     {
         private int _id;
+        private int _idTour;
         private string _name;
         private string _from;
         private string _to;
@@ -33,8 +34,6 @@ namespace SWEN_TourPlanner.ViewModels
         public ObservableCollection<TourLogs> Tours { get; set; } = new ObservableCollection<TourLogs>();
 
         private TourLogs _newTourLog = new TourLogs();
-
-        public event Action<AddTourModel> TourDeleted;
 
         public ICommand SaveTourCommand { get; }
         public ICommand RemoveTourCommand { get; }
@@ -65,7 +64,7 @@ namespace SWEN_TourPlanner.ViewModels
 
             TourLogs.TourLog newLog = new TourLogs.TourLog
             {
-                ID = TourLog.TourLogsTable.Count + 1,
+                IDTourLogs = TourLog.TourLogsTable.Count + 1,
                 Date = TourLog.Date,
                 Time = TourLog.Time,
                 Difficulty = TourLog.Difficulty,
@@ -77,7 +76,7 @@ namespace SWEN_TourPlanner.ViewModels
 
             TourLog.TourLogsTable.Add(newLog);
 
-            Console.WriteLine($"Neues TourLog hinzugefügt mit ID: {newLog.ID}");
+            Console.WriteLine($"Neues TourLog hinzugefügt mit ID: {newLog.IDTourLogs}");
 
             TourLog.Date = string.Empty;
             TourLog.Time = string.Empty;
@@ -91,21 +90,21 @@ namespace SWEN_TourPlanner.ViewModels
 
         private void RemoveTourLog(object parameter)
         {
-            if (ID <= 0)
+            if (IDTourLogsTest <= 0)
             {
                 MessageBox.Show("Bitte eine gültige ID eingeben!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            var tourToRemove = TourLog.TourLogsTable.FirstOrDefault(t => t.ID == ID);
+            var tourToRemove = TourLog.TourLogsTable.FirstOrDefault(t => t.IDTourLogs == IDTourLogsTest);
             if (tourToRemove != null)
             {
                 TourLog.TourLogsTable.Remove(tourToRemove);
-                Console.WriteLine($"TourLog mit ID {ID} wurde entfernt.");
+                Console.WriteLine($"TourLog mit ID {IDTourLogsTest} wurde entfernt.");
             }
             else
             {
-                MessageBox.Show($"Kein TourLog mit ID {ID} gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Kein TourLog mit ID {IDTourLogsTest} gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -119,6 +118,11 @@ namespace SWEN_TourPlanner.ViewModels
             }
         }
 
+        public int IDTourLogsTest
+        {
+            get => _idTour;
+            set { _idTour = value; OnPropertyChanged(nameof(IDTourLogsTest)); }
+        }
         public int ID
         {
             get => _id;

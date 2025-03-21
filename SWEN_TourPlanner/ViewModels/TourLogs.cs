@@ -29,7 +29,7 @@ namespace SWEN_TourPlanner.ViewModels
         public ObservableCollection<TourLog> TourLogsTable { get; set; }
         public class TourLog
         {
-            public int ID { get; set; }
+            public int IDTourLogs { get; set; }
             public string Date { get; set; }
             public string Time { get; set; }
             public string Comment { get; set; }
@@ -47,10 +47,10 @@ namespace SWEN_TourPlanner.ViewModels
 
         }
 
-        public int ID
+        public int IDTourLogs
         {
             get => _id;
-            set { _id = value; OnPropertyChanged(nameof(ID)); }
+            set { _id = value; OnPropertyChanged(nameof(IDTourLogs)); }
         }
 
         public string Date
