@@ -73,7 +73,8 @@ namespace SWEN_TourPlanner
                     {
                         Blocks.Remove(blockToRemove);
                         Console.WriteLine($"Block mit TourID {tourID} wurde entfernt.");
-       
+                        Tours.Remove(Tours[0]); // temp
+
                     }
                     else
                     {
