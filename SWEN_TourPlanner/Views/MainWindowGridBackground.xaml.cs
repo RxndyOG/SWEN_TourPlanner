@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SWEN_TourPlanner.GUI
+namespace SWEN_TourPlanner.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindowToolBarLeftScreen.xaml
+    /// Interaction logic for MainWindowGridBackground.xaml
     /// </summary>
-    public partial class MainWindowToolBarLeftScreen : UserControl
+    public partial class MainWindowGridBackground : UserControl
     {
-        public MainWindowToolBarLeftScreen()
+
+        public MainWindowGridBackground()
         {
             InitializeComponent();
+            
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace SWEN_TourPlanner.GUI
+namespace SWEN_TourPlanner.Models
 {
     public class BlockModel
     {

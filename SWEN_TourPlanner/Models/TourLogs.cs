@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using SWEN_TourPlanner.ViewModels;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ using SWEN_TourPlanner.Database;
 using System.Windows;
 using Prism.Events;
 
-namespace SWEN_TourPlanner.ViewModels
+namespace SWEN_TourPlanner.Models
 {
     public class TourLogs : INotifyPropertyChanged
     {
@@ -39,7 +38,7 @@ namespace SWEN_TourPlanner.ViewModels
             public string Rating { get; set; }
         }
 
-        
+
 
         public TourLogs()
         {

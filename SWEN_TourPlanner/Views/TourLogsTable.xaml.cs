@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using SWEN_TourPlanner.ViewModels;
+using SWEN_TourPlanner.Models;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;

@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWEN_TourPlanner"
         xmlns:gui="clr-namespace:SWEN_TourPlanner.GUI"
+        xmlns:views="clr-namespace:SWEN_TourPlanner.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
     <Grid>
-        <gui:MainWindowGridBackground />
+        <views:MainWindowGridBackground />
     </Grid>
 </Window>

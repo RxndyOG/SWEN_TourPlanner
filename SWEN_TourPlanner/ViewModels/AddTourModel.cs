@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml.Linq;
-using SWEN_TourPlanner.ViewModels;
+using SWEN_TourPlanner.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SWEN_TourPlanner.ViewModels

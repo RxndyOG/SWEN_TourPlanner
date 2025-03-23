@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Prism.Events;
 using SWEN_TourPlanner.Database;
+using SWEN_TourPlanner.Models;
 
 namespace SWEN_TourPlanner
 {

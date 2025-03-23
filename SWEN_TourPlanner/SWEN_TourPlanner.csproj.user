@@ -3,25 +3,25 @@
   <PropertyGroup />
   <ItemGroup />
   <ItemGroup>
-    <Compile Update="GUI\BlockUserControl.xaml.cs">
+    <Compile Update="Views\BlockUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\MainPageMiddleHome.xaml.cs">
+    <Compile Update="Views\MainPageMiddleHome.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\MainWindowGridBackground.xaml.cs">
+    <Compile Update="Views\MainWindowGridBackground.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\MainWindowToolBarLeftScreen.xaml.cs">
+    <Compile Update="Views\MainWindowToolBarLeftScreen.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\secondPageMiddleSearch.xaml.cs">
+    <Compile Update="Views\secondPageMiddleSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\SettingPageMiddle.xaml.cs">
+    <Compile Update="Views\SettingPageMiddle.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="GUI\SettingsPage1Right.xaml.cs">
+    <Compile Update="Views\SettingsPage1Right.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\DeleteWindowNothingHere.xaml.cs">
@@ -41,25 +41,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="GUI\BlockUserControl.xaml">
+    <Page Update="Views\BlockUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\MainPageMiddleHome.xaml">
+    <Page Update="Views\MainPageMiddleHome.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\MainWindowGridBackground.xaml">
+    <Page Update="Views\MainWindowGridBackground.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\MainWindowToolBarLeftScreen.xaml">
+    <Page Update="Views\MainWindowToolBarLeftScreen.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\secondPageMiddleSearch.xaml">
+    <Page Update="Views\secondPageMiddleSearch.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\SettingPageMiddle.xaml">
+    <Page Update="Views\SettingPageMiddle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GUI\SettingsPage1Right.xaml">
+    <Page Update="Views\SettingsPage1Right.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\DeleteWindowNothingHere.xaml">
