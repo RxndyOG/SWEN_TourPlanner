@@ -14,6 +14,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Prism.Events;
+using SWEN_TourPlanner.Database;
 
 namespace SWEN_TourPlanner
 {
@@ -39,6 +40,7 @@ namespace SWEN_TourPlanner
         public ICommand UploadImageCommand { get; }
           
         public ICommand DeleteCommand { get; }
+        public ICommand ModifyCommand { get; }
 
         public MainViewModel()
         {
@@ -53,6 +55,7 @@ namespace SWEN_TourPlanner
 
 
             DeleteCommand = new RelayCommand(DeleteTour);
+            ModifyCommand = new RelayCommand(ModifyTour);
         }
 
         public void DeleteTour(object parameter)
@@ -63,8 +66,56 @@ namespace SWEN_TourPlanner
                 CurrentPageRight = new DeleteWindowNothingHere();
                 if (tourID >= 0 && tourID < Tours.Count)
                 {
-                    Blocks.RemoveAt(tourID);
+                    var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourID);
+
+                    if (blockToRemove != null)
+                    {
+                        Blocks.Remove(blockToRemove);
+                        Console.WriteLine($"Block mit TourID {tourID} wurde entfernt.");
+       
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Kein Block mit TourID {tourID} gefunden.");
+                    }
                 }
+            }
+        }
+
+        public void ModifyTour(object parameter)
+        {
+            if (parameter is AddTourModel tourModel)
+            {
+                if (Tours == null || Tours.Count == 0)
+                {
+                    MessageBox.Show("Die Tour-Liste ist leer!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (tourModel.ID < 0 || tourModel.ID >= Tours.Count)
+                {
+                    MessageBox.Show($"Ungültiger Index: {tourModel.ID}. Maximaler Wert: {Tours.Count - 1}",
+                                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourModel.ID);
+
+                if (blockToRemove != null)
+                {
+                    Blocks.Remove(blockToRemove);
+                    Console.WriteLine($"Block mit TourID {tourModel.ID} wurde entfernt.");
+                    Tours.Add(tourModel);
+                    AddTour(tourModel);
+                }
+                else
+                {
+                    Console.WriteLine($"Kein Block mit TourID {tourModel.ID} gefunden.");
+                }
+
+                
+
+                CurrentPageRight = new DeleteWindowNothingHere();
             }
         }
 

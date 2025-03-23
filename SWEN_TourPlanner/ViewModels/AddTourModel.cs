@@ -183,6 +183,7 @@ namespace SWEN_TourPlanner.ViewModels
             set { _imagePath = value; OnPropertyChanged(nameof(ImagePath)); }
         }
 
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
