@@ -1,15 +1,16 @@
-using SWEN_TourPlanner.Database;
+using DataAccess;
+using Model;
 
 namespace SWEN_TourPlanner.Tests
 {
     public class DatabaseTests
     {
-        Database.Database db;
+        Database db;
 
         [SetUp]
         public void Setup()
         {
-            db = new Database.Database();
+            db = new Database();
         }
 
         [Test]

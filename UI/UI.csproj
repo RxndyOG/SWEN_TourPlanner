@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="UserImages\**" />
+		<EmbeddedResource Remove="UserImages\**" />
+		<None Remove="UserImages\**" />
+		<Page Remove="UserImages\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Views\Images\hero_maps_static_api.png" />
+		<None Remove="Views\Images\HomeIcon.png" />
+		<None Remove="Views\Images\HomeIcon2.png" />
+		<None Remove="Views\Images\ListIcon.png" />
+		<None Remove="Views\Images\ListIcon2.png" />
+		<None Remove="Views\Images\MapIcon.png" />
+		<None Remove="Views\Images\MapIcon2.png" />
+		<None Remove="Views\Images\SearchIcon.png" />
+		<None Remove="Views\Images\SearchIcon2.png" />
+		<None Remove="Views\Images\SettingsIcon.png" />
+		<None Remove="Views\Images\SettingsIcon2.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Views\Images\hero_maps_static_api.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\HomeIcon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\HomeIcon2.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\ListIcon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\ListIcon2.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\MapIcon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\MapIcon2.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\SearchIcon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\SearchIcon2.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\SettingsIcon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\Images\SettingsIcon2.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
+		<PackageReference Include="Npgsql" Version="9.0.2" />
+		<PackageReference Include="Prism.Core" Version="9.0.537" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\PlaceholderTextBox\PlaceholderTextBox.csproj" />
+		<ProjectReference Include="..\Model\Model.csproj" />
+		<ProjectReference Include="..\Business\Business.csproj" />
+	</ItemGroup>
+
+</Project>

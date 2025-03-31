@@ -1,5 +1,5 @@
-using SWEN_TourPlanner.Models;
-using SWEN_TourPlanner.ViewModels;
+using UI.ViewModels;
+using Model;
 
 namespace SWEN_TourPlanner.Tests
 {
@@ -48,9 +48,7 @@ namespace SWEN_TourPlanner.Tests
             _viewModel.Blocks.Add(new BlockModel { TourID = tour.ID } );
 
             // Act
-            Console.WriteLine(_viewModel.Tours[0].ID);
-            Console.WriteLine(_viewModel.Tours[0].Name);
-            _viewModel.DeleteTour(0);
+            _viewModel.DeleteTour(0); // funktioniert aktuell nicht richtig
 
             // Assert
             Assert.IsEmpty(_viewModel.Tours);
@@ -71,6 +69,8 @@ namespace SWEN_TourPlanner.Tests
             Assert.AreEqual(tour.ID, _viewModel.Tours[0].ID);
             Assert.AreEqual(tour.Name, _viewModel.Tours[0].Name);
         }
+
+        // TODO: ModifyTour
 
         /* Tour log */
 
