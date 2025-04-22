@@ -1,0 +1,50 @@
+{
+  "Tours": [],
+  "SaveTourCommand": {},
+  "RemoveTourCommand": {},
+  "TourLog": {
+    "TourLogsTable": [
+      {
+        "IDTourLogs": 1,
+        "Date": "w",
+        "Time": "w",
+        "Comment": "w",
+        "Difficulty": "w",
+        "Distance": "w",
+        "Duration": "w",
+        "Rating": "w"
+      },
+      {
+        "IDTourLogs": 2,
+        "Date": "q",
+        "Time": "q",
+        "Comment": "q",
+        "Difficulty": "q",
+        "Distance": "q",
+        "Duration": "q",
+        "Rating": "q"
+      }
+    ],
+    "IDTourLogs": 0,
+    "Date": "",
+    "Comment": "",
+    "Difficulty": "",
+    "Duration": "",
+    "Rating": "",
+    "Distance": "",
+    "Time": "",
+    "RouteInfo": null,
+    "ImagePath": null
+  },
+  "IDTourLogsTest": 0,
+  "ID": 0,
+  "Name": "w",
+  "From": "w",
+  "To": "w",
+  "Description": "w",
+  "Transport": "w",
+  "Distance": "w",
+  "EstimatedTime": "w",
+  "RouteInfo": "w",
+  "ImagePath": null
+}

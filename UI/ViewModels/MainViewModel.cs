@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using UI.Commands;
 using UI.Views;
 using Model;
+using System.Text.Json;
 
 namespace UI.ViewModels
 {
@@ -30,6 +31,8 @@ namespace UI.ViewModels
         private BitmapImage _userUploadedImage;
 
         public ICommand SaveTourCommand { get; }
+        public ICommand ImportTourCommand { get; }
+
         public ICommand NavigateCommand { get; }
         public ICommand NavigateCommandRight { get; }
         public ICommand RemoveBlockCommand { get; }
@@ -37,6 +40,7 @@ namespace UI.ViewModels
           
         public ICommand DeleteCommand { get; }
         public ICommand ModifyCommand { get; }
+        public ICommand ExportCommand { get; }
 
         public MainViewModel()
         {
@@ -45,6 +49,7 @@ namespace UI.ViewModels
             NavigateCommandRight = new RelayCommand(NavigateRight);
 
             SaveTourCommand = new RelayCommand(SaveTour);
+            ImportTourCommand = new RelayCommand(ImportTour);
             UploadImageCommand = new RelayCommand(UploadImageFunc);
 
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
@@ -52,6 +57,7 @@ namespace UI.ViewModels
 
             DeleteCommand = new RelayCommand(DeleteTour);
             ModifyCommand = new RelayCommand(ModifyTour);
+            ExportCommand = new RelayCommand(ExportTour);
         }
 
         public void DeleteTour(object parameter)
@@ -75,6 +81,36 @@ namespace UI.ViewModels
                     {
                         Console.WriteLine($"Kein Block mit TourID {tourID} gefunden.");
                     }
+                }
+            }
+        }
+
+        public void ExportTour(object parameter)
+        {
+            if(parameter is AddTourModel tourModel)
+            {
+                if (Tours == null || Tours.Count == 0)
+                {
+                    MessageBox.Show("Die Tour-Liste ist leer!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (tourModel.ID < 0 || tourModel.ID >= Tours.Count)
+                {
+                    MessageBox.Show($"Ungültiger Index: {tourModel.ID}. Maximaler Wert: {Tours.Count - 1}",
+                                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "JSON Datei (*.json)|*.json";
+                saveFileDialog.Title = "Tour speichern";
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string json = JsonSerializer.Serialize(tourModel, new JsonSerializerOptions { WriteIndented = true });
+                    File.WriteAllText(saveFileDialog.FileName, json);
+                    MessageBox.Show("Tour Exported!");
                 }
             }
         }
@@ -173,6 +209,34 @@ namespace UI.ViewModels
             {
                 Debug.Print($"removed PropertyChanged-handler {value}");
                 _propertyChangedEventHandler -= value;
+            }
+        }
+
+        private void ImportTour(object parameter)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "JSON Datei (*.json)|*.json";
+            openFileDialog.Title = "Benutzerdaten laden";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string json = File.ReadAllText(openFileDialog.FileName);
+                    AddTourModel tourModel = JsonSerializer.Deserialize<AddTourModel>(json);
+
+                    // Optional: zur Liste hinzufügen, falls sinnvoll
+                    if (tourModel != null)
+                    {
+                        tourModel.ID = Tours.Count;
+                        Tours.Add(tourModel);
+                        AddTour(tourModel);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message);
+                }
             }
         }
 
@@ -275,7 +339,8 @@ namespace UI.ViewModels
                         CurrentPageRight = new HomeMenuAddTour();
                         break;
                     case "Page2":
-                        CurrentPageMiddle = new secondPageMiddleSearch();
+                        CurrentPageMiddle = new MainPageMiddleHome(this);
+                        CurrentPageRight = new SearchMenuSearchScreen();
                         break;
                     case "Setting":
                         CurrentPageMiddle = new SettingPageMiddle();

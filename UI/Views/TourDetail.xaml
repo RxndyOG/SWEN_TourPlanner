@@ -178,6 +178,8 @@
                                 <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>
@@ -185,7 +187,10 @@
                             <Button Grid.Column="2" Command="{Binding MainVM.ModifyCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Background="#45A897" HorizontalAlignment="Right" Margin="0,0,0,-1" Width="200">
                                 <Label Content="Modify" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Foreground="White" FontWeight="Bold"></Label>
                             </Button>
-                            <Button Grid.Column="4" Command="{Binding MainVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding ID}" Background="DarkRed" HorizontalAlignment="Right" Margin="0,0,0,-1" Width="200">
+                            <Button Grid.Column="4" Command="{Binding MainVM.ExportCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding}" Background="#45A897" HorizontalAlignment="Right" Margin="0,0,0,-1" Width="200">
+                                <Label Content="Export" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Foreground="White" FontWeight="Bold"></Label>
+                            </Button>
+                            <Button Grid.Column="6" Command="{Binding MainVM.DeleteCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding ID}" Background="DarkRed" HorizontalAlignment="Right" Margin="0,0,0,-1" Width="200">
                                 <Label Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Foreground="White" FontWeight="Bold"></Label>
                             </Button>
 
