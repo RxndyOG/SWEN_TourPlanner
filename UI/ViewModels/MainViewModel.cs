@@ -12,6 +12,7 @@ using UI.Commands;
 using UI.Views;
 using Model;
 using System.Text.Json;
+using System.Windows.Data;
 
 namespace UI.ViewModels
 {
@@ -23,7 +24,9 @@ namespace UI.ViewModels
 
         private PropertyChangedEventHandler? _propertyChangedEventHandler;
 
+
         public ObservableCollection<BlockModel> Blocks { get; set; } = new();
+        
         public ObservableCollection<AddTourModel> Tours { get; set; } = new ObservableCollection<AddTourModel>();
 
         private AddTourModel _newTour = new AddTourModel();
@@ -58,6 +61,9 @@ namespace UI.ViewModels
             DeleteCommand = new RelayCommand(DeleteTour);
             ModifyCommand = new RelayCommand(ModifyTour);
             ExportCommand = new RelayCommand(ExportTour);
+
+            FilteredBlocks = CollectionViewSource.GetDefaultView(Blocks);
+            FilteredBlocks.Filter = FilterBlocks;
         }
 
         public void DeleteTour(object parameter)
@@ -149,6 +155,33 @@ namespace UI.ViewModels
                 
 
                 CurrentPageRight = new DeleteWindowNothingHere();
+            }
+        }
+
+        private string _searchText;
+        private ICollectionView _filteredBlocks;
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged();
+                    FilteredBlocks.Refresh();
+                }
+            }
+        }
+
+        public ICollectionView FilteredBlocks
+        {
+            get => _filteredBlocks;
+            private set
+            {
+                _filteredBlocks = value;
+                OnPropertyChanged();
             }
         }
 
@@ -377,6 +410,26 @@ namespace UI.ViewModels
                 var tour = Tours.FirstOrDefault(t => t.ID == block.TourID);
                 CurrentPageRight = new TourDetail(tour, this);
             }
+        }
+
+        private bool FilterBlocks(object obj)
+        {
+            if (obj is BlockModel block)
+            {
+                if (string.IsNullOrWhiteSpace(SearchText))
+                    return true;
+
+                return FuzzyMatch(block.Text, SearchText);
+            }
+            return false;
+        }
+
+        private bool FuzzyMatch(string source, string target)
+        {
+            if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(target))
+                return false;
+
+            return source.ToLower().Contains(target.ToLower());
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
