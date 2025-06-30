@@ -188,7 +188,7 @@
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Map:</Label>
                 <Button Background="#1F1F1F" Grid.Column="1" Grid.Row="2" Command="{Binding UploadImageCommand}">
                     <Grid>
-                        <Image Grid.Column="1" Grid.Row="2" Stretch="Fill" Source="{Binding NewTour.ImagePath}" ></Image>
+                        <Image Grid.Column="1" Grid.Row="2" Stretch="Fill" Source="{Binding NewTour.ImagePath}" />
                         <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="48" Foreground="White" FontWeight="Bold">Upload Image</Label>
                     </Grid>
                 </Button>

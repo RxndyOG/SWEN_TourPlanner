@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using UI.ViewModels;
 
 namespace UI.Views
 {
@@ -8,10 +9,10 @@ namespace UI.Views
     /// </summary>
     public partial class HomeMenuAddTour : Page
     {
-        public HomeMenuAddTour()
+        public HomeMenuAddTour(TourManagementViewModel tourManagementvm)
         {
             InitializeComponent();
-            DataContext = Application.Current.MainWindow.DataContext;
+            DataContext = tourManagementvm;
         }
     }
 }

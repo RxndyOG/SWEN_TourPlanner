@@ -22,17 +22,30 @@ namespace UI.ViewModels
         private string _estimatedTime;
         private string _routeInfo;
         private string _imagePath;
-
         public ObservableCollection<TourLogs> Tours { get; set; } = new ObservableCollection<TourLogs>();
 
         private TourLogs _newTourLog = new TourLogs();
 
-        public ICommand SaveTourCommand { get; }
+        public ICommand AddTourLogCommand { get; }
         public ICommand RemoveTourCommand { get; }
         public AddTourModel()
         {
-            SaveTourCommand = new RelayCommand(SaveTourLog);
+            AddTourLogCommand = new RelayCommand(SaveTourLog);
             RemoveTourCommand = new RelayCommand(RemoveTourLog);
+        }
+
+        
+        public string ImagePath
+        {
+            get => _imagePath;
+            set
+            {
+                if (_imagePath != value)
+                {
+                    _imagePath = value;
+                    OnPropertyChanged(nameof(ImagePath));
+                }
+            }
         }
 
         private void SaveTourLog(object parameter)
@@ -169,11 +182,6 @@ namespace UI.ViewModels
             set { _routeInfo = value; OnPropertyChanged(nameof(RouteInfo)); }
         }
 
-        public string ImagePath
-        {
-            get => _imagePath;
-            set { _imagePath = value; OnPropertyChanged(nameof(ImagePath)); }
-        }
 
 
         public event PropertyChangedEventHandler? PropertyChanged;

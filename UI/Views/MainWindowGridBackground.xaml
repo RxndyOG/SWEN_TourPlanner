@@ -19,9 +19,9 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <local:MainWindowToolBarLeftScreen Grid.Column="0"/>
-            <Frame Grid.Column="1" Content="{Binding CurrentPageMiddle}" NavigationUIVisibility="Hidden" />
+            <Frame Grid.Column="1" Content="{Binding Navigation.CurrentPageMiddle}" NavigationUIVisibility="Hidden" />
             <Rectangle Grid.Column="2" Fill="#333333"></Rectangle>
-            <Frame Grid.Column="2" Content="{Binding CurrentPageRight}" NavigationUIVisibility="Hidden" />
+            <Frame Grid.Column="2" Content="{Binding Navigation.CurrentPageRight}" NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>
 </UserControl>

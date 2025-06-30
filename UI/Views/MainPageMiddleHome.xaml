@@ -29,7 +29,7 @@
         </ListBox>
 
         <Grid Grid.Row="2">
-            <Button Background="#1F1F1F" Command="{Binding NavigateCommandRight}" CommandParameter="AddTour">
+            <Button Background="#1F1F1F" Command="{Binding Navigation.NavigateCommandRight}" CommandParameter="AddTour">
                 <TextBlock Foreground="White" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Add A New Tour</TextBlock>
             </Button>
         </Grid>

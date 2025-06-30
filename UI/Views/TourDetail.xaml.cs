@@ -8,14 +8,17 @@ namespace UI.Views
     /// </summary>
     public partial class TourDetail : Page
     {
-        public MainViewModel MainVM { get; set; }
-        public TourDetail(AddTourModel Tour, MainViewModel mainVM)
+        public AddTourModel Tour { get; set; }
+        public TourManagementViewModel TourManagement { get; set; }
+
+        public TourDetail(AddTourModel tour, TourManagementViewModel tourManagement)
         {
             InitializeComponent();
+            Tour = tour;
+            TourManagement = tourManagement;
+
+            // Setze DataContext auf ein passendes Objekt, z.B. ein ViewModel, das Tour und TourManagement bereitstellt
             DataContext = Tour;
-            MainVM = mainVM;
-
-
         }
     }
 }
