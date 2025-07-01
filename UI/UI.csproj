@@ -83,6 +83,12 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <Content Include="Views\Scripts\L.Routing.OpenRouteServiceV2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Views\map.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

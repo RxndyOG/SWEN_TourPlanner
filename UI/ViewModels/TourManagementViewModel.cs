@@ -371,6 +371,11 @@ namespace UI.ViewModels
 
         public void ShowMapAndCaptureImage()
         {
+            var from = NewTour.From;
+            var to = NewTour.To;
+
+            System.Diagnostics.Debug.WriteLine($"FROM: {from}, TO: {to}");
+
             var mapWindow = new Window
             {
                 Title = "Karte auswählen",
@@ -379,14 +384,21 @@ namespace UI.ViewModels
                 Height = 450
             };
 
-            if (mapWindow.Content is MapCaptureControl mapControl)
+            mapWindow.Loaded += (s, e) =>
             {
-                mapControl.MapImageSaved += (filePath) =>
+                if (mapWindow.Content is MapCaptureControl mapControl)
+                {
+                    mapControl.SetRoute(from, to);
+                }
+            };
+
+            if (mapWindow.Content is MapCaptureControl mapControl2)
+            {
+                mapControl2.MapImageSaved += (filePath) =>
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         NewTour.ImagePath = filePath;
-                        Debug.WriteLine(NewTour.ImagePath);
                         OnPropertyChanged(nameof(NewTour));
                         mapWindow.Close();
                     });

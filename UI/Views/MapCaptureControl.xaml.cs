@@ -23,6 +23,12 @@ namespace UI.Views
             MapWebView.Source = new Uri(htmlPath);
         }
 
+        public void SetRoute(string from, string to)
+        {
+            string script = $"setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
+            MapWebView.ExecuteScriptAsync(script);
+        }
+
         private async void OnSaveMapImage(object sender, RoutedEventArgs e)
         {
             BtnSaveMapImage.Visibility = Visibility.Collapsed;
