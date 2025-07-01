@@ -3,62 +3,63 @@ using Model;
 
 namespace UI.Tests
 {
+    [TestFixture]
     public class AddTourModelTests
     {
-        AddTourModel _addTourModel;
+        private AddTourModel _model;
 
         [SetUp]
         public void Setup()
         {
-            _addTourModel = new AddTourModel();
+            _model = new AddTourModel();
         }
 
         [Test]
-        public void SaveTourLog_ValidData()
+        public void ImagePath_PropertyChanged_IsRaised()
         {
-            // Arrange
-            _addTourModel.TourLog.Date = "2025-03-23";
-            _addTourModel.TourLog.Time = "12:00";
-            _addTourModel.TourLog.Difficulty = "Medium";
-            _addTourModel.TourLog.Duration = "2 hours";
-            _addTourModel.TourLog.Distance = "10 km";
-            _addTourModel.TourLog.Rating = "4";
-            _addTourModel.TourLog.Comment = "Great tour!";
-
-            // Act
-            _addTourModel.SaveTourCommand.Execute(null);
-
-            // Assert
-            Assert.That(_addTourModel.TourLog.TourLogsTable.Count, Is.EqualTo(1));
-            Assert.That(_addTourModel.TourLog.TourLogsTable.First().Date, Is.EqualTo("2025-03-23"));
+            bool raised = false;
+            _model.PropertyChanged += (s, e) => { if (e.PropertyName == "ImagePath") raised = true; };
+            _model.ImagePath = "test.png";
+            Assert.IsTrue(raised);
         }
 
         [Test]
-        public void RemoveTourLog_ValidId()
+        public void SaveTourLog_ValidData_AddsLog()
         {
-            // Arrange
-            _addTourModel.TourLog.TourLogsTable.Add(new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-03-23" });
-            _addTourModel.IDTourLogsTest = 1;
+            _model.TourLog.Date = "2025-01-01";
+            _model.TourLog.Time = "10:00";
+            _model.TourLog.Difficulty = "Easy";
+            _model.TourLog.Duration = "1h";
+            _model.TourLog.Distance = "5km";
+            _model.TourLog.Rating = "5";
+            _model.TourLog.Comment = "Nice tour";
 
-            // Act
-            _addTourModel.RemoveTourCommand.Execute(null);
+            _model.AddTourLogCommand.Execute(null);
 
-            // Assert
-            Assert.That(_addTourModel.TourLog.TourLogsTable.Count, Is.EqualTo(0));
+            Assert.That(_model.TourLog.TourLogsTable.Count, Is.EqualTo(1));
+            Assert.That(_model.TourLog.TourLogsTable.First().Date, Is.EqualTo("2025-01-01"));
         }
 
         [Test]
-        public void RemoveTourLog_InvalidId()
+        public void RemoveTourLog_ValidId_RemovesLog()
         {
-            // Arrange
-            _addTourModel.TourLog.TourLogsTable.Add(new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-03-23" });
-            _addTourModel.IDTourLogsTest = 2; // ID does not exist
+            _model.TourLog.TourLogsTable.Add(new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-01-01" });
+            _model.IDTourLogsTest = 1;
 
-            // Act
-            _addTourModel.RemoveTourCommand.Execute(null);
+            _model.RemoveTourCommand.Execute(null);
 
-            // Assert
-            Assert.That(_addTourModel.TourLog.TourLogsTable.Count, Is.EqualTo(1));
+            Assert.That(_model.TourLog.TourLogsTable.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void RemoveTourLog_InvalidId_DoesNotRemove()
+        {
+            _model.TourLog.TourLogsTable.Add(new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-01-01" });
+            _model.IDTourLogsTest = 2;
+
+            _model.RemoveTourCommand.Execute(null);
+
+            Assert.That(_model.TourLog.TourLogsTable.Count, Is.EqualTo(1));
         }
     }
 }
