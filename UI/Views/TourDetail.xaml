@@ -180,6 +180,7 @@
                                 <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
+                                
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="30"></ColumnDefinition>

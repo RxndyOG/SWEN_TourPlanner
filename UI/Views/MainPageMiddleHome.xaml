@@ -17,7 +17,18 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <custom:PlaceholderTextBoxControl Grid.Row="0" FontSize="28" Padding="10,0,0,0" VerticalContentAlignment="Center" Placeholder="Search " FontWeight="Bold" MaxLength="64" TextWrapping="Wrap" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" ></custom:PlaceholderTextBoxControl>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <custom:PlaceholderTextBoxControl Grid.Column="0" FontSize="28" Padding="10,0,0,0" VerticalContentAlignment="Center" Placeholder="Search " FontWeight="Bold" MaxLength="64" TextWrapping="Wrap" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" ></custom:PlaceholderTextBoxControl>
+            <Grid Grid.Column="1">
+                <Button Background="#45A897" Command="{Binding TourManagement.ReportCommand}" CommandParameter="AddTour">
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" Foreground="White" FontWeight="Bold">Report</Label>
+                </Button>
+            </Grid>
         </Grid>
 
         <ListBox ItemsSource="{Binding FilteredBlocks}" Background="Transparent" Grid.Row="1"  HorizontalContentAlignment="Stretch" Padding="0" Margin="0">

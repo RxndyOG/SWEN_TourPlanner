@@ -1,16 +1,22 @@
-﻿using System.Collections.ObjectModel;
+﻿using Accessibility;
+using log4net;
+using Microsoft.Win32;
+using Model;
+using PdfSharp.Drawing;
+using PdfSharp.Fonts;
+using PdfSharp.Pdf;
+using PdfSharp.Quality;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Microsoft.Win32;
+using System.Windows.Media;
 using UI.Commands;
-using Model;
-using log4net;
 using UI.Views;
-using Accessibility;
+
 
 namespace UI.ViewModels
 {
@@ -28,6 +34,8 @@ namespace UI.ViewModels
             set { _newTour = value; OnPropertyChanged(nameof(NewTour)); }
         }
 
+
+        public ICommand ReportCommand { get; }
         public ICommand SaveTourCommand { get; }
         public ICommand ImportTourCommand { get; }
         public ICommand DeleteCommand { get; }
@@ -42,7 +50,7 @@ namespace UI.ViewModels
         {
             _navigationViewModel = nv;
             _mainViewModel = mv;
-
+            ReportCommand = new RelayCommand(GeneratePdfReport);
 
             SaveTourCommand = new RelayCommand(SaveTour);
             ImportTourCommand = new RelayCommand(ImportTour);
@@ -50,6 +58,109 @@ namespace UI.ViewModels
             ModifyCommand = new RelayCommand(ModifyTour);
             ExportCommand = new RelayCommand(ExportTour);
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
+
+            if (GlobalFontSettings.FontResolver == null)
+                GlobalFontSettings.FontResolver = new SimpleFontResolver();
+        }
+
+        public class SimpleFontResolver : IFontResolver
+        {
+            private static readonly string FontName = "LiberationSans";
+            private static readonly string FontFile = "Fonts/LiberationSans-Regular.ttf"; // Add this TTF to your project!
+
+            public byte[] GetFont(string faceName)
+            {
+                return File.ReadAllBytes("Views/Images/LiberationSans-Regular.ttf");
+            }
+
+            public FontResolverInfo ResolveTypeface(string familyName, bool isBold, bool isItalic)
+            {
+                return new FontResolverInfo(FontName);
+            }
+        }
+
+        public void GeneratePdfReport(object parameter)
+        {
+            try
+            {
+                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "PDF Files (*.pdf)|*.pdf",
+                    Title = "Save PDF Report"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    if (string.IsNullOrWhiteSpace(filePath))
+                    {
+                        MessageBox.Show("Invalid file path selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    PdfDocument document = new PdfDocument();
+                    document.Info.Title = "Tour Report";
+
+                    PdfPage page = document.AddPage();
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                    var titleFont = new XFont("LiberationSans", 20, XFontStyleEx.Regular);
+                    var contentFont = new XFont("LiberationSans", 12, XFontStyleEx.Regular);
+
+                    double y = 40;
+                    gfx.DrawString("Tour Report", titleFont, XBrushes.Black, new XRect(0, y, page.Width, 30), XStringFormats.TopCenter);
+                    y += 40;
+
+                    if (Tours != null && Tours.Count > 0)
+                    {
+                        foreach (var tour in Tours)
+                        {
+                            gfx.DrawString($"Name: {tour.Name}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"From: {tour.From}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"To: {tour.To}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Transport: {tour.Transport}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Distance: {tour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Description: {tour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Route Info: {tour.RouteInfo}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Estimated Time: {tour.EstimatedTime}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
+
+                            if (tour.TourLog != null && tour.TourLog.TourLogsTable != null && tour.TourLog.TourLogsTable.Count > 0)
+                            {
+                                gfx.DrawString("Tour Logs:", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                                foreach (var log in tour.TourLog.TourLogsTable)
+                                {
+                                    gfx.DrawString($"  - Date: {log.Date}, Time: {log.Time}, Difficulty: {log.Difficulty}, Distance: {log.Distance}, Comment: {log.Comment}, Duration: {log.Duration}", contentFont, XBrushes.Black, new XPoint(50, y));
+                                    y += 20;
+                                }
+                                y += 10;
+                            }
+                            y += 10;
+                            if (y > page.Height - 60)
+                            {
+                                page = document.AddPage();
+                                gfx = XGraphics.FromPdfPage(page);
+                                y = 40;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        gfx.DrawString("No tours available.", contentFont, XBrushes.Black, new XPoint(40, y));
+                    }
+
+                    document.Save(filePath);
+
+                    MessageBox.Show("PDF report generated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error generating PDF report", ex);
+                MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void DeleteTour(object parameter)
