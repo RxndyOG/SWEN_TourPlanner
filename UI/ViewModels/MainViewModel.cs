@@ -171,7 +171,41 @@ namespace UI.ViewModels
                 if (string.IsNullOrWhiteSpace(SearchText))
                     return true;
 
-                return FuzzyMatch(block.Text, SearchText);
+                // Fuzzy match on block text
+                if (FuzzyMatch(block.Text, SearchText) || FuzzyMatch(block.Description2, SearchText))
+                    return true;
+
+                // Find the corresponding tour for this block
+                var tour = _tourManagementViewModel.Tours.FirstOrDefault(t => t.ID == block.TourID);
+                if (tour != null)
+                {
+                    // Fuzzy match on tour properties
+                    if (FuzzyMatch(tour.Name, SearchText) ||
+                        FuzzyMatch(tour.Description, SearchText) ||
+                        FuzzyMatch(tour.From, SearchText) ||
+                        FuzzyMatch(tour.To, SearchText) ||
+                        FuzzyMatch(tour.Transport, SearchText) ||
+                        FuzzyMatch(tour.Distance, SearchText) ||
+                        FuzzyMatch(tour.EstimatedTime, SearchText) ||
+                        FuzzyMatch(tour.RouteInfo, SearchText))
+                        return true;
+
+                    // Fuzzy match on TourLogs (if present)
+                    if (tour.TourLog != null && tour.TourLog.TourLogsTable != null)
+                    {
+                        foreach (var log in tour.TourLog.TourLogsTable)
+                        {
+                            if (FuzzyMatch(log.Comment, SearchText) ||
+                                FuzzyMatch(log.Date, SearchText) ||
+                                FuzzyMatch(log.Difficulty, SearchText) ||
+                                FuzzyMatch(log.Duration, SearchText) ||
+                                FuzzyMatch(log.Rating, SearchText) ||
+                                FuzzyMatch(log.Distance, SearchText) ||
+                                FuzzyMatch(log.Time, SearchText))
+                                return true;
+                        }
+                    }
+                }
             }
             return false;
         }
