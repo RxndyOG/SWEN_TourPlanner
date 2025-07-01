@@ -8,6 +8,7 @@ using PdfSharp.Pdf;
 using PdfSharp.Quality;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
@@ -43,6 +44,8 @@ namespace UI.ViewModels
         public ICommand ExportCommand { get; }
         public ICommand RemoveBlockCommand { get; }
 
+        public ICommand ShowMapCommand { get; }
+
         private MainViewModel _mainViewModel;
         private NavigationViewModel _navigationViewModel;
 
@@ -58,6 +61,8 @@ namespace UI.ViewModels
             ModifyCommand = new RelayCommand(ModifyTour);
             ExportCommand = new RelayCommand(ExportTour);
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
+
+            ShowMapCommand = new RelayCommand(_ => ShowMapAndCaptureImage());
 
             if (GlobalFontSettings.FontResolver == null)
                 GlobalFontSettings.FontResolver = new SimpleFontResolver();
@@ -362,6 +367,33 @@ namespace UI.ViewModels
             {
                 Blocks.Remove(blockModel);
             }
+        }
+
+        public void ShowMapAndCaptureImage()
+        {
+            var mapWindow = new Window
+            {
+                Title = "Karte auswählen",
+                Content = new MapCaptureControl(this),
+                Width = 600,
+                Height = 450
+            };
+
+            if (mapWindow.Content is MapCaptureControl mapControl)
+            {
+                mapControl.MapImageSaved += (filePath) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        NewTour.ImagePath = filePath;
+                        Debug.WriteLine(NewTour.ImagePath);
+                        OnPropertyChanged(nameof(NewTour));
+                        mapWindow.Close();
+                    });
+                };
+            }
+
+            mapWindow.ShowDialog();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

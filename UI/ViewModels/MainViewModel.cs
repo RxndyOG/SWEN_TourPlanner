@@ -32,7 +32,7 @@ namespace UI.ViewModels
 
         private PropertyChangedEventHandler? _propertyChangedEventHandler;
 
-
+        //public ICommand ShowMapCommand { get; }
 
         private BitmapImage _userUploadedImage;
 
@@ -41,6 +41,8 @@ namespace UI.ViewModels
 
         public MainViewModel()
         {
+
+            //ShowMapCommand = new RelayCommand(_ => ShowMapAndCaptureImage());
 
             _navigationViewModel = new NavigationViewModel(this);
             _tourManagementViewModel = new TourManagementViewModel(_navigationViewModel, this);
@@ -103,7 +105,7 @@ namespace UI.ViewModels
             }
         }
        
-
+        /*
         public void ShowMapAndCaptureImage()
         {
             var mapWindow = new Window
@@ -129,7 +131,7 @@ namespace UI.ViewModels
 
             mapWindow.ShowDialog();
         }
-
+        */
         private void UploadImageFunc(object parameter)
         {
             log.Info("UploadImageFunc called.");

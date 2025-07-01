@@ -25,44 +25,31 @@ namespace UI.Views
 
         private async void OnSaveMapImage(object sender, RoutedEventArgs e)
         {
-            // Button ausblenden, damit er nicht im Screenshot ist
             BtnSaveMapImage.Visibility = Visibility.Collapsed;
-
-            // Kurze Verzögerung, damit das UI aktualisiert wird
             await System.Threading.Tasks.Task.Delay(200);
-
-            // Screenshot vom Kartenbereich (WebView2)
-            var renderTarget = new RenderTargetBitmap(
-                (int)MapWebView.ActualWidth,
-                (int)MapWebView.ActualHeight,
-                96, 96, System.Windows.Media.PixelFormats.Pbgra32);
-            renderTarget.Render(MapWebView);
 
             string imagesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Images");
             Directory.CreateDirectory(imagesFolder);
             string filePath = Path.Combine(imagesFolder, $"Map_{DateTime.Now:yyyyMMdd_HHmmss}.png");
 
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            // WebView2 Screenshot
+            using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
-                var encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(renderTarget));
-                encoder.Save(fileStream);
-                
+                // Achtung: WebView2 muss geladen sein!
+                await MapWebView.EnsureCoreWebView2Async();
+                await MapWebView.CoreWebView2.CapturePreviewAsync(
+                    Microsoft.Web.WebView2.Core.CoreWebView2CapturePreviewImageFormat.Png, stream);
             }
 
-            if (DataContext is MainViewModel vm && _tourManagementViewModel.NewTour != null)
+            if (_tourManagementViewModel.NewTour != null)
             {
-                _tourManagementViewModel.NewTour.ImagePath = new Uri(filePath).AbsoluteUri;
+                _tourManagementViewModel.NewTour.ImagePath = filePath;
             }
 
-
-            // Button wieder einblenden
             BtnSaveMapImage.Visibility = Visibility.Visible;
-
             MapImageSaved?.Invoke(filePath);
-            MessageBox.Show("Kartenbild gespeichert: " + filePath);
 
-            
+            MessageBox.Show("Kartenbild gespeichert: " + filePath);
         }
     }
 }
