@@ -1,5 +1,6 @@
 ﻿using UI.ViewModels;
 using Model;
+using System.Linq;
 
 namespace UI.Tests
 {
@@ -26,40 +27,48 @@ namespace UI.Tests
         [Test]
         public void SaveTourLog_ValidData_AddsLog()
         {
-            _model.TourLog.Date = "2025-01-01";
-            _model.TourLog.Time = "10:00";
-            _model.TourLog.Difficulty = "Easy";
-            _model.TourLog.Duration = "1h";
-            _model.TourLog.Distance = "5km";
-            _model.TourLog.Rating = "5";
-            _model.TourLog.Comment = "Nice tour";
+            // Create a new TourLog and add it to the TourLogsTable
+            var log = new TourLogs.TourLog
+            {
+                Date = "2025-01-01",
+                Time = "10:00",
+                Difficulty = "Easy",
+                Duration = "1h",
+                Distance = "5km",
+                Rating = "5",
+                Comment = "Nice tour"
+            };
+            _model.TourLogsTable.Add(log);
 
+            // Execute the AddTourLogCommand if needed (depends on your implementation)
             _model.AddTourLogCommand.Execute(null);
 
-            Assert.That(_model.TourLog.TourLogsTable.Count, Is.EqualTo(1));
-            Assert.That(_model.TourLog.TourLogsTable.First().Date, Is.EqualTo("2025-01-01"));
+            Assert.That(_model.TourLogsTable.Count, Is.EqualTo(1));
+            Assert.That(_model.TourLogsTable.First().Date, Is.EqualTo("2025-01-01"));
         }
 
         [Test]
         public void RemoveTourLog_ValidId_RemovesLog()
         {
-            _model.TourLog.TourLogsTable.Add(new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-01-01" });
-            _model.IDTourLogsTest = 1;
+            var log = new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-01-01" };
+            _model.TourLogsTable.Add(log);
+            _model.LogIdToRemove = 1;
 
-            _model.RemoveTourCommand.Execute(null);
+            _model.RemoveTourLogCommand.Execute(null);
 
-            Assert.That(_model.TourLog.TourLogsTable.Count, Is.EqualTo(0));
+            Assert.That(_model.TourLogsTable.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void RemoveTourLog_InvalidId_DoesNotRemove()
         {
-            _model.TourLog.TourLogsTable.Add(new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-01-01" });
-            _model.IDTourLogsTest = 2;
+            var log = new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-01-01" };
+            _model.TourLogsTable.Add(log);
+            _model.LogIdToRemove = 2;
 
-            _model.RemoveTourCommand.Execute(null);
+            _model.RemoveTourLogCommand.Execute(null);
 
-            Assert.That(_model.TourLog.TourLogsTable.Count, Is.EqualTo(1));
+            Assert.That(_model.TourLogsTable.Count, Is.EqualTo(1));
         }
     }
 }

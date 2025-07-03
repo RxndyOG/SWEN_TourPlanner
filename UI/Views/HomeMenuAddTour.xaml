@@ -75,7 +75,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">From:</Label>
-                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="From" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="From" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From_Location, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.From, UpdateSourceTrigger=PropertyChanged}"></TextBox>                                        -->
                 </Grid>
                 <Grid Grid.Column="1">
@@ -90,7 +90,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">To:</Label>
-                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="To" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="To" VerticalContentAlignment="Center"  FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To_Location, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.To, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
                 </Grid>
             </Grid>
@@ -123,7 +123,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Tour Transport:</Label>
-                <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Tour Transport" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="64" Text="{Binding NewTour.Transport, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Tour Transport" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="64" Text="{Binding NewTour.Transportation_Type, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                 <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="64" Text="{Binding NewTour.Transport, UpdateSourceTrigger=PropertyChanged}"></TextBox>                    -->
             </Grid>
             <Grid Grid.Row="2" Grid.Column="1">
@@ -158,7 +158,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Estimated Time:</Label>
-                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Estimated Time" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.EstimatedTime, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Estimated Time" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Estimated_Time, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.EstimatedTime, UpdateSourceTrigger=PropertyChanged}"></TextBox>       -->
                 </Grid>
             </Grid>
@@ -175,7 +175,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Rout Information:</Label>
                 <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
-                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Rout Information" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
+                    <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Rout Information" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.Route_Information, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
                 </ScrollViewer>
             </Grid>
@@ -193,7 +193,7 @@
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Map:</Label>
                 <Button Background="#1F1F1F" Grid.Column="1" Grid.Row="2" Command="{Binding ShowMapCommand}">
                     <Grid>
-                        <Image Grid.Column="1" Grid.Row="2" Stretch="Fill" Source="{Binding NewTour.ImagePath, Converter={StaticResource ImagePathToBitmapConverter}}" />
+                        <Image Grid.Column="1" Grid.Row="2" Stretch="UniformToFill" Source="{Binding NewTour.ImagePath, Converter={StaticResource ImagePathToBitmapConverter}}" />
                         <Image Grid.Column="1" Grid.Row="2" Source="F:\FHTechnikum\Semester 4\Swen\UI\bin\Debug\net8.0-windows\Views\Images\Map_20250701_110152.png" Stretch="Fill"/>
                         <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="48" Foreground="White" FontWeight="Bold">Upload Image</Label>
                     </Grid>

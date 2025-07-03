@@ -1,4 +1,10 @@
 ﻿using Accessibility;
+using Business.Services;
+using Business.Services;
+using Business.Services.Interfaces;
+using DataAccess.Database;
+using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using log4net;
 using Microsoft.Win32;
 using Model;
@@ -35,7 +41,6 @@ namespace UI.ViewModels
             set { _newTour = value; OnPropertyChanged(nameof(NewTour)); }
         }
 
-
         public ICommand ReportCommand { get; }
         public ICommand SaveTourCommand { get; }
         public ICommand ImportTourCommand { get; }
@@ -43,46 +48,318 @@ namespace UI.ViewModels
         public ICommand ModifyCommand { get; }
         public ICommand ExportCommand { get; }
         public ICommand RemoveBlockCommand { get; }
-
         public ICommand ShowMapCommand { get; }
 
         private MainViewModel _mainViewModel;
         private NavigationViewModel _navigationViewModel;
+        private TourService _tourService;
+        private TourLogService _tourLogService;
 
         public TourManagementViewModel(NavigationViewModel nv, MainViewModel mv)
         {
+            _tourService = new TourService(new TourRepository(new Database()));
+            _tourLogService = new TourLogService(new TourLogRepository(new Database()));
             _navigationViewModel = nv;
             _mainViewModel = mv;
-            ReportCommand = new RelayCommand(GeneratePdfReport);
 
+            Tours = new ObservableCollection<AddTourModel>(
+        _tourService.GetAllTours().Select(tour =>
+        {
+            var model = new AddTourModel
+            {
+                Id = tour.Id,
+                Name = tour.Name,
+                Description = tour.Description,
+                From_Location = tour.From_Location,
+                To_Location = tour.To_Location,
+                Transportation_Type = tour.Transportation_Type,
+                Distance = tour.Distance,
+                Estimated_Time = tour.Estimated_Time,
+                Route_Information = tour.Route_Information,
+            };
+
+            // TourLogs aus DB laden
+            var logs = _tourLogService.GetTourLogs(tour.Id);
+            foreach (var log in logs)
+            {
+                model.TourLogsTable.Add(new TourLogs.TourLog
+                {
+                    IDTourLogs = log.Id,
+                    Date = log.Logdate.ToShortDateString(),
+                    Time = log.Logdate.ToShortTimeString(),
+                    Comment = log.Comment,
+                    Difficulty = log.Difficulty.ToString(),
+                    Distance = log.Total_Distance.ToString(),
+                    Duration = log.Total_Time.ToString(),
+                    Rating = log.Rating.ToString()
+                });
+            }
+            return model;
+        })
+    );
+            foreach (var tour in Tours)
+            {
+                AddTourBlock(tour);
+            }
+
+            ReportCommand = new RelayCommand(GeneratePdfReport);
             SaveTourCommand = new RelayCommand(SaveTour);
             ImportTourCommand = new RelayCommand(ImportTour);
             DeleteCommand = new RelayCommand(DeleteTour);
             ModifyCommand = new RelayCommand(ModifyTour);
             ExportCommand = new RelayCommand(ExportTour);
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
-
             ShowMapCommand = new RelayCommand(_ => ShowMapAndCaptureImage());
-
-            if (GlobalFontSettings.FontResolver == null)
-                GlobalFontSettings.FontResolver = new SimpleFontResolver();
         }
 
-        public class SimpleFontResolver : IFontResolver
+        private void SaveTour(object parameter)
         {
-            private static readonly string FontName = "LiberationSans";
-            private static readonly string FontFile = "Fonts/LiberationSans-Regular.ttf"; // Add this TTF to your project!
-
-            public byte[] GetFont(string faceName)
+            log.Info("SaveTour called.");
+   
+            if (string.IsNullOrWhiteSpace(NewTour.Name) ||
+                string.IsNullOrWhiteSpace(NewTour.From_Location) ||
+                string.IsNullOrWhiteSpace(NewTour.To_Location) ||
+                string.IsNullOrWhiteSpace(NewTour.Description) ||
+                string.IsNullOrWhiteSpace(NewTour.Route_Information) ||
+                string.IsNullOrWhiteSpace(NewTour.Transportation_Type) ||
+                NewTour.Distance <= 0 ||
+                NewTour.Estimated_Time <= 0)
             {
-                return File.ReadAllBytes("Views/Images/LiberationSans-Regular.ttf");
+                MessageBox.Show("Required Input is Missing", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                log.Warn("SaveTour aborted: Required input is missing.");
+                return;
             }
 
-            public FontResolverInfo ResolveTypeface(string familyName, bool isBold, bool isItalic)
+
+   
+            var tourModel = new AddTourModel
             {
-                return new FontResolverInfo(FontName);
+                Name = NewTour.Name,
+                From_Location = NewTour.From_Location,
+                To_Location = NewTour.To_Location,
+                Description = NewTour.Description,
+                Transportation_Type = NewTour.Transportation_Type,
+                Distance = NewTour.Distance,
+                Estimated_Time = NewTour.Estimated_Time,
+                Route_Information = NewTour.Route_Information,
+                ImagePath = NewTour.ImagePath
+            };
+
+
+            _tourService.AddTour(tourModel.Tour);
+
+            var allTours = _tourService.GetAllTours();
+            var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
+
+            if (savedTour != null)
+            {
+                tourModel.Id = savedTour.Id;
+            }
+
+            Tours.Add(tourModel);
+            AddTourBlock(tourModel);
+
+            log.Info($"Tour saved: {tourModel.Name} (ID: {tourModel.Id})");
+
+            NewTour = new AddTourModel();
+        }
+
+        private void AddTourBlock(AddTourModel tour)
+        {
+            var newBlock = new BlockModel
+            {
+                TourID = tour.Id,
+                Description2 = tour.Description,
+                Text = tour.Name,
+                RemoveCommand = RemoveBlockCommand,
+                NavigateCommandRight = _navigationViewModel.NavigateCommandRight
+            };
+            Blocks.Add(newBlock);
+        }
+
+        public void DeleteTour(object parameter)
+        {
+            if (parameter is int tourID)
+            {
+                // Erst aus der Datenbank löschen
+                _tourService.DeleteTour(tourID);
+
+                log.Info($"DeleteTour called for TourID: {tourID}");
+                _navigationViewModel.CurrentPageRight = new DeleteWindowNothingHere();
+
+                // Aus der UI-Collection entfernen
+                var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourID);
+                if (blockToRemove != null)
+                {
+                    Blocks.Remove(blockToRemove);
+                    log.Info($"Block with TourID {tourID} removed from Blocks.");
+                }
+
+                var tourToRemove = Tours.FirstOrDefault(t => t.Id == tourID);
+                if (tourToRemove != null)
+                {
+                    Tours.Remove(tourToRemove);
+                    log.Info($"Tour with ID {tourID} removed from Tours.");
+                }
+                else
+                {
+                    log.Warn($"No tour found with ID {tourID}.");
+                }
+            }
+            else if (parameter is AddTourModel tourModel)
+            {
+                // Falls das Command ein AddTourModel übergibt
+                _tourService.DeleteTour(tourModel.Id);
+
+                var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourModel.Id);
+                if (blockToRemove != null)
+                    Blocks.Remove(blockToRemove);
+
+                if (Tours.Contains(tourModel))
+                    Tours.Remove(tourModel);
+
+                log.Info($"Tour with ID {tourModel.Id} removed via AddTourModel parameter.");
             }
         }
+
+        public void ExportTour(object parameter)
+        {
+            if (parameter is AddTourModel tourModel)
+            {
+                log.Info($"ExportTour called for TourID: {tourModel.Id}");
+                if (Tours == null || Tours.Count == 0)
+                {
+                    MessageBox.Show("Die Tour-Liste ist leer!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "JSON Datei (*.json)|*.json",
+                    Title = "Tour speichern"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string json = JsonSerializer.Serialize(tourModel, new JsonSerializerOptions { WriteIndented = true });
+                    File.WriteAllText(saveFileDialog.FileName, json);
+                    log.Info($"Tour exported to {saveFileDialog.FileName}");
+                    MessageBox.Show("Tour Exported!");
+                }
+            }
+        }
+
+        public void ModifyTour(object parameter)
+        {
+            if (parameter is AddTourModel tourModel)
+            {
+                var existing = Tours.FirstOrDefault(t => t.Id == tourModel.Id);
+                if (existing != null)
+                {
+                    Tours.Remove(existing);
+                    Blocks.Remove(Blocks.FirstOrDefault(b => b.TourID == tourModel.Id));
+                    Tours.Add(tourModel);
+                    AddTourBlock(tourModel);
+
+                    log.Info($"Tour with ID {tourModel.Id} modified.");
+
+                    _tourService.UpdateTour(tourModel.Tour);
+
+                }
+                else
+                {
+                    MessageBox.Show("Tour nicht gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private void ImportTour(object parameter)
+        {
+            log.Info("ImportTour called.");
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "JSON Datei (*.json)|*.json",
+                Title = "Benutzerdaten laden"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string json = File.ReadAllText(openFileDialog.FileName);
+                    AddTourModel tourModel = JsonSerializer.Deserialize<AddTourModel>(json);
+
+                    if (tourModel != null)
+                    {
+                        // Tour in die Datenbank speichern
+                        _tourService.AddTour(tourModel.Tour);
+
+                        // Nach dem Speichern die neue ID aus der DB holen
+                        var allTours = _tourService.GetAllTours();
+                        var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
+                        if (savedTour != null)
+                            tourModel.Id = savedTour.Id;
+
+                        Tours.Add(tourModel);
+                        AddTourBlock(tourModel);
+                        log.Info($"Tour imported from {openFileDialog.FileName} as ID {tourModel.Id}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Error importing tour.", ex);
+                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message);
+                }
+            }
+        }
+
+        private void RemoveBlock(object block)
+        {
+            if (block is BlockModel blockModel && Blocks.Contains(blockModel))
+            {
+                Blocks.Remove(blockModel);
+            }
+        }
+
+        public void ShowMapAndCaptureImage()
+        {
+            var from = NewTour.From_Location;
+            var to = NewTour.To_Location;
+
+            Debug.WriteLine($"FROM: {from}, TO: {to}");
+
+            var mapWindow = new Window
+            {
+                Title = "Karte auswählen",
+                Content = new MapCaptureControl(this),
+                Width = 600,
+                Height = 450
+            };
+
+            mapWindow.Loaded += (s, e) =>
+            {
+                if (mapWindow.Content is MapCaptureControl mapControl)
+                {
+                    mapControl.SetRoute(from, to);
+                }
+            };
+
+            if (mapWindow.Content is MapCaptureControl mapControl2)
+            {
+                mapControl2.MapImageSaved += (filePath) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        NewTour.ImagePath = filePath;
+                        OnPropertyChanged(nameof(NewTour));
+                        mapWindow.Close();
+                    });
+                };
+            }
+
+            mapWindow.ShowDialog();
+        }
+
 
         public void GeneratePdfReport(object parameter)
         {
@@ -124,18 +401,18 @@ namespace UI.ViewModels
                         foreach (var tour in Tours)
                         {
                             gfx.DrawString($"Name: {tour.Name}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"From: {tour.From}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"To: {tour.To}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Transport: {tour.Transport}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"From: {tour.From_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"To: {tour.To_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Transport: {tour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Distance: {tour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Description: {tour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Route Info: {tour.RouteInfo}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Estimated Time: {tour.EstimatedTime}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
+                            gfx.DrawString($"Route Info: {tour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Estimated Time: {tour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
 
-                            if (tour.TourLog != null && tour.TourLog.TourLogsTable != null && tour.TourLog.TourLogsTable.Count > 0)
+                            if (tour.TourLogsTable != null && tour.TourLogsTable != null && tour.TourLogsTable.Count > 0)
                             {
                                 gfx.DrawString("Tour Logs:", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                                foreach (var log in tour.TourLog.TourLogsTable)
+                                foreach (var log in tour.TourLogsTable)
                                 {
                                     gfx.DrawString($"  - Date: {log.Date}, Time: {log.Time}, Difficulty: {log.Difficulty}, Distance: {log.Distance}, Comment: {log.Comment}, Duration: {log.Duration}", contentFont, XBrushes.Black, new XPoint(50, y));
                                     y += 20;
@@ -166,246 +443,6 @@ namespace UI.ViewModels
                 log.Error("Error generating PDF report", ex);
                 MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        public void DeleteTour(object parameter)
-        {
-
-            if (parameter is int tourID)
-            {
-                log.Info($"DeleteTour called for TourID: {tourID}");
-
-                _navigationViewModel.CurrentPageRight = new DeleteWindowNothingHere();
-                if (tourID >= 0 && tourID < Tours.Count)
-                {
-                    var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourID);
-
-                    if (blockToRemove != null)
-                    {
-                        Blocks.Remove(blockToRemove);
-                        log.Info($"Block with TourID {tourID} removed from Blocks.");
-
-                        Console.WriteLine($"Block mit TourID {tourID} wurde entfernt.");
-                        Tours.Remove(Tours[0]); // temp
-                        var tourToRemove = Tours.FirstOrDefault(t => t.ID == tourID);
-                        if (tourToRemove != null)
-                        {
-                            Tours.Remove(tourToRemove);
-                            log.Info($"Tour with ID {tourID} removed from Tours.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Kein Block mit TourID {tourID} gefunden.");
-                        log.Warn($"No block found with TourID {tourID}.");
-
-                    }
-                }
-                else
-                {
-                    log.Warn($"DeleteTour: Invalid TourID {tourID}.");
-                }
-            }
-        }
-
-        public void ExportTour(object parameter)
-        {
-            if (parameter is AddTourModel tourModel)
-            {
-                log.Info($"ExportTour called for TourID: {tourModel.ID}");
-                if (Tours == null || Tours.Count == 0)
-                {
-                    log.Warn("ExportTour aborted: Tour list is empty.");
-                    MessageBox.Show("Die Tour-Liste ist leer!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                if (tourModel.ID < 0 || tourModel.ID >= Tours.Count)
-                {
-                    log.Warn($"ExportTour aborted: Invalid index {tourModel.ID}.");
-                    MessageBox.Show($"Ungültiger Index: {tourModel.ID}. Maximaler Wert: {Tours.Count - 1}",
-                                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "JSON Datei (*.json)|*.json";
-                saveFileDialog.Title = "Tour speichern";
-
-                if (saveFileDialog.ShowDialog() == true)
-                {
-                    string json = JsonSerializer.Serialize(tourModel, new JsonSerializerOptions { WriteIndented = true });
-                    File.WriteAllText(saveFileDialog.FileName, json);
-                    log.Info($"Tour exported to {saveFileDialog.FileName}");
-                    MessageBox.Show("Tour Exported!");
-                }
-            }
-        }
-
-        public void ModifyTour(object parameter)
-        {
-            if (parameter is AddTourModel tourModel)
-            {
-                if (Tours == null || Tours.Count == 0)
-                {
-                    MessageBox.Show("Die Tour-Liste ist leer!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                if (tourModel.ID < 0 || tourModel.ID >= Tours.Count)
-                {
-                    MessageBox.Show($"Ungültiger Index: {tourModel.ID}. Maximaler Wert: {Tours.Count - 1}",
-                                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourModel.ID);
-
-                if (blockToRemove != null)
-                {
-                    Blocks.Remove(blockToRemove);
-                    Console.WriteLine($"Block mit TourID {tourModel.ID} wurde entfernt.");
-                    Tours.Add(tourModel);
-                    AddTour(tourModel);
-                }
-                else
-                {
-                    Console.WriteLine($"Kein Block mit TourID {tourModel.ID} gefunden.");
-                }
-
-
-
-                _navigationViewModel.CurrentPageRight = new DeleteWindowNothingHere();
-            }
-        }
-
-        private void ImportTour(object parameter)
-        {
-            log.Info("ImportTour called.");
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "JSON Datei (*.json)|*.json";
-            openFileDialog.Title = "Benutzerdaten laden";
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                try
-                {
-                    string json = File.ReadAllText(openFileDialog.FileName);
-                    AddTourModel tourModel = JsonSerializer.Deserialize<AddTourModel>(json);
-
-                    if (tourModel != null)
-                    {
-                        tourModel.ID = Tours.Count;
-                        Tours.Add(tourModel);
-                        AddTour(tourModel);
-                        log.Info($"Tour imported from {openFileDialog.FileName} as ID {tourModel.ID}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.Error("Error importing tour.", ex);
-                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message);
-                }
-            }
-        }
-
-        private void SaveTour(object parameter)
-        {
-            Console.WriteLine("SaveTour aufgerufen");
-            log.Info("SaveTour called.");
-            if (string.IsNullOrWhiteSpace(NewTour.Name) || string.IsNullOrWhiteSpace(NewTour.From) || string.IsNullOrWhiteSpace(NewTour.To) || string.IsNullOrWhiteSpace(NewTour.Transport) || string.IsNullOrWhiteSpace(NewTour.Distance) || string.IsNullOrWhiteSpace(NewTour.Description) || string.IsNullOrWhiteSpace(NewTour.RouteInfo) || string.IsNullOrWhiteSpace(NewTour.EstimatedTime))
-            {
-                log.Warn("SaveTour aborted: Required input is missing.");
-
-                MessageBox.Show("Required Input is Missing", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                return;
-            }
-
-            AddTourModel Tour = new AddTourModel
-            {
-                ID = Tours.Count,
-                Name = NewTour.Name,
-                From = NewTour.From,
-                To = NewTour.To,
-                Description = NewTour.Description,
-                Transport = NewTour.Transport,
-                Distance = NewTour.Distance,
-                EstimatedTime = NewTour.EstimatedTime,
-                RouteInfo = NewTour.RouteInfo,
-                ImagePath = NewTour.ImagePath
-            };
-
-            Tours.Add(Tour);
-
-            AddTour(Tour);
-
-            Console.WriteLine(Tour.ID);
-
-            log.Info($"Tour saved: {Tour.Name} (ID: {Tour.ID})");
-
-            NewTour = new AddTourModel();
-        }
-
-        private void AddTour(AddTourModel Tour)
-        {
-            var newBlock = new BlockModel
-            {
-                TourID = Tour.ID,
-                Description2 = Tour.Description,
-                Text = Tour.Name,
-                RemoveCommand = RemoveBlockCommand,
-                NavigateCommandRight = _navigationViewModel.NavigateCommandRight
-            };
-
-            Blocks.Add(newBlock);
-        }
-
-        private void RemoveBlock(object block)
-        {
-            if (block is BlockModel blockModel && Blocks.Contains(blockModel))
-            {
-                Blocks.Remove(blockModel);
-            }
-        }
-
-        public void ShowMapAndCaptureImage()
-        {
-            var from = NewTour.From;
-            var to = NewTour.To;
-
-            System.Diagnostics.Debug.WriteLine($"FROM: {from}, TO: {to}");
-
-            var mapWindow = new Window
-            {
-                Title = "Karte auswählen",
-                Content = new MapCaptureControl(this),
-                Width = 600,
-                Height = 450
-            };
-
-            mapWindow.Loaded += (s, e) =>
-            {
-                if (mapWindow.Content is MapCaptureControl mapControl)
-                {
-                    mapControl.SetRoute(from, to);
-                }
-            };
-
-            if (mapWindow.Content is MapCaptureControl mapControl2)
-            {
-                mapControl2.MapImageSaved += (filePath) =>
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        NewTour.ImagePath = filePath;
-                        OnPropertyChanged(nameof(NewTour));
-                        mapWindow.Close();
-                    });
-                };
-            }
-
-            mapWindow.ShowDialog();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

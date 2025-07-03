@@ -1,202 +1,245 @@
-﻿using System.Collections.ObjectModel;
+﻿using Business;
+using Business.Services;
+using DataAccess.Database;
+using DataAccess.Repositories;
+using Model;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using Model;
 using UI.Commands;
 
 namespace UI.ViewModels
 {
     public class AddTourModel : INotifyPropertyChanged
     {
-        private int _id;
-        private int _idTour;
-        private string _name;
-        private string _from;
-        private string _to;
-        private string _description;
-        private string _transport;
-        private string _distance;
-        private string _estimatedTime;
-        private string _routeInfo;
+        private Tour _tour;
+        private TourLogs _tourLogs;
         private string _imagePath;
-        public ObservableCollection<TourLogs> Tours { get; set; } = new ObservableCollection<TourLogs>();
+        private TourLogService _tourLogService;
 
-        private TourLogs _newTourLog = new TourLogs();
 
         public ICommand AddTourLogCommand { get; }
-        public ICommand RemoveTourCommand { get; }
+        public ICommand RemoveTourLogCommand { get; }
+        public ICommand ModifyTourLogsCommand { get; }
+
         public AddTourModel()
         {
+            _tour = new Tour();
+            _tourLogs = new TourLogs();
+
+            _tourLogService = new TourLogService(new TourLogRepository(new Database()));
+
+            ModifyTourLogsCommand = new RelayCommand(ModifyTourLogs);
             AddTourLogCommand = new RelayCommand(SaveTourLog);
-            RemoveTourCommand = new RelayCommand(RemoveTourLog);
+            RemoveTourLogCommand = new RelayCommand(RemoveTourLog);
         }
 
-        
+        // Model-Kapselung
+        public Tour Tour
+        {
+            get => _tour;
+            set
+            {
+                _tour = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Id));
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Description));
+                OnPropertyChanged(nameof(From_Location));
+                OnPropertyChanged(nameof(To_Location));
+                OnPropertyChanged(nameof(Transportation_Type));
+                OnPropertyChanged(nameof(Distance));
+                OnPropertyChanged(nameof(Estimated_Time));
+                OnPropertyChanged(nameof(Route_Information));
+            }
+        }
+
+        public TourLogs TourLogs
+        {
+            get => _tourLogs;
+            set
+            {
+                _tourLogs = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Convenience-Properties für Data Binding
+        public int Id
+        {
+            get => _tour.Id;
+            set { _tour.Id = value; OnPropertyChanged(); }
+        }
+        public string Name
+        {
+            get => _tour.Name;
+            set { _tour.Name = value; OnPropertyChanged(); }
+        }
+        public string Description
+        {
+            get => _tour.Description;
+            set { _tour.Description = value; OnPropertyChanged(); }
+        }
+        public string From_Location
+        {
+            get => _tour.From_Location;
+            set { _tour.From_Location = value; OnPropertyChanged(); }
+        }
+        public string To_Location
+        {
+            get => _tour.To_Location;
+            set { _tour.To_Location = value; OnPropertyChanged(); }
+        }
+        public string Transportation_Type
+        {
+            get => _tour.Transportation_Type;
+            set { _tour.Transportation_Type = value; OnPropertyChanged(); }
+        }
+
+        public int Distance
+        {
+            get => _tour.Distance;
+            set { _tour.Distance = value; OnPropertyChanged(); }
+        }
+        public int Estimated_Time
+        {
+            get => _tour.Estimated_Time;
+            set { _tour.Estimated_Time = value; OnPropertyChanged(); }
+        }
+        public string Route_Information
+        {
+            get => _tour.Route_Information;
+            set { _tour.Route_Information = value; OnPropertyChanged(); }
+        }
+
+        // Optional: ImagePath für UI
         public string ImagePath
         {
             get => _imagePath;
-            set
-            {
-                if (_imagePath != value)
-                {
-                    _imagePath = value;
-                    OnPropertyChanged(nameof(ImagePath));
-                }
-            }
+            set { _imagePath = value; OnPropertyChanged(); }
         }
+
+        // Log-Handling
+        public ObservableCollection<TourLogs.TourLog> TourLogsTable => _tourLogs.TourLogsTable;
+
+        private int _logIdToRemove;
+        public int LogIdToRemove
+        {
+            get => _logIdToRemove;
+            set { _logIdToRemove = value; OnPropertyChanged(); }
+        }
+
 
         private void SaveTourLog(object parameter)
         {
-            Console.WriteLine("SaveTour aufgerufen");
-
-            if (TourLog == null)
-            {
-                MessageBox.Show("Tour Log is null!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(TourLog.Date) || string.IsNullOrWhiteSpace(TourLog.Time) ||
-                string.IsNullOrWhiteSpace(TourLog.Difficulty) || string.IsNullOrWhiteSpace(TourLog.Duration) ||
-                string.IsNullOrWhiteSpace(TourLog.Distance) || string.IsNullOrWhiteSpace(TourLog.Rating) ||
-                string.IsNullOrWhiteSpace(TourLog.Comment))
+            // Beispiel: Einfache Validierung, kann angepasst werden
+            if (string.IsNullOrWhiteSpace(TourLogs.Date) ||
+                string.IsNullOrWhiteSpace(TourLogs.Comment))
             {
                 MessageBox.Show("Required Input is Missing", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            TourLogs.TourLog newLog = new TourLogs.TourLog
+
+
+            var newLog = new TourLogs.TourLog
             {
-                IDTourLogs = TourLog.TourLogsTable.Count + 1,
-                Date = TourLog.Date,
-                Time = TourLog.Time,
-                Difficulty = TourLog.Difficulty,
-                Comment = TourLog.Comment,
-                Rating = TourLog.Rating,
-                Distance = TourLog.Distance,
-                Duration = TourLog.Duration,
+                IDTourLogs = TourLogs.TourLogsTable.Count + 1,
+                Date = TourLogs.Date,
+                Time = TourLogs.Time,
+                Difficulty = TourLogs.Difficulty,
+                Comment = TourLogs.Comment,
+                Rating = TourLogs.Rating,
+                Distance = TourLogs.Distance,
+                Duration = TourLogs.Duration,
             };
 
-            TourLog.TourLogsTable.Add(newLog);
+            TourLogs.TourLogsTable.Add(newLog);
 
-            Console.WriteLine($"Neues TourLog hinzugefügt mit ID: {newLog.IDTourLogs}");
+            var dbLog = new Model.TourLog
+            {
+                Tour_Id = this.Id,
+                Logdate = DateTime.TryParse(newLog.Date + " " + newLog.Time, out var dt) ? dt : DateTime.Now,
+                Comment = newLog.Comment,
+                Difficulty = int.TryParse(newLog.Difficulty, out var diff) ? diff : 1,
+                Total_Distance = int.TryParse(newLog.Distance, out var dist) ? dist : 0,
+                Total_Time = int.TryParse(newLog.Duration, out var dur) ? dur : 0,
+                Rating = int.TryParse(newLog.Rating, out var rat) ? rat : 1
+            };
 
-            TourLog.Date = string.Empty;
-            TourLog.Time = string.Empty;
-            TourLog.Difficulty = string.Empty;
-            TourLog.Comment = string.Empty;
-            TourLog.Rating = string.Empty;
-            TourLog.Distance = string.Empty;
-            TourLog.Duration = string.Empty;
-            OnPropertyChanged(nameof(TourLog));
+            _tourLogService.AddTourLog(dbLog);
+
+            // Felder zurücksetzen
+            TourLogs.Date = string.Empty;
+            TourLogs.Time = string.Empty;
+            TourLogs.Difficulty = string.Empty;
+            TourLogs.Comment = string.Empty;
+            TourLogs.Rating = string.Empty;
+            TourLogs.Distance = string.Empty;
+            TourLogs.Duration = string.Empty;
+            OnPropertyChanged(nameof(TourLogs));
         }
+
+        private void ModifyTourLogs(object parameter)
+{
+    // Alle geänderten Logs im DataGrid speichern (bzw. alle, da keine Change-Tracking-Logik)
+    foreach (var log in TourLogsTable)
+    {
+        // Hole das zugehörige DB-Log anhand der ID
+        var dbLogs = _tourLogService.GetTourLogs(this.Id);
+        var dbLog = dbLogs.FirstOrDefault(l => l.Id == log.IDTourLogs);
+
+        if (dbLog != null)
+        {
+            // Werte aus dem UI-Log übernehmen
+            dbLog.Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : dbLog.Logdate;
+            dbLog.Comment = log.Comment;
+            dbLog.Difficulty = int.TryParse(log.Difficulty, out var diff) ? diff : dbLog.Difficulty;
+            dbLog.Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : dbLog.Total_Distance;
+            dbLog.Total_Time = int.TryParse(log.Duration, out var dur) ? dur : dbLog.Total_Time;
+            dbLog.Rating = int.TryParse(log.Rating, out var rat) ? rat : dbLog.Rating;
+
+            _tourLogService.UpdateTourLog(dbLog);
+        }
+    }
+
+    MessageBox.Show("Alle Änderungen an den TourLogs wurden gespeichert!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+}
 
         private void RemoveTourLog(object parameter)
         {
-            if (IDTourLogsTest <= 0)
+            var log = TourLogs.TourLogsTable.FirstOrDefault(t => t.IDTourLogs == LogIdToRemove);
+            if (log != null)
             {
-                MessageBox.Show("Bitte eine gültige ID eingeben!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                // Versuche, das Log auch aus der Datenbank zu löschen (falls vorhanden)
+                // Suche das passende DB-Log über TourId und evtl. weitere Felder
+                var dbLogs = _tourLogService.GetTourLogs(this.Id);
+                var dbLog = dbLogs.FirstOrDefault(l =>
+                    l.Comment == log.Comment &&
+                    l.Tour_Id == this.Id &&
+                    l.Logdate.ToShortDateString() == log.Date &&
+                    l.Logdate.ToShortTimeString() == log.Time
+                );
+                if (dbLog != null)
+                {
+                    _tourLogService.DeleteTourLog(dbLog.Id);
+                }
 
-            var tourToRemove = TourLog.TourLogsTable.FirstOrDefault(t => t.IDTourLogs == IDTourLogsTest);
-            if (tourToRemove != null)
-            {
-                TourLog.TourLogsTable.Remove(tourToRemove);
-                Console.WriteLine($"TourLog mit ID {IDTourLogsTest} wurde entfernt.");
+                TourLogs.TourLogsTable.Remove(log);
             }
             else
             {
-                MessageBox.Show($"Kein TourLog mit ID {IDTourLogsTest} gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Kein TourLog mit ID {LogIdToRemove} gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
-        public TourLogs TourLog
-        {
-            get => _newTourLog;
-            set
-            {
-                _newTourLog = value;
-                OnPropertyChangedLog();
-            }
-        }
-
-        public int IDTourLogsTest
-        {
-            get => _idTour;
-            set { _idTour = value; OnPropertyChanged(nameof(IDTourLogsTest)); }
-        }
-        public int ID
-        {
-            get => _id;
-            set { _id = value; OnPropertyChanged(nameof(ID)); }
-        }
-
-        public string Name
-        {
-            get => _name;
-            set { _name = value; OnPropertyChanged(nameof(Name)); }
-        }
-
-        public string From
-        {
-            get => _from;
-            set { _from = value; OnPropertyChanged(nameof(From)); }
-        }
-
-        public string To
-        {
-            get => _to;
-            set { _to = value; OnPropertyChanged(nameof(To)); }
-        }
-
-        public string Description
-        {
-            get => _description;
-            set { _description = value; OnPropertyChanged(nameof(Description)); }
-        }
-
-        public string Transport
-        {
-            get => _transport;
-            set { _transport = value; OnPropertyChanged(nameof(Transport)); }
-        }
-
-        public string Distance
-        {
-            get => _distance;
-            set { _distance = value; OnPropertyChanged(nameof(Distance)); }
-        }
-
-        public string EstimatedTime
-        {
-            get => _estimatedTime;
-            set { _estimatedTime = value; OnPropertyChanged(nameof(EstimatedTime)); }
-        }
-
-        public string RouteInfo
-        {
-            get => _routeInfo;
-            set { _routeInfo = value; OnPropertyChanged(nameof(RouteInfo)); }
-        }
-
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private PropertyChangedEventHandler? _propertyChangedEventHandler;
-        protected virtual void OnPropertyChangedLog([CallerMemberName] string? propertyName = null)
-        {
-            Debug.Print($"propertyChanged \"{propertyName}\"");
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            _propertyChangedEventHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

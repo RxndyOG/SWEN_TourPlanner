@@ -16,18 +16,62 @@ namespace Model
         private string _routeInfo;
         private string _imagePath;
         public ObservableCollection<TourLog> TourLogsTable { get; set; }
-        public class TourLog
+        public class TourLog : INotifyPropertyChanged
         {
-            public int IDTourLogs { get; set; }
-            public string Date { get; set; }
-            public string Time { get; set; }
-            public string Comment { get; set; }
-            public string Difficulty { get; set; }
-            public string Distance { get; set; }
-            public string Duration { get; set; }
-            public string Rating { get; set; }
-        }
+            private int _idTourLogs;
+            private string _date;
+            private string _time;
+            private string _comment;
+            private string _difficulty;
+            private string _distance;
+            private string _duration;
+            private string _rating;
 
+            public int IDTourLogs
+            {
+                get => _idTourLogs;
+                set { _idTourLogs = value; OnPropertyChanged(nameof(IDTourLogs)); }
+            }
+            public string Date
+            {
+                get => _date;
+                set { _date = value; OnPropertyChanged(nameof(Date)); }
+            }
+            public string Time
+            {
+                get => _time;
+                set { _time = value; OnPropertyChanged(nameof(Time)); }
+            }
+            public string Comment
+            {
+                get => _comment;
+                set { _comment = value; OnPropertyChanged(nameof(Comment)); }
+            }
+            public string Difficulty
+            {
+                get => _difficulty;
+                set { _difficulty = value; OnPropertyChanged(nameof(Difficulty)); }
+            }
+            public string Distance
+            {
+                get => _distance;
+                set { _distance = value; OnPropertyChanged(nameof(Distance)); }
+            }
+            public string Duration
+            {
+                get => _duration;
+                set { _duration = value; OnPropertyChanged(nameof(Duration)); }
+            }
+            public string Rating
+            {
+                get => _rating;
+                set { _rating = value; OnPropertyChanged(nameof(Rating)); }
+            }
+
+            public event PropertyChangedEventHandler? PropertyChanged;
+            protected void OnPropertyChanged(string propertyName)
+                => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
         public TourLogs()

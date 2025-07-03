@@ -23,7 +23,7 @@
 
         async function geocode(address) {
             // OpenRouteService Geocoding API
-            const apiKey = '5b3ce3597851110001cf624857b4283d9f2a4e1d97376e736fb89f5d';
+            const apiKey = '';
             const url = `https://api.openrouteservice.org/geocode/search?api_key=${apiKey}&text=${encodeURIComponent(address)}`;
             const response = await fetch(url);
             const data = await response.json();
@@ -47,7 +47,7 @@
                         L.latLng(fromCoords[0], fromCoords[1]),
                         L.latLng(toCoords[0], toCoords[1])
                     ],
-                    router: L.Routing.openrouteserviceV2('5b3ce3597851110001cf624857b4283d9f2a4e1d97376e736fb89f5d', {
+                    router: L.Routing.openrouteserviceV2('', {
                         profile: 'driving-car',
                         format: 'geojson'
                     })

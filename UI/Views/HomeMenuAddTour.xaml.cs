@@ -18,8 +18,8 @@ namespace UI.Views
         private void OnShowMap(object sender, RoutedEventArgs e)
         {
             var vm = (TourManagementViewModel)DataContext;
-            var from = vm.NewTour.From;
-            var to = vm.NewTour.To;
+            var from = vm.NewTour.From_Location;
+            var to = vm.NewTour.To_Location;
 
             var mapWindow = new Window
             {

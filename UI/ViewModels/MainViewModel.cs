@@ -178,24 +178,24 @@ namespace UI.ViewModels
                     return true;
 
                 // Find the corresponding tour for this block
-                var tour = _tourManagementViewModel.Tours.FirstOrDefault(t => t.ID == block.TourID);
+                var tour = _tourManagementViewModel.Tours.FirstOrDefault(t => t.Id == block.TourID);
                 if (tour != null)
                 {
                     // Fuzzy match on tour properties
                     if (FuzzyMatch(tour.Name, SearchText) ||
                         FuzzyMatch(tour.Description, SearchText) ||
-                        FuzzyMatch(tour.From, SearchText) ||
-                        FuzzyMatch(tour.To, SearchText) ||
-                        FuzzyMatch(tour.Transport, SearchText) ||
-                        FuzzyMatch(tour.Distance, SearchText) ||
-                        FuzzyMatch(tour.EstimatedTime, SearchText) ||
-                        FuzzyMatch(tour.RouteInfo, SearchText))
+                        FuzzyMatch(tour.From_Location, SearchText) ||
+                        FuzzyMatch(tour.To_Location, SearchText) ||
+                        FuzzyMatch(tour.Transportation_Type.ToString(), SearchText) ||
+                        FuzzyMatch(tour.Distance.ToString(), SearchText) ||
+                        FuzzyMatch(tour.Estimated_Time.ToString(), SearchText) ||
+                        FuzzyMatch(tour.Route_Information, SearchText))
                         return true;
 
                     // Fuzzy match on TourLogs (if present)
-                    if (tour.TourLog != null && tour.TourLog.TourLogsTable != null)
+                    if (tour.TourLogsTable != null && tour.TourLogsTable != null)
                     {
-                        foreach (var log in tour.TourLog.TourLogsTable)
+                        foreach (var log in tour.TourLogsTable)
                         {
                             if (FuzzyMatch(log.Comment, SearchText) ||
                                 FuzzyMatch(log.Date, SearchText) ||

@@ -69,7 +69,7 @@ namespace DataAccess.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = 1,
+                Transportation_Type = "1",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"
@@ -99,7 +99,7 @@ namespace DataAccess.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = 1,
+                Transportation_Type = "1",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"

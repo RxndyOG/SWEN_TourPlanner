@@ -108,7 +108,7 @@ namespace UI.ViewModels
                 Debug.Print($"Navigiere mit Block: {block.Text}");
 
                 // Tour anhand der ID suchen
-                var tour = _mainViewModel.TourManagement.Tours.FirstOrDefault(t => t.ID == block.TourID);
+                var tour = _mainViewModel.TourManagement.Tours.FirstOrDefault(t => t.Id == block.TourID);
                 CurrentPageRight = new TourDetail(tour, _mainViewModel.TourManagement);
             }
         }
