@@ -20,5 +20,7 @@ namespace UI.Views
             // Setze DataContext auf ein passendes Objekt, z.B. ein ViewModel, das Tour und TourManagement bereitstellt
             DataContext = Tour;
         }
+
+
     }
 }

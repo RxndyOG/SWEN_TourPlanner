@@ -1,62 +1,70 @@
 ﻿using UI.ViewModels;
+using NUnit.Framework;
+using System.Linq;
 
-namespace UI.Tests;
-
+namespace UI.Tests
+{
     [TestFixture]
+    [Apartment(System.Threading.ApartmentState.STA)]
     public class TourManagementViewModelTests
     {
-        private MainViewModel _main;
-        private NavigationViewModel _nav;
-        private TourManagementViewModel _vm;
+        private MainViewModel _mainViewModel;
+        private NavigationViewModel _navigationViewModel;
+        private TourManagementViewModel _viewModel;
 
         [SetUp]
         public void Setup()
         {
-            _main = new MainViewModel();
-            _nav = new NavigationViewModel(_main);
-            _vm = new TourManagementViewModel(_nav, _main);
+            _mainViewModel = new MainViewModel();
+            _navigationViewModel = new NavigationViewModel(_mainViewModel);
+            _viewModel = new TourManagementViewModel(_navigationViewModel, _mainViewModel);
         }
 
         [Test]
-        public void SaveTourCommand_AddsTour()
+        public void SaveTourCommand_AddsTourToCollection()
         {
-            _vm.NewTour.Name = "Test";
-            _vm.NewTour.From = "A";
-            _vm.NewTour.To = "B";
-            _vm.NewTour.Transport = "Car";
-            _vm.NewTour.Distance = "10";
-            _vm.NewTour.Description = "Desc";
-            _vm.NewTour.RouteInfo = "Route";
-            _vm.NewTour.EstimatedTime = "1h";
-            int before = _vm.Tours.Count;
+            _viewModel.NewTour.Name = "Test Tour";
+            _viewModel.NewTour.From_Location = "Vienna";
+            _viewModel.NewTour.To_Location = "Graz";
+            _viewModel.NewTour.Transportation_Type = "Car";
+            _viewModel.NewTour.Distance = 200;
+            _viewModel.NewTour.Estimated_Time = 120;
+            _viewModel.NewTour.Description = "A test tour";
+            _viewModel.NewTour.Route_Information = "Route details";
 
-            _vm.SaveTourCommand.Execute(null);
+            int initialCount = _viewModel.Tours.Count;
 
-            Assert.That(_vm.Tours.Count, Is.EqualTo(before + 1));
-            Assert.That(_vm.Tours.Last().Name, Is.EqualTo("Test"));
-        }
+            _viewModel.SaveTourCommand.Execute(null);
 
-
-        [Test]
-        public void AddTour_AddsBlock()
-        {
-            var tour = new AddTourModel { ID = 42, Name = "BlockTest", Description = "BlockDesc" };
-            int before = _vm.Blocks.Count;
-            var method = _vm.GetType().GetMethod("AddTour", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            method.Invoke(_vm, new object[] { tour });
-            Assert.That(_vm.Blocks.Count, Is.EqualTo(before + 1));
-            Assert.That(_vm.Blocks.Last().Text, Is.EqualTo("BlockTest"));
+            Assert.That(_viewModel.Tours.Count, Is.EqualTo(initialCount + 1));
+            Assert.That(_viewModel.Tours.Last().Name, Is.EqualTo("Test Tour"));
         }
 
         [Test]
-        public void RemoveBlock_RemovesBlock()
+        public void DeleteTour_RemovesTourFromCollection()
         {
-            var tour = new AddTourModel { ID = 99, Name = "RemoveTest", Description = "Desc" };
-            var method = _vm.GetType().GetMethod("AddTour", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            method.Invoke(_vm, new object[] { tour });
-            var block = _vm.Blocks.Last();
-            _vm.RemoveBlockCommand.Execute(block);
-            Assert.That(_vm.Blocks.Any(b => b.TourID == 99), Is.False);
+            var tour = new AddTourModel
+            {
+                Id = 1,
+                Name = "Tour to Delete",
+                From_Location = "Vienna",
+                To_Location = "Salzburg",
+                Transportation_Type = "Train",
+                Distance = 300,
+                Estimated_Time = 180,
+                Description = "A tour to be deleted",
+                Route_Information = "Route details"
+            };
+            _viewModel.Tours.Add(tour);
+
+            int initialCount = _viewModel.Tours.Count;
+
+            _viewModel.DeleteTour(tour.Id);
+
+            Assert.That(_viewModel.Tours.Count, Is.EqualTo(initialCount - 1));
+            Assert.That(_viewModel.Tours.Any(t => t.Id == tour.Id), Is.False);
         }
+
+
     }
-
+}

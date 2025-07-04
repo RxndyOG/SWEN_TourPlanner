@@ -25,6 +25,27 @@ namespace UI.Tests
         }
 
         [Test]
+        public void PropertyChanged_IsRaised_ForImagePath()
+        {
+            bool raised = false;
+            _model.PropertyChanged += (s, e) => { if (e.PropertyName == "ImagePath") raised = true; };
+            _model.ImagePath = "test.png";
+            Assert.IsTrue(raised);
+        }
+
+
+        [Test]
+        public void SaveTourLogCommand_InvalidData_DoesNotAddLog()
+        {
+            _model.TourLogs.Date = "";
+            _model.TourLogs.Comment = "";
+            int before = _model.TourLogsTable.Count;
+            _model.AddTourLogCommand.Execute(null);
+            Assert.That(_model.TourLogsTable.Count, Is.EqualTo(before));
+        }
+
+
+        [Test]
         public void SaveTourLog_ValidData_AddsLog()
         {
             // Create a new TourLog and add it to the TourLogsTable

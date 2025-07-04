@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,10 +24,27 @@ namespace UI.Views
             MapWebView.Source = new Uri(htmlPath);
         }
 
-        public void SetRoute(string from, string to)
+        public async Task SetRoute(string from, string to)
         {
-            string script = $"setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
-            MapWebView.ExecuteScriptAsync(script);
+            if (MapWebView.CoreWebView2 != null)
+            {
+                Debug.WriteLine("WebView2 already initialized — executing script directly");
+                string script = $"setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
+                Debug.WriteLine($"Executing script: {script}");
+                await MapWebView.ExecuteScriptAsync(script);
+            }
+            else
+            {
+                Debug.WriteLine("WebView2 not ready yet — attaching NavigationCompleted");
+                MapWebView.NavigationCompleted += async (s, e) =>
+                {
+                    Debug.WriteLine("WebView finished loading (NavigationCompleted)");
+                    string script = $"setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
+                    Debug.WriteLine($"Executing script: {script}");
+                    await MapWebView.ExecuteScriptAsync(script);
+                };
+            }
+
         }
 
         private async void OnSaveMapImage(object sender, RoutedEventArgs e)
@@ -43,8 +61,11 @@ namespace UI.Views
             {
                 // Achtung: WebView2 muss geladen sein!
                 await MapWebView.EnsureCoreWebView2Async();
+                Debug.WriteLine("WebView2 is ready.");
+                
                 await MapWebView.CoreWebView2.CapturePreviewAsync(
                     Microsoft.Web.WebView2.Core.CoreWebView2CapturePreviewImageFormat.Png, stream);
+
             }
 
             if (_tourManagementViewModel.NewTour != null)

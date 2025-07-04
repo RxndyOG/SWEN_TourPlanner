@@ -186,30 +186,43 @@ namespace UI.ViewModels
         }
 
         private void ModifyTourLogs(object parameter)
-{
-    // Alle geänderten Logs im DataGrid speichern (bzw. alle, da keine Change-Tracking-Logik)
-    foreach (var log in TourLogsTable)
-    {
-        // Hole das zugehörige DB-Log anhand der ID
-        var dbLogs = _tourLogService.GetTourLogs(this.Id);
-        var dbLog = dbLogs.FirstOrDefault(l => l.Id == log.IDTourLogs);
-
-        if (dbLog != null)
         {
-            // Werte aus dem UI-Log übernehmen
-            dbLog.Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : dbLog.Logdate;
-            dbLog.Comment = log.Comment;
-            dbLog.Difficulty = int.TryParse(log.Difficulty, out var diff) ? diff : dbLog.Difficulty;
-            dbLog.Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : dbLog.Total_Distance;
-            dbLog.Total_Time = int.TryParse(log.Duration, out var dur) ? dur : dbLog.Total_Time;
-            dbLog.Rating = int.TryParse(log.Rating, out var rat) ? rat : dbLog.Rating;
+            foreach (var log in TourLogsTable)
+            {
+                try
+                {
+                    // Hole die Tour Logs aus der Datenbank
+                    var dbLogs = _tourLogService.GetTourLogs(this.Id);
+                    var dbLog = dbLogs.FirstOrDefault(l => l.Id == log.IDTourLogs);
 
-            _tourLogService.UpdateTourLog(dbLog);
+                    if (dbLog != null)
+                    {
+                        // Aktualisiere die Werte im Datenbank-Log
+                        dbLog.Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : dbLog.Logdate;
+                        dbLog.Comment = log.Comment;
+                        dbLog.Difficulty = int.TryParse(log.Difficulty, out var diff) ? diff : dbLog.Difficulty;
+                        dbLog.Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : dbLog.Total_Distance;
+                        dbLog.Total_Time = int.TryParse(log.Duration, out var dur) ? dur : dbLog.Total_Time;
+                        dbLog.Rating = int.TryParse(log.Rating, out var rat) ? rat : dbLog.Rating;
+
+                        // Speichere die Änderungen in der Datenbank
+                        _tourLogService.UpdateTourLog(dbLog);
+                        Debug.WriteLine($"TourLog mit ID {log.IDTourLogs} erfolgreich aktualisiert.");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Kein TourLog mit ID {log.IDTourLogs} gefunden.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Fehler beim Speichern des Logs mit ID {log.IDTourLogs}: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+            // Erfolgsmeldung
+            MessageBox.Show("Alle Änderungen an den TourLogs wurden erfolgreich gespeichert!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-    }
-
-    MessageBox.Show("Alle Änderungen an den TourLogs wurden gespeichert!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-}
 
         private void RemoveTourLog(object parameter)
         {

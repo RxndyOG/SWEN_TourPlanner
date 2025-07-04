@@ -22,6 +22,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using UI.Commands;
+using UI.Converters;
 using UI.Views;
 
 
@@ -50,6 +51,8 @@ namespace UI.ViewModels
         public ICommand RemoveBlockCommand { get; }
         public ICommand ShowMapCommand { get; }
 
+        public ICommand ReportCommandTour { get; }
+
         private MainViewModel _mainViewModel;
         private NavigationViewModel _navigationViewModel;
         private TourService _tourService;
@@ -57,14 +60,17 @@ namespace UI.ViewModels
 
         public TourManagementViewModel(NavigationViewModel nv, MainViewModel mv)
         {
+            GlobalFontSettings.UseWindowsFontsUnderWindows = true;
+            //GlobalFontSettings.FontResolver = new SimpleFontResolver();
+
             _tourService = new TourService(new TourRepository(new Database()));
             _tourLogService = new TourLogService(new TourLogRepository(new Database()));
             _navigationViewModel = nv;
             _mainViewModel = mv;
 
             Tours = new ObservableCollection<AddTourModel>(
-        _tourService.GetAllTours().Select(tour =>
-        {
+            _tourService.GetAllTours().Select(tour =>
+            {
             var model = new AddTourModel
             {
                 Id = tour.Id,
@@ -102,6 +108,7 @@ namespace UI.ViewModels
                 AddTourBlock(tour);
             }
 
+            ReportCommandTour = new RelayCommand(GeneratePdfReportTour);
             ReportCommand = new RelayCommand(GeneratePdfReport);
             SaveTourCommand = new RelayCommand(SaveTour);
             ImportTourCommand = new RelayCommand(ImportTour);
@@ -298,7 +305,26 @@ namespace UI.ViewModels
                         var allTours = _tourService.GetAllTours();
                         var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
                         if (savedTour != null)
+                        {
                             tourModel.Id = savedTour.Id;
+
+                            // Save imported TourLogs to the database
+                            foreach (var log in tourModel.TourLogsTable)
+                            {
+                                var dbLog = new TourLog
+                                {
+                                    Tour_Id = tourModel.Id,
+                                    Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : DateTime.Now,
+                                    Comment = log.Comment,
+                                    Difficulty = int.TryParse(log.Difficulty, out var diff) ? diff : 1,
+                                    Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : 0,
+                                    Total_Time = int.TryParse(log.Duration, out var dur) ? dur : 0,
+                                    Rating = int.TryParse(log.Rating, out var rat) ? rat : 1
+                                };
+
+                                _tourLogService.AddTourLog(dbLog);
+                            }
+                        }
 
                         Tours.Add(tourModel);
                         AddTourBlock(tourModel);
@@ -360,6 +386,86 @@ namespace UI.ViewModels
             mapWindow.ShowDialog();
         }
 
+        public void GeneratePdfReportTour(object parameter)
+        {
+            try
+            {
+                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "PDF Files (*.pdf)|*.pdf",
+                    Title = "Save PDF Report"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    if (string.IsNullOrWhiteSpace(filePath))
+                    {
+                        MessageBox.Show("Invalid file path selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    // Die ausgewählte Tour bestimmen
+                    AddTourModel selectedTour = parameter as AddTourModel ?? NewTour;
+                    if (selectedTour == null)
+                    {
+                        MessageBox.Show("No tour selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    PdfDocument document = new PdfDocument();
+                    document.Info.Title = "Tour Report";
+
+                    PdfPage page = document.AddPage();
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                    var titleFont = new XFont("Arial", 10, XFontStyleEx.Regular);
+                    var contentFont = new XFont("Arial", 10, XFontStyleEx.Regular);
+
+                    double y = 40;
+                    gfx.DrawString("Tour Report", titleFont, XBrushes.Black, new XRect(0, y, page.Width, 30), XStringFormats.TopCenter);
+                    y += 40;
+
+                    gfx.DrawString($"Name: {selectedTour.Name}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    gfx.DrawString($"From: {selectedTour.From_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    gfx.DrawString($"To: {selectedTour.To_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    gfx.DrawString($"Transport: {selectedTour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    gfx.DrawString($"Distance: {selectedTour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    gfx.DrawString($"Description: {selectedTour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    gfx.DrawString($"Route Info: {selectedTour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    gfx.DrawString($"Estimated Time: {selectedTour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
+
+                    if (selectedTour.TourLogsTable != null && selectedTour.TourLogsTable.Count > 0)
+                    {
+                        gfx.DrawString("Tour Logs:", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        foreach (var log in selectedTour.TourLogsTable)
+                        {
+                            gfx.DrawString($"  - Date: {log.Date}, Time: {log.Time}, Difficulty: {log.Difficulty}, Distance: {log.Distance}, Comment: {log.Comment}, Duration: {log.Duration}", contentFont, XBrushes.Black, new XPoint(50, y));
+                            y += 20;
+                            if (y > page.Height - 60)
+                            {
+                                page = document.AddPage();
+                                gfx = XGraphics.FromPdfPage(page);
+                                y = 40;
+                            }
+                        }
+                        y += 10;
+                    }
+
+                    document.Save(filePath);
+
+                    MessageBox.Show("PDF report generated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error generating PDF report", ex);
+                MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         public void GeneratePdfReport(object parameter)
         {
@@ -389,8 +495,8 @@ namespace UI.ViewModels
                     PdfPage page = document.AddPage();
                     XGraphics gfx = XGraphics.FromPdfPage(page);
 
-                    var titleFont = new XFont("LiberationSans", 20, XFontStyleEx.Regular);
-                    var contentFont = new XFont("LiberationSans", 12, XFontStyleEx.Regular);
+                    var titleFont = new XFont("Arial", 10, XFontStyleEx.Regular);
+                    var contentFont = new XFont("Arial", 10, XFontStyleEx.Regular);
 
                     double y = 40;
                     gfx.DrawString("Tour Report", titleFont, XBrushes.Black, new XRect(0, y, page.Width, 30), XStringFormats.TopCenter);
@@ -398,6 +504,25 @@ namespace UI.ViewModels
 
                     if (Tours != null && Tours.Count > 0)
                     {
+                        // Durchschnittswerte berechnen
+                        double avgTourDistance = Tours.Average(t => t.Distance);
+                        double avgTourEstimatedTime = Tours.Average(t => t.Estimated_Time);
+
+                        var allLogs = Tours.SelectMany(t => t.TourLogsTable).ToList();
+                        double avgLogDistance = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Distance, out var d) ? d : 0) : 0;
+                        double avgLogDuration = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Duration, out var d) ? d : 0) : 0;
+                        double avgLogDifficulty = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Difficulty, out var d) ? d : 0) : 0;
+                        double avgLogRating = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Rating, out var d) ? d : 0) : 0;
+
+                        gfx.DrawString($"Anzahl Tours: {Tours.Count}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        gfx.DrawString($"Durchschnittliche Länge aller Tours: {avgTourDistance:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        gfx.DrawString($"Durchschnittliche geschätzte Zeit aller Tours: {avgTourEstimatedTime:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        gfx.DrawString($"Anzahl aller TourLogs: {allLogs.Count}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        gfx.DrawString($"Durchschnittliche Distanz aller TourLogs: {avgLogDistance:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        gfx.DrawString($"Durchschnittliche Dauer aller TourLogs: {avgLogDuration:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        gfx.DrawString($"Durchschnittliche Difficulty aller TourLogs: {avgLogDifficulty:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                        gfx.DrawString($"Durchschnittliches Rating aller TourLogs: {avgLogRating:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
+
                         foreach (var tour in Tours)
                         {
                             gfx.DrawString($"Name: {tour.Name}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
@@ -409,12 +534,12 @@ namespace UI.ViewModels
                             gfx.DrawString($"Route Info: {tour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Estimated Time: {tour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
 
-                            if (tour.TourLogsTable != null && tour.TourLogsTable != null && tour.TourLogsTable.Count > 0)
+                            if (tour.TourLogsTable != null && tour.TourLogsTable.Count > 0)
                             {
                                 gfx.DrawString("Tour Logs:", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                                 foreach (var log in tour.TourLogsTable)
                                 {
-                                    gfx.DrawString($"  - Date: {log.Date}, Time: {log.Time}, Difficulty: {log.Difficulty}, Distance: {log.Distance}, Comment: {log.Comment}, Duration: {log.Duration}", contentFont, XBrushes.Black, new XPoint(50, y));
+                                    gfx.DrawString($"  - Date: {log.Date}, Time: {log.Time}, Difficulty: {log.Difficulty}, Distance: {log.Distance}, Comment: {log.Comment}, Duration: {log.Duration}, Rating: {log.Rating}", contentFont, XBrushes.Black, new XPoint(50, y));
                                     y += 20;
                                 }
                                 y += 10;

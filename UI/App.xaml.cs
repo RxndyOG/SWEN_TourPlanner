@@ -21,8 +21,6 @@ namespace SWEN_TourPlanner
         {
             base.OnStartup(e);
 
-            GlobalFontSettings.FontResolver = new SimpleFontResolver();
-
             var logRepository = LogManager.GetRepository(System.Reflection.Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 
