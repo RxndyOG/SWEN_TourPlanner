@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business.Exceptions;
+using Business.Services;
 using Model;
 
 namespace Business.Tests
@@ -84,13 +85,30 @@ namespace Business.Tests
             /// Executes the method that checks the attributes and fails the test if no exception is thrown
             void CheckExceptionThrown(string attribute)
             {
+                Exception exception;
+                if (attribute == "Tour_Id" || attribute == "Total_Distance" || attribute == "Total_Time")
+                {
+                    exception = new NonPositiveNumberException(attribute);
+                }
+                else if (attribute == "Logdate" || attribute == "Rating")
+                {
+                    exception = new Exception();
+                }
+                else
+                {
+                    exception = new EmptyAttributeException(attribute);
+                }
+
                 bool successful = true;
                 try
                 {
                     _tourlogService.CheckTourLogRequiredAttributes(tourlog);
                     successful = false;
                 }
-                catch (Exception e) { }
+                catch (Exception e) 
+                {
+                    Assert.AreEqual(e.GetType(), exception.GetType());
+                }
                 if (!successful) Assert.Fail($"Should have thrown exception for attribute: {attribute}");
             }
         }

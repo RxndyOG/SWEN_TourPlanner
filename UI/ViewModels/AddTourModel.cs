@@ -1,17 +1,14 @@
-﻿using Business;
+﻿using UI.Commands;
+using UI.Exceptions;
 using Business.Services;
 using DataAccess.Database;
 using DataAccess.Repositories;
 using Model;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using UI.Commands;
 
 namespace UI.ViewModels
 {
@@ -141,8 +138,9 @@ namespace UI.ViewModels
             if (string.IsNullOrWhiteSpace(TourLogs.Date) ||
                 string.IsNullOrWhiteSpace(TourLogs.Comment))
             {
-                MessageBox.Show("Required Input is Missing", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                Exception e = new MissingRequiredFieldException();
+                MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // TODO eine ebene runter
+                throw e;
             }
 
 
@@ -234,7 +232,9 @@ namespace UI.ViewModels
             }
             else
             {
-                MessageBox.Show($"Kein TourLog mit ID {LogIdToRemove} gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                Exception e = new TourLogNotFoundException(LogIdToRemove);
+                MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // TODO eine ebene runter
+                throw e;
             }
         }
 

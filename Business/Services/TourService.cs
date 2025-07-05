@@ -1,4 +1,5 @@
 ﻿using Business.Services.Interfaces;
+using Business.Exceptions;
 using DataAccess.Repositories.Interfaces;
 using Model;
 
@@ -58,14 +59,15 @@ namespace Business.Services
 
         public void CheckTourRequiredAttributes(Tour tour)
         {
-            if (string.IsNullOrEmpty(tour.Name)) throw new Exception("Name is empty");
-            if (string.IsNullOrEmpty(tour.Description)) throw new Exception("Description is empty");
-            if (string.IsNullOrEmpty(tour.From_Location)) throw new Exception("From_Location is empty");
-            if (string.IsNullOrEmpty(tour.To_Location)) throw new Exception("To_Location is empty");
-            if (string.IsNullOrEmpty(tour.Transportation_Type)) throw new Exception("Invalid Transportation_Type");
-            if (tour.Distance < 1) throw new Exception("Distance must be a positive number");
-            if (tour.Estimated_Time < 1) throw new Exception("Estimated_Time must be a positive number");
-            if (string.IsNullOrEmpty(tour.Route_Information)) throw new Exception("Route_Information is empty");
+            if (string.IsNullOrEmpty(tour.Name)) throw new EmptyAttributeException("Name");
+            if (string.IsNullOrEmpty(tour.Description)) throw new EmptyAttributeException("Description");
+            if (string.IsNullOrEmpty(tour.From_Location)) throw new EmptyAttributeException("From_Location");
+            if (string.IsNullOrEmpty(tour.To_Location)) throw new EmptyAttributeException("To_Location");
+            if (string.IsNullOrEmpty(tour.Transportation_Type)) throw new EmptyAttributeException("Transportation_Type");
+            if (string.IsNullOrEmpty(tour.Route_Information)) throw new EmptyAttributeException("Route_Information");
+
+            if (tour.Distance < 1) throw new NonPositiveNumberException("Distance");
+            if (tour.Estimated_Time < 1) throw new NonPositiveNumberException("Estimated_Time");
         }
     }
 }
