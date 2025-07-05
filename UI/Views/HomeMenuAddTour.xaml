@@ -142,7 +142,7 @@
                         <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Tour Distance:</Label>
+                    <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Tour Distance (km):</Label>
                     <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Tour Distance" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Distance, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!--<TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Distance, UpdateSourceTrigger=PropertyChanged}"></TextBox> -->
                 </Grid>
@@ -157,7 +157,7 @@
                         <RowDefinition Height="*" MaxHeight="5"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Estimated Time:</Label>
+                    <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Estimated Time (min):</Label>
                     <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Estimated Time" VerticalContentAlignment="Center" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.Estimated_Time, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
                     <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.EstimatedTime, UpdateSourceTrigger=PropertyChanged}"></TextBox>       -->
                 </Grid>
