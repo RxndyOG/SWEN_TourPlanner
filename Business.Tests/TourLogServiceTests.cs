@@ -21,7 +21,7 @@ namespace Business.Tests
                 Tour_Id = 1,
                 Logdate = DateTime.Now,
                 Comment = "DELETE ME",
-                Difficulty = 1,
+                Difficulty = "Easy",
                 Total_Distance = 1000,
                 Total_Time = 1,
                 Rating = 10
@@ -45,7 +45,7 @@ namespace Business.Tests
                 Tour_Id = 0, // intentional error
                 Logdate = DateTime.Now,
                 Comment = "DELETE ME",
-                Difficulty = 1,
+                Difficulty = "Easy",
                 Total_Distance = 1000,
                 Total_Time = 5,
                 Rating = 10
@@ -63,11 +63,11 @@ namespace Business.Tests
 
             // Check atribute Difficulty
             tourlog.Comment = "DELETE ME";
-            tourlog.Difficulty = 0;
+            tourlog.Difficulty = "";
             CheckExceptionThrown("Difficulty");
 
             // Check atribute Total_Distance
-            tourlog.Difficulty = 1;
+            tourlog.Difficulty = "Easy";
             tourlog.Total_Distance = -1;
             CheckExceptionThrown("Total_Distance");
 

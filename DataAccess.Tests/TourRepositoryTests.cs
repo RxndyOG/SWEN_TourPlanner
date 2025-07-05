@@ -27,7 +27,7 @@ namespace DataAccess.Tests
                 Assert.IsTrue(tour.Description is string);
                 Assert.IsTrue(tour.From_Location is string);
                 Assert.IsTrue(tour.To_Location is string);
-                Assert.IsTrue(tour.Transportation_Type is int);
+                Assert.IsTrue(tour.Transportation_Type is string);
                 Assert.IsTrue(tour.Distance is int);
                 Assert.IsTrue(tour.Estimated_Time is int);
                 Assert.IsTrue(tour.Route_Information is string);
@@ -49,7 +49,7 @@ namespace DataAccess.Tests
             Assert.IsTrue(tour.Description is string);
             Assert.IsTrue(tour.From_Location is string);
             Assert.IsTrue(tour.To_Location is string);
-            Assert.IsTrue(tour.Transportation_Type is int);
+            Assert.IsTrue(tour.Transportation_Type is string);
             Assert.IsTrue(tour.Distance is int);
             Assert.IsTrue(tour.Estimated_Time is int);
             Assert.IsTrue(tour.Route_Information is string);
@@ -69,7 +69,7 @@ namespace DataAccess.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = "1",
+                Transportation_Type = "Bike",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"
@@ -99,7 +99,7 @@ namespace DataAccess.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = "1",
+                Transportation_Type = "Bike",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"
@@ -117,7 +117,7 @@ namespace DataAccess.Tests
                 Description = tour.Description + "_Test",
                 From_Location = tour.From_Location + "_Test",
                 To_Location = tour.To_Location + "_Test",
-                Transportation_Type = tour.Transportation_Type + 1,
+                Transportation_Type = tour.Transportation_Type + "_Test",
                 Distance = tour.Distance + 1,
                 Estimated_Time = tour.Estimated_Time + 1,
                 Route_Information = tour.Route_Information + "_Test"

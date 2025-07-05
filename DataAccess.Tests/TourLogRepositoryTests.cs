@@ -48,7 +48,7 @@ namespace DataAccess.Tests
                 Assert.IsTrue(tourlog.Tour_Id is int);
                 Assert.IsTrue(tourlog.Logdate is DateTime);
                 Assert.IsTrue(tourlog.Comment is string);
-                Assert.IsTrue(tourlog.Difficulty is int);
+                Assert.IsTrue(tourlog.Difficulty is string);
                 Assert.IsTrue(tourlog.Total_Distance is int);
                 Assert.IsTrue(tourlog.Total_Time is int);
                 Assert.IsTrue(tourlog.Rating is int);
@@ -72,7 +72,7 @@ namespace DataAccess.Tests
                 Tour_Id = tourID,
                 Logdate = DateTime.Now,
                 Comment = "DELETE ME",
-                Difficulty = 1,
+                Difficulty = "Easy",
                 Total_Distance = 1000,
                 Total_Time = 1,
                 Rating = 10
@@ -104,7 +104,7 @@ namespace DataAccess.Tests
                 Tour_Id = tourID,
                 Logdate = DateTime.Now,
                 Comment = "DELETE ME",
-                Difficulty = 1,
+                Difficulty = "Easy",
                 Total_Distance = 1000,
                 Total_Time = 1,
                 Rating = 10
@@ -121,7 +121,7 @@ namespace DataAccess.Tests
                 Tour_Id = created_tourlog.Tour_Id,
                 Logdate = DateTime.Now,
                 Comment = created_tourlog.Comment + "_Test",
-                Difficulty = created_tourlog.Difficulty + 1,
+                Difficulty = created_tourlog.Difficulty + "_Test",
                 Total_Distance = created_tourlog.Total_Distance + 1,
                 Total_Time = created_tourlog.Total_Time + 1,
                 Rating = created_tourlog.Rating - 1

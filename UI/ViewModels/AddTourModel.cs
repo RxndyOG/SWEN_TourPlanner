@@ -166,7 +166,7 @@ namespace UI.ViewModels
                 Tour_Id = this.Id,
                 Logdate = DateTime.TryParse(newLog.Date + " " + newLog.Time, out var dt) ? dt : DateTime.Now,
                 Comment = newLog.Comment,
-                Difficulty = int.TryParse(newLog.Difficulty, out var diff) ? diff : 1,
+                Difficulty = newLog.Difficulty,
                 Total_Distance = int.TryParse(newLog.Distance, out var dist) ? dist : 0,
                 Total_Time = int.TryParse(newLog.Duration, out var dur) ? dur : 0,
                 Rating = int.TryParse(newLog.Rating, out var rat) ? rat : 1
@@ -199,7 +199,7 @@ namespace UI.ViewModels
             // Werte aus dem UI-Log übernehmen
             dbLog.Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : dbLog.Logdate;
             dbLog.Comment = log.Comment;
-            dbLog.Difficulty = int.TryParse(log.Difficulty, out var diff) ? diff : dbLog.Difficulty;
+            dbLog.Difficulty = log.Difficulty;
             dbLog.Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : dbLog.Total_Distance;
             dbLog.Total_Time = int.TryParse(log.Duration, out var dur) ? dur : dbLog.Total_Time;
             dbLog.Rating = int.TryParse(log.Rating, out var rat) ? rat : dbLog.Rating;

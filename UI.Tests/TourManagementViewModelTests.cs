@@ -21,13 +21,13 @@ namespace UI.Tests;
         public void SaveTourCommand_AddsTour()
         {
             _vm.NewTour.Name = "Test";
-            _vm.NewTour.From = "A";
-            _vm.NewTour.To = "B";
-            _vm.NewTour.Transport = "Car";
-            _vm.NewTour.Distance = "10";
+            _vm.NewTour.From_Location = "A";
+            _vm.NewTour.To_Location = "B";
+            _vm.NewTour.Transportation_Type = "Car";
+            _vm.NewTour.Distance = 10;
             _vm.NewTour.Description = "Desc";
-            _vm.NewTour.RouteInfo = "Route";
-            _vm.NewTour.EstimatedTime = "1h";
+            _vm.NewTour.Route_Information = "Route";
+            _vm.NewTour.Estimated_Time = 60;
             int before = _vm.Tours.Count;
 
             _vm.SaveTourCommand.Execute(null);
@@ -40,7 +40,7 @@ namespace UI.Tests;
         [Test]
         public void AddTour_AddsBlock()
         {
-            var tour = new AddTourModel { ID = 42, Name = "BlockTest", Description = "BlockDesc" };
+            var tour = new AddTourModel { Id = 42, Name = "BlockTest", Description = "BlockDesc" };
             int before = _vm.Blocks.Count;
             var method = _vm.GetType().GetMethod("AddTour", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             method.Invoke(_vm, new object[] { tour });
@@ -51,7 +51,7 @@ namespace UI.Tests;
         [Test]
         public void RemoveBlock_RemovesBlock()
         {
-            var tour = new AddTourModel { ID = 99, Name = "RemoveTest", Description = "Desc" };
+            var tour = new AddTourModel { Id = 99, Name = "RemoveTest", Description = "Desc" };
             var method = _vm.GetType().GetMethod("AddTour", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             method.Invoke(_vm, new object[] { tour });
             var block = _vm.Blocks.Last();

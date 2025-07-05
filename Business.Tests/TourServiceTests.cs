@@ -22,7 +22,7 @@ namespace Business.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = 1,
+                Transportation_Type = "Bike",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"
@@ -47,7 +47,7 @@ namespace Business.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = 1,
+                Transportation_Type = "Bike",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"
@@ -73,11 +73,11 @@ namespace Business.Tests
 
             // Check atribute Transportation_Type
             tour.To_Location = "To";
-            tour.Transportation_Type = 0;
+            tour.Transportation_Type = "";
             CheckExceptionThrown("Transportation_Type");
 
             // Check atribute Distance
-            tour.Transportation_Type = 1;
+            tour.Transportation_Type = "Bike";
             tour.Distance = 0;
             CheckExceptionThrown("Distance");
 

@@ -62,7 +62,7 @@ namespace Business.Services
             if (string.IsNullOrEmpty(tour.Description)) throw new Exception("Description is empty");
             if (string.IsNullOrEmpty(tour.From_Location)) throw new Exception("From_Location is empty");
             if (string.IsNullOrEmpty(tour.To_Location)) throw new Exception("To_Location is empty");
-            if (string.IsNullOrEmpty(tour.To_Location)) throw new Exception("Invalid Transportation_Type");
+            if (string.IsNullOrEmpty(tour.Transportation_Type)) throw new Exception("Invalid Transportation_Type");
             if (tour.Distance < 1) throw new Exception("Distance must be a positive number");
             if (tour.Estimated_Time < 1) throw new Exception("Estimated_Time must be a positive number");
             if (string.IsNullOrEmpty(tour.Route_Information)) throw new Exception("Route_Information is empty");
