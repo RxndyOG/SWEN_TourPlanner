@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace UI.ViewModels
 {
@@ -198,7 +199,7 @@ namespace UI.ViewModels
                         // Aktualisiere die Werte im Datenbank-Log
                         dbLog.Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : dbLog.Logdate;
                         dbLog.Comment = log.Comment;
-                        dbLog.Difficulty = int.TryParse(log.Difficulty, out var diff) ? diff : dbLog.Difficulty;
+                        dbLog.Difficulty = log.Difficulty;
                         dbLog.Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : dbLog.Total_Distance;
                         dbLog.Total_Time = int.TryParse(log.Duration, out var dur) ? dur : dbLog.Total_Time;
                         dbLog.Rating = int.TryParse(log.Rating, out var rat) ? rat : dbLog.Rating;

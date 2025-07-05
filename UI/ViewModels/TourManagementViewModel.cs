@@ -21,6 +21,10 @@ using UI.Commands;
 using UI.Converters;
 using UI.Views;
 
+using PdfSharp.Fonts;
+using PdfSharp.Fonts.OpenType;
+using PdfSharp.Quality;
+
 namespace UI.ViewModels
 {
     public class TourManagementViewModel : INotifyPropertyChanged
@@ -117,7 +121,8 @@ namespace UI.ViewModels
         private void SaveTour(object parameter)
         {
             log.Info("SaveTour called.");
-   
+
+
             if (string.IsNullOrWhiteSpace(NewTour.Name) ||
                 string.IsNullOrWhiteSpace(NewTour.From_Location) ||
                 string.IsNullOrWhiteSpace(NewTour.To_Location) ||
@@ -317,7 +322,7 @@ namespace UI.ViewModels
                                     Tour_Id = tourModel.Id,
                                     Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : DateTime.Now,
                                     Comment = log.Comment,
-                                    Difficulty = int.TryParse(log.Difficulty, out var diff) ? diff : 1,
+                                    Difficulty = log.Difficulty,
                                     Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : 0,
                                     Total_Time = int.TryParse(log.Duration, out var dur) ? dur : 0,
                                     Rating = int.TryParse(log.Rating, out var rat) ? rat : 1
