@@ -122,54 +122,62 @@ namespace UI.ViewModels
         {
             log.Info("SaveTour called.");
 
-
-            if (string.IsNullOrWhiteSpace(NewTour.Name) ||
-                string.IsNullOrWhiteSpace(NewTour.From_Location) ||
-                string.IsNullOrWhiteSpace(NewTour.To_Location) ||
-                string.IsNullOrWhiteSpace(NewTour.Description) ||
-                string.IsNullOrWhiteSpace(NewTour.Route_Information) ||
-                string.IsNullOrWhiteSpace(NewTour.Transportation_Type) ||
-                NewTour.Distance <= 0 ||
-                NewTour.Estimated_Time <= 0)
+            try
             {
-                Exception e = new MissingRequiredFieldException();
-                log.Warn($"SaveTour aborted: {e.Message}.");
-                MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
-                throw e;
+
+                if (string.IsNullOrWhiteSpace(NewTour.Name) ||
+                    string.IsNullOrWhiteSpace(NewTour.From_Location) ||
+                    string.IsNullOrWhiteSpace(NewTour.To_Location) ||
+                    string.IsNullOrWhiteSpace(NewTour.Description) ||
+                    string.IsNullOrWhiteSpace(NewTour.Route_Information) ||
+                    string.IsNullOrWhiteSpace(NewTour.Transportation_Type) ||
+                    NewTour.Distance <= 0 ||
+                    NewTour.Estimated_Time <= 0)
+                {
+                    Exception e = new MissingRequiredFieldException();
+                    log.Warn($"SaveTour aborted: {e.Message}.");
+                    throw e;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error saving tour.", ex);
+                MessageBox.Show("Fehler beim Speichern der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                return;
             }
 
 
-   
             var tourModel = new AddTourModel
-            {
-                Name = NewTour.Name,
-                From_Location = NewTour.From_Location,
-                To_Location = NewTour.To_Location,
-                Description = NewTour.Description,
-                Transportation_Type = NewTour.Transportation_Type,
-                Distance = NewTour.Distance,
-                Estimated_Time = NewTour.Estimated_Time,
-                Route_Information = NewTour.Route_Information,
-                Image_Path = NewTour.Image_Path
-            };
+                {
+                    Name = NewTour.Name,
+                    From_Location = NewTour.From_Location,
+                    To_Location = NewTour.To_Location,
+                    Description = NewTour.Description,
+                    Transportation_Type = NewTour.Transportation_Type,
+                    Distance = NewTour.Distance,
+                    Estimated_Time = NewTour.Estimated_Time,
+                    Route_Information = NewTour.Route_Information,
+                    Image_Path = NewTour.Image_Path
+                };
 
 
-            _tourService.AddTour(tourModel.Tour);
+                _tourService.AddTour(tourModel.Tour);
 
-            var allTours = _tourService.GetAllTours();
-            var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
+                var allTours = _tourService.GetAllTours();
+                var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
 
-            if (savedTour != null)
-            {
-                tourModel.Id = savedTour.Id;
-            }
+                if (savedTour != null)
+                {
+                    tourModel.Id = savedTour.Id;
+                }
 
-            Tours.Add(tourModel);
-            AddTourBlock(tourModel);
+                Tours.Add(tourModel);
+                AddTourBlock(tourModel);
 
-            log.Info($"Tour saved: {tourModel.Name} (ID: {tourModel.Id})");
+                log.Info($"Tour saved: {tourModel.Name} (ID: {tourModel.Id})");
 
-            NewTour = new AddTourModel();
+                NewTour = new AddTourModel();
+            
         }
 
         private void AddTourBlock(AddTourModel tour)
@@ -187,102 +195,129 @@ namespace UI.ViewModels
 
         public void DeleteTour(object parameter)
         {
-            if (parameter is int tourID)
+            try
             {
-                // Erst aus der Datenbank löschen
-                _tourService.DeleteTour(tourID);
-
-                log.Info($"DeleteTour called for TourID: {tourID}");
-                _navigationViewModel.CurrentPageRight = new DeleteWindowNothingHere();
-
-                // Aus der UI-Collection entfernen
-                var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourID);
-                if (blockToRemove != null)
+                if (parameter is int tourID)
                 {
-                    Blocks.Remove(blockToRemove);
-                    log.Info($"Block with TourID {tourID} removed from Blocks.");
+                    // Erst aus der Datenbank löschen
+                    _tourService.DeleteTour(tourID);
+
+                    log.Info($"DeleteTour called for TourID: {tourID}");
+                    _navigationViewModel.CurrentPageRight = new DeleteWindowNothingHere();
+
+                    // Aus der UI-Collection entfernen
+                    var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourID);
+                    if (blockToRemove != null)
+                    {
+                        Blocks.Remove(blockToRemove);
+                        log.Info($"Block with TourID {tourID} removed from Blocks.");
+                    }
+
+                    var tourToRemove = Tours.FirstOrDefault(t => t.Id == tourID);
+                    if (tourToRemove != null)
+                    {
+                        Tours.Remove(tourToRemove);
+                        log.Info($"Tour with ID {tourID} removed from Tours.");
+                    }
+                    else
+                    {
+                        Exception e = new TourNotFoundException(tourID);
+                        log.Warn(e.Message);
+                        throw e;
+                    }
                 }
+                else if (parameter is AddTourModel tourModel)
+                {
+                    // Falls das Command ein AddTourModel übergibt
+                    _tourService.DeleteTour(tourModel.Id);
 
-                var tourToRemove = Tours.FirstOrDefault(t => t.Id == tourID);
-                if (tourToRemove != null)
-                {
-                    Tours.Remove(tourToRemove);
-                    log.Info($"Tour with ID {tourID} removed from Tours.");
-                }
-                else
-                {
-                    Exception e = new TourNotFoundException(tourID);
-                    log.Warn(e.Message);
-                    throw e;
+                    var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourModel.Id);
+                    if (blockToRemove != null)
+                        Blocks.Remove(blockToRemove);
+
+                    if (Tours.Contains(tourModel))
+                        Tours.Remove(tourModel);
+
+                    log.Info($"Tour with ID {tourModel.Id} removed via AddTourModel parameter.");
                 }
             }
-            else if (parameter is AddTourModel tourModel)
+            catch (Exception ex)
             {
-                // Falls das Command ein AddTourModel übergibt
-                _tourService.DeleteTour(tourModel.Id);
-
-                var blockToRemove = Blocks.FirstOrDefault(b => b.TourID == tourModel.Id);
-                if (blockToRemove != null)
-                    Blocks.Remove(blockToRemove);
-
-                if (Tours.Contains(tourModel))
-                    Tours.Remove(tourModel);
-
-                log.Info($"Tour with ID {tourModel.Id} removed via AddTourModel parameter.");
+                log.Error("Error deleting tour.", ex);
+                MessageBox.Show("Fehler beim Löschen der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                throw;
             }
         }
 
         public void ExportTour(object parameter)
         {
-            if (parameter is AddTourModel tourModel)
+            try
             {
-                log.Info($"ExportTour called for TourID: {tourModel.Id}");
-                if (Tours == null || Tours.Count == 0)
+                if (parameter is AddTourModel tourModel)
                 {
-                    Exception e = new EmptyListException();
-                    MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
-                    throw e;
-                }
+                    log.Info($"ExportTour called for TourID: {tourModel.Id}");
+                    if (Tours == null || Tours.Count == 0)
+                    {
+                        Exception e = new EmptyListException();
+                        MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
+                        throw e;
+                    }
 
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    Filter = "JSON Datei (*.json)|*.json",
-                    Title = "Tour speichern"
-                };
+                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                    {
+                        Filter = "JSON Datei (*.json)|*.json",
+                        Title = "Tour speichern"
+                    };
 
-                if (saveFileDialog.ShowDialog() == true)
-                {
-                    string json = JsonSerializer.Serialize(tourModel, new JsonSerializerOptions { WriteIndented = true });
-                    File.WriteAllText(saveFileDialog.FileName, json);
-                    log.Info($"Tour exported to {saveFileDialog.FileName}");
-                    MessageBox.Show("Tour Exported!");
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        string json = JsonSerializer.Serialize(tourModel, new JsonSerializerOptions { WriteIndented = true });
+                        File.WriteAllText(saveFileDialog.FileName, json);
+                        log.Info($"Tour exported to {saveFileDialog.FileName}");
+                        MessageBox.Show("Tour Exported!");
+                    }
                 }
+               }catch (Exception ex)
+            {
+                log.Error("Error exporting tour.", ex);
+                MessageBox.Show("Fehler beim Exportieren der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                throw;
             }
         }
 
         public void ModifyTour(object parameter)
         {
-            if (parameter is AddTourModel tourModel)
+
+            try
             {
-                var existing = Tours.FirstOrDefault(t => t.Id == tourModel.Id);
-                if (existing != null)
+                if (parameter is AddTourModel tourModel)
                 {
-                    Tours.Remove(existing);
-                    Blocks.Remove(Blocks.FirstOrDefault(b => b.TourID == tourModel.Id));
-                    Tours.Add(tourModel);
-                    AddTourBlock(tourModel);
+                    var existing = Tours.FirstOrDefault(t => t.Id == tourModel.Id);
+                    if (existing != null)
+                    {
+                        Tours.Remove(existing);
+                        Blocks.Remove(Blocks.FirstOrDefault(b => b.TourID == tourModel.Id));
+                        Tours.Add(tourModel);
+                        AddTourBlock(tourModel);
 
-                    log.Info($"Tour with ID {tourModel.Id} modified.");
+                        log.Info($"Tour with ID {tourModel.Id} modified.");
 
-                    _tourService.UpdateTour(tourModel.Tour);
+                        _tourService.UpdateTour(tourModel.Tour);
 
+                    }
+                    else
+                    {
+                        Exception e = new TourNotFoundException(tourModel.Id);
+                        MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
+                        throw e;
+                    }
                 }
-                else
-                {
-                    Exception e = new TourNotFoundException(tourModel.Id);
-                    MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
-                    throw e;
-                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error modifying tour.", ex);
+                MessageBox.Show("Fehler beim Modifizieren der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                throw;
             }
         }
 
@@ -341,7 +376,6 @@ namespace UI.ViewModels
                 {
                     log.Error("Error importing tour.", ex);
                     MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message); // Ebene weiter runter
-                    throw ex;
                 }
             }
         }
@@ -575,7 +609,6 @@ namespace UI.ViewModels
             {
                 log.Error("Error generating PDF report", ex);
                 MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);  // Ebene weiter runter
-                throw ex;
             }
         }
 

@@ -135,16 +135,29 @@ namespace UI.ViewModels
 
         private void SaveTourLog(object parameter)
         {
-            // Beispiel: Einfache Validierung, kann angepasst werden
-            if (string.IsNullOrWhiteSpace(TourLogs.Date) ||
-                string.IsNullOrWhiteSpace(TourLogs.Comment))
+
+            try
             {
-                Exception e = new MissingRequiredFieldException();
-                MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // TODO eine ebene runter
-                throw e;
+
+                // Beispiel: Einfache Validierung, kann angepasst werden
+                if (string.IsNullOrWhiteSpace(TourLogs.Date) ||
+                    string.IsNullOrWhiteSpace(TourLogs.Comment))
+                {
+                    Exception e = new MissingRequiredFieldException();
+                    MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // TODO eine ebene runter
+                    throw e;
+                }
+
+            }catch (MissingRequiredFieldException e)
+            {
+                MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return; // Abbrechen, wenn Validierung fehlschlägt
             }
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ein unerwarteter Fehler ist aufgetreten: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return; // Abbrechen, wenn ein unerwarteter Fehler auftritt
+            }
 
             var newLog = new TourLogs.TourLog
             {
@@ -248,7 +261,7 @@ namespace UI.ViewModels
             {
                 Exception e = new TourLogNotFoundException(LogIdToRemove);
                 MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // TODO eine ebene runter
-                throw e;
+                return;
             }
         }
 
