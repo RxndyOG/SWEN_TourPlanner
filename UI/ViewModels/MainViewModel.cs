@@ -160,7 +160,7 @@ namespace UI.ViewModels
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    _tourManagementViewModel.NewTour.ImagePath = destinationPath;
+                    _tourManagementViewModel.NewTour.Image_Path = destinationPath;
                     OnPropertyChanged(nameof(_tourManagementViewModel.NewTour));
                 });
             }

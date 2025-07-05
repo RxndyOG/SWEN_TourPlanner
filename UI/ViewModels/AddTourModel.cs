@@ -19,7 +19,7 @@ namespace UI.ViewModels
     {
         private Tour _tour;
         private TourLogs _tourLogs;
-        private string _imagePath;
+        private string _image_Path;
         private TourLogService _tourLogService;
 
 
@@ -118,10 +118,10 @@ namespace UI.ViewModels
         }
 
         // Optional: ImagePath für UI
-        public string ImagePath
+        public string Image_Path
         {
-            get => _imagePath;
-            set { _imagePath = value; OnPropertyChanged(); }
+            get => _image_Path;
+            set { _image_Path = value; OnPropertyChanged(); }
         }
 
         // Log-Handling

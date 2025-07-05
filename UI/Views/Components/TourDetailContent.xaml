@@ -151,7 +151,7 @@
                         <Label Grid.Row="0" FontSize="28" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Image:" />
                     </Grid>
                     <Rectangle Grid.Column="2" Fill="White" />
-                    <Image Grid.Column="2" Stretch="UniformToFill" Source="{Binding ImagePath}" />
+                    <Image Grid.Column="2" Stretch="UniformToFill" Source="{Binding Image_Path}" />
                 </Grid>
                 <Grid Grid.Row="13">
                     <Grid.ColumnDefinitions>

@@ -14,7 +14,7 @@ namespace Model
         private string _time;
         private string _distance;
         private string _routeInfo;
-        private string _imagePath;
+        private string _image_Path;
         public ObservableCollection<TourLog> TourLogsTable { get; set; }
         public class TourLog : INotifyPropertyChanged
         {
@@ -134,10 +134,10 @@ namespace Model
             set { _routeInfo = value; OnPropertyChanged(nameof(RouteInfo)); }
         }
 
-        public string ImagePath
+        public string Image_Path
         {
-            get => _imagePath;
-            set { _imagePath = value; OnPropertyChanged(nameof(ImagePath)); }
+            get => _image_Path;
+            set { _image_Path = value; OnPropertyChanged(nameof(Image_Path)); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

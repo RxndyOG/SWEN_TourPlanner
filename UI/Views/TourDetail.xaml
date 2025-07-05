@@ -178,7 +178,7 @@
                             </Grid>
                             <Rectangle Grid.Column="2" Fill="White"></Rectangle>
 
-                            <Image Grid.Column="2" Stretch="Uniform" Source="{Binding ImagePath}"></Image>
+                            <Image Grid.Column="2" Stretch="Uniform" Source="{Binding Image_Path}"></Image>
                         </Grid>
                         <Grid Grid.Row="12"></Grid>
                         <Grid Grid.Row="13">

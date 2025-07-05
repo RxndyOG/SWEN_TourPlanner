@@ -43,8 +43,8 @@ namespace DataAccess.Repositories
             using (connection = new NpgsqlConnection(_db.GetConnectionString()))
             {
                 string query = """
-                    INSERT INTO tours (name, description, from_location, to_location, transportation_type, distance, estimated_time, route_information)
-                    VALUES (@Name, @Description, @From_location, @To_location, @Transportation_type, @Distance, @Estimated_time, @Route_information)
+                    INSERT INTO tours (name, description, from_location, to_location, transportation_type, distance, estimated_time, route_information, image_path)
+                    VALUES (@Name, @Description, @From_location, @To_location, @Transportation_type, @Distance, @Estimated_time, @Route_information, @Image_Path)
                     """;
                 connection.Query<Tour>(query, tour);
             }

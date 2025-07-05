@@ -19,8 +19,8 @@ namespace UI.Tests
         public void ImagePath_PropertyChanged_IsRaised()
         {
             bool raised = false;
-            _model.PropertyChanged += (s, e) => { if (e.PropertyName == "ImagePath") raised = true; };
-            _model.ImagePath = "test.png";
+            _model.PropertyChanged += (s, e) => { if (e.PropertyName == "Image_Path") raised = true; };
+            _model.Image_Path = "test.png";
             Assert.IsTrue(raised);
         }
 
@@ -28,8 +28,8 @@ namespace UI.Tests
         public void PropertyChanged_IsRaised_ForImagePath()
         {
             bool raised = false;
-            _model.PropertyChanged += (s, e) => { if (e.PropertyName == "ImagePath") raised = true; };
-            _model.ImagePath = "test.png";
+            _model.PropertyChanged += (s, e) => { if (e.PropertyName == "Image_Path") raised = true; };
+            _model.Image_Path = "test.png";
             Assert.IsTrue(raised);
         }
 

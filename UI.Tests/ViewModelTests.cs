@@ -59,8 +59,8 @@ namespace UI.Tests
         {
             var model = new AddTourModel();
             bool raised = false;
-            model.PropertyChanged += (s, e) => { if (e.PropertyName == "ImagePath") raised = true; };
-            model.ImagePath = "test.png";
+            model.PropertyChanged += (s, e) => { if (e.PropertyName == "Image_Path") raised = true; };
+            model.Image_Path = "test.png";
             Assert.IsTrue(raised);
         }
     }

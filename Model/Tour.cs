@@ -11,5 +11,7 @@
         public int Distance { get; set; }
         public int Estimated_Time { get; set; }
         public string Route_Information { get; set; }
+
+        public string Image_Path { get; set; }
     }
 }

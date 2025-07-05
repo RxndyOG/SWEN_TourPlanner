@@ -193,7 +193,7 @@
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Map:</Label>
                 <Button Background="#1F1F1F" Grid.Column="1" Grid.Row="2" Command="{Binding ShowMapCommand}">
                     <Grid>
-                        <Image Grid.Column="1" Grid.Row="2" Stretch="UniformToFill" Source="{Binding NewTour.ImagePath, Converter={StaticResource ImagePathToBitmapConverter}}" />
+                        <Image Grid.Column="1" Grid.Row="2" Stretch="UniformToFill" Source="{Binding NewTour.Image_Path, Converter={StaticResource ImagePathToBitmapConverter}}" />
                         <Image Grid.Column="1" Grid.Row="2" Source="F:\FHTechnikum\Semester 4\Swen\UI\bin\Debug\net8.0-windows\Views\Images\Map_20250701_110152.png" Stretch="Fill"/>
                         <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="48" Foreground="White" FontWeight="Bold">Upload Image</Label>
                     </Grid>

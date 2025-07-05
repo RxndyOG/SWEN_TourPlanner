@@ -70,7 +70,7 @@ namespace UI.Views
 
             if (_tourManagementViewModel.NewTour != null)
             {
-                _tourManagementViewModel.NewTour.ImagePath = filePath;
+                _tourManagementViewModel.NewTour.Image_Path = filePath;
             }
 
             BtnSaveMapImage.Visibility = Visibility.Visible;
