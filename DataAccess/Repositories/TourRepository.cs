@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.Interfaces;
+using DataAccess.Exceptions;
 using DataAccess.Database;
 using Model;
 using Npgsql;
@@ -18,24 +19,38 @@ namespace DataAccess.Repositories
 
         public Tour GetTour(int id)
         {
-            Tour? tour;
-
-            using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+            try
             {
-                tour = connection.Query<Tour>("SELECT * FROM tours WHERE id = @id LIMIT 1", new { id }).ToList().FirstOrDefault();
+                Tour? tour;
+
+                using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+                {
+                    tour = connection.Query<Tour>("SELECT * FROM tours WHERE id = @id LIMIT 1", new { id }).ToList().FirstOrDefault();
+                }
+                return tour;
             }
-            return tour;
+            catch (Exception ex)
+            {
+                throw new FailedDatabaseConnectionException();
+            }
         }
 
         public List<Tour> GetAllTours()
         {
-            List<Tour> tours;
-
-            using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+            try
             {
-                tours = connection.Query<Tour>("SELECT * FROM tours ORDER BY id ASC").ToList();
+                List<Tour> tours;
+
+                using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+                {
+                    tours = connection.Query<Tour>("SELECT * FROM tours ORDER BY id ASC").ToList();
+                }
+                return tours;
             }
-            return tours;
+            catch (Exception ex)
+            {
+                throw new FailedDatabaseConnectionException();
+            }
         }
 
         public void AddTour(Tour tour)
@@ -52,30 +67,43 @@ namespace DataAccess.Repositories
 
         public void DeleteTour(int id)
         {
-            // Delete all tour logs of tour
-            TourLogRepository tourLogRepository = new TourLogRepository(_db);
-            foreach (TourLog tourlog in tourLogRepository.GetTourLogs(id))
+            try
             {
-                tourLogRepository.DeleteTourLog(tourlog.Id);
-            }
+                // Delete all tour logs of tour
+                TourLogRepository tourLogRepository = new TourLogRepository(_db);
+                foreach (TourLog tourlog in tourLogRepository.GetTourLogs(id))
+                {
+                    tourLogRepository.DeleteTourLog(tourlog.Id);
+                }
 
-            // Delete tour
-            using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+                // Delete tour
+                using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+                {
+                    connection.Query("DELETE FROM tours WHERE id = @id", new { id });
+                }
+            }
+            catch (Exception ex)
             {
-                connection.Query("DELETE FROM tours WHERE id = @id", new { id });
+                throw new FailedDatabaseConnectionException();
             }
         }
 
         public void UpdateTour(Tour tour)
         {
-            // Update tour
-            using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+            try {
+                // Update tour
+                using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+                {
+                    string query = """
+                        UPDATE tours SET name = @Name, description = @Description, from_location = @From_location, to_location = @To_location, transportation_type = @Transportation_type, 
+                        distance = @Distance, estimated_time = @Estimated_time, route_information = @Route_information WHERE id = @Id
+                        """;
+                    connection.Query<Tour>(query, tour);
+                }
+            }
+            catch (Exception ex)
             {
-                string query = """
-                    UPDATE tours SET name = @Name, description = @Description, from_location = @From_location, to_location = @To_location, transportation_type = @Transportation_type, 
-                    distance = @Distance, estimated_time = @Estimated_time, route_information = @Route_information WHERE id = @Id
-                    """;
-                connection.Query<Tour>(query, tour);
+                throw new FailedDatabaseConnectionException();
             }
         }
     }

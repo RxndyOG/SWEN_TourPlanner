@@ -1,4 +1,5 @@
 using Business.Services;
+using Business.Exceptions;
 using Model;
 
 namespace Business.Tests
@@ -22,7 +23,7 @@ namespace Business.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = "1",
+                Transportation_Type = "Bike",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"
@@ -47,7 +48,7 @@ namespace Business.Tests
                 Description = "DELETE ME",
                 From_Location = "From",
                 To_Location = "To",
-                Transportation_Type = "1",
+                Transportation_Type = "Bike",
                 Distance = 1100,
                 Estimated_Time = 60,
                 Route_Information = "Test Tour"
@@ -73,11 +74,11 @@ namespace Business.Tests
 
             // Check atribute Transportation_Type
             tour.To_Location = "To";
-            tour.Transportation_Type = "0";
+            tour.Transportation_Type = "";
             CheckExceptionThrown("Transportation_Type");
 
             // Check atribute Distance
-            tour.Transportation_Type = "1";
+            tour.Transportation_Type = "Bike";
             tour.Distance = 0;
             CheckExceptionThrown("Distance");
 
@@ -94,13 +95,26 @@ namespace Business.Tests
             /// Executes the method that checks the attributes and fails the test if no exception is thrown
             void CheckExceptionThrown(string attribute)
             {
+                Exception exception;
+                if (attribute == "Distance" || attribute == "Estimated_Time")
+                {
+                    exception = new NonPositiveNumberException(attribute);
+                }
+                else
+                {
+                    exception = new EmptyAttributeException(attribute);
+                }
+
                 bool successful = true;
                 try
                 {
                     _tourService.CheckTourRequiredAttributes(tour);
                     successful = false;
                 }
-                catch (Exception e) { }
+                catch (Exception e) 
+                {
+                    Assert.AreEqual(e.GetType(), exception.GetType());
+                }
                 if (!successful) Assert.Fail($"Should have thrown exception for attribute: {attribute}");
             }
         }

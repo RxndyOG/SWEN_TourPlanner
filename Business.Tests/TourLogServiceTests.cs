@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business.Exceptions;
+using Business.Services;
 using Model;
 
 namespace Business.Tests
@@ -21,7 +22,7 @@ namespace Business.Tests
                 Tour_Id = 1,
                 Logdate = DateTime.Now,
                 Comment = "DELETE ME",
-                Difficulty = 1,
+                Difficulty = "Easy",
                 Total_Distance = 1000,
                 Total_Time = 1,
                 Rating = 10
@@ -45,7 +46,7 @@ namespace Business.Tests
                 Tour_Id = 0, // intentional error
                 Logdate = DateTime.Now,
                 Comment = "DELETE ME",
-                Difficulty = 1,
+                Difficulty = "Easy",
                 Total_Distance = 1000,
                 Total_Time = 5,
                 Rating = 10
@@ -63,11 +64,11 @@ namespace Business.Tests
 
             // Check atribute Difficulty
             tourlog.Comment = "DELETE ME";
-            tourlog.Difficulty = 0;
+            tourlog.Difficulty = "";
             CheckExceptionThrown("Difficulty");
 
             // Check atribute Total_Distance
-            tourlog.Difficulty = 1;
+            tourlog.Difficulty = "Easy";
             tourlog.Total_Distance = -1;
             CheckExceptionThrown("Total_Distance");
 
@@ -84,13 +85,30 @@ namespace Business.Tests
             /// Executes the method that checks the attributes and fails the test if no exception is thrown
             void CheckExceptionThrown(string attribute)
             {
+                Exception exception;
+                if (attribute == "Tour_Id" || attribute == "Total_Distance" || attribute == "Total_Time")
+                {
+                    exception = new NonPositiveNumberException(attribute);
+                }
+                else if (attribute == "Logdate" || attribute == "Rating")
+                {
+                    exception = new Exception();
+                }
+                else
+                {
+                    exception = new EmptyAttributeException(attribute);
+                }
+
                 bool successful = true;
                 try
                 {
                     _tourlogService.CheckTourLogRequiredAttributes(tourlog);
                     successful = false;
                 }
-                catch (Exception e) { }
+                catch (Exception e) 
+                {
+                    Assert.AreEqual(e.GetType(), exception.GetType());
+                }
                 if (!successful) Assert.Fail($"Should have thrown exception for attribute: {attribute}");
             }
         }

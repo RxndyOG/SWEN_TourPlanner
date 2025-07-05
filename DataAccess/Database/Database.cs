@@ -51,56 +51,6 @@ namespace DataAccess.Database
             }
         }
 
-        /* Difficulty types */
-
-        /// <summary>
-        ///     Retrieves the difficulty type with the given id
-        /// </summary>
-        /// <param name="id">ID of the difficulty type</param>
-        /// <returns>The difficulty type</returns>
-        public string GetDifficultyType(int id)
-        {
-            string? difficulty = "";
-            using (connection = new NpgsqlConnection(connectionString))
-            {
-                connection.Open();
-
-                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT difficulty FROM difficulty_types WHERE id = @id LIMIT 1", connection))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    difficulty = cmd.ExecuteScalar()?.ToString() ?? "";
-                }
-                connection.Close();
-            }
-            return difficulty;
-        }
-
-        /* Transportation types */
-
-        /// <summary>
-        ///     Retrieves the transportation type with the given id
-        /// </summary>
-        /// <param name="id">ID of the transportation type</param>
-        /// <returns>The transportation type</returns>
-        public string GetTransportationType(int id)
-        {
-            string? transportation_type = "";
-            using (connection = new NpgsqlConnection(connectionString))
-            {
-                connection.Open();
-
-                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT transportation_type FROM transportation_types WHERE id = @id LIMIT 1", connection))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    transportation_type = cmd.ExecuteScalar()?.ToString() ?? "";
-                }
-                connection.Close();
-            }
-            return transportation_type;
-        }
-
         public string GetConnectionString()
         {
             return connectionString;

@@ -1,6 +1,6 @@
 ﻿using UI.ViewModels;
+using UI.Exceptions;
 using Model;
-using System.Linq;
 
 namespace UI.Tests
 {
@@ -87,7 +87,7 @@ namespace UI.Tests
             _model.TourLogsTable.Add(log);
             _model.LogIdToRemove = 2;
 
-            _model.RemoveTourLogCommand.Execute(null);
+            Assert.Throws<TourLogNotFoundException>(() => _model.RemoveTourLogCommand.Execute(null));
 
             Assert.That(_model.TourLogsTable.Count, Is.EqualTo(1));
         }

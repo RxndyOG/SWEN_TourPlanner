@@ -1,30 +1,25 @@
-﻿using Accessibility;
+﻿using UI.Views;
+using UI.Commands;
+using UI.Exceptions;
 using Business.Services;
-using Business.Services;
-using Business.Services.Interfaces;
 using DataAccess.Database;
 using DataAccess.Repositories;
-using DataAccess.Repositories.Interfaces;
+using Model;
 using log4net;
 using Microsoft.Win32;
-using Model;
 using PdfSharp.Drawing;
-using PdfSharp.Fonts;
 using PdfSharp.Pdf;
-using PdfSharp.Quality;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using UI.Commands;
 using UI.Converters;
 using UI.Views;
-
 
 namespace UI.ViewModels
 {
@@ -132,9 +127,10 @@ namespace UI.ViewModels
                 NewTour.Distance <= 0 ||
                 NewTour.Estimated_Time <= 0)
             {
-                MessageBox.Show("Required Input is Missing", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                log.Warn("SaveTour aborted: Required input is missing.");
-                return;
+                Exception e = new MissingRequiredFieldException();
+                log.Warn($"SaveTour aborted: {e.Message}.");
+                MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
+                throw e;
             }
 
 
@@ -210,7 +206,9 @@ namespace UI.ViewModels
                 }
                 else
                 {
-                    log.Warn($"No tour found with ID {tourID}.");
+                    Exception e = new TourNotFoundException(tourID);
+                    log.Warn(e.Message);
+                    throw e;
                 }
             }
             else if (parameter is AddTourModel tourModel)
@@ -236,8 +234,9 @@ namespace UI.ViewModels
                 log.Info($"ExportTour called for TourID: {tourModel.Id}");
                 if (Tours == null || Tours.Count == 0)
                 {
-                    MessageBox.Show("Die Tour-Liste ist leer!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
+                    Exception e = new EmptyListException();
+                    MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
+                    throw e;
                 }
 
                 SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -275,7 +274,9 @@ namespace UI.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Tour nicht gefunden!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Exception e = new TourNotFoundException(tourModel.Id);
+                    MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
+                    throw e;
                 }
             }
         }
@@ -334,7 +335,8 @@ namespace UI.ViewModels
                 catch (Exception ex)
                 {
                     log.Error("Error importing tour.", ex);
-                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message);
+                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message); // Ebene weiter runter
+                    throw ex;
                 }
             }
         }
@@ -485,8 +487,9 @@ namespace UI.ViewModels
 
                     if (string.IsNullOrWhiteSpace(filePath))
                     {
-                        MessageBox.Show("Invalid file path selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                        Exception e = new Exception("Invalid file path selected");
+                        MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);    // Ebene runter
+                        throw e;
                     }
 
                     PdfDocument document = new PdfDocument();
@@ -566,7 +569,8 @@ namespace UI.ViewModels
             catch (Exception ex)
             {
                 log.Error("Error generating PDF report", ex);
-                MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);  // Ebene weiter runter
+                throw ex;
             }
         }
 
