@@ -54,8 +54,6 @@
                             <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
                             <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
                             <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
-                            <RowDefinition Height="*" MaxHeight="300"></RowDefinition>
-                            <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
                             <RowDefinition Height="*" MaxHeight="400"></RowDefinition>
                             <RowDefinition Height="*" MaxHeight="10"></RowDefinition>
                             <RowDefinition Height="*" MaxHeight="50"></RowDefinition>
@@ -142,6 +140,8 @@
                                 <custom:PlaceholderTextBoxControl Grid.Column="5" FontSize="28" Placeholder="{Binding Estimated_Time}" FontWeight="Bold" MaxLength="64" TextWrapping="Wrap" Text="{Binding Estimated_Time, UpdateSourceTrigger=PropertyChanged}" ></custom:PlaceholderTextBoxControl>
                             </ScrollViewer>
                         </Grid>
+                            
+                        <!--
                         <Grid Grid.Row="9">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
@@ -158,11 +158,11 @@
                             </Grid>
                             <Rectangle Grid.Column="2" Fill="White"></Rectangle>
                             <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                                <!--<TextBox Grid.Column="2" TextWrapping="Wrap" FontSize="28" Background="White" Foreground="Black" VerticalAlignment="Top"  HorizontalAlignment="Left" Text="{Binding RouteInfo}"></TextBox>   -->
                                 <custom:PlaceholderTextBoxControl Grid.Column="2" FontSize="28" Placeholder="{Binding Route_Information}" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding Route_Information, UpdateSourceTrigger=PropertyChanged}" ></custom:PlaceholderTextBoxControl>
                             </ScrollViewer>
                         </Grid>
-                        <Grid Grid.Row="11">
+                        -->
+                        <Grid Grid.Row="9">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>
                                 <ColumnDefinition Width="*" MaxWidth="200"></ColumnDefinition>
@@ -178,10 +178,10 @@
                             </Grid>
                             <Rectangle Grid.Column="2" Fill="White"></Rectangle>
 
-                            <Image Grid.Column="2" Stretch="Uniform" Source="{Binding Image_Path}"></Image>
+                            <Image Grid.Column="2" Stretch="Uniform" Source="{Binding Route_Information}"></Image>
                         </Grid>
-                        <Grid Grid.Row="12"></Grid>
-                        <Grid Grid.Row="13">
+                        <Grid Grid.Row="10"></Grid>
+                        <Grid Grid.Row="11">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" MaxWidth="10"></ColumnDefinition>

@@ -64,7 +64,7 @@ namespace Business.Services
             if (string.IsNullOrEmpty(tour.From_Location)) throw new EmptyAttributeException("From_Location");
             if (string.IsNullOrEmpty(tour.To_Location)) throw new EmptyAttributeException("To_Location");
             if (string.IsNullOrEmpty(tour.Transportation_Type)) throw new EmptyAttributeException("Transportation_Type");
-            if (string.IsNullOrEmpty(tour.Route_Information)) throw new EmptyAttributeException("Route_Information");
+            if (string.IsNullOrEmpty(tour.Route_Information)) throw new EmptyAttributeException("Image_Path");
 
             if (tour.Distance < 1) throw new NonPositiveNumberException("Distance");
             if (tour.Estimated_Time < 1) throw new NonPositiveNumberException("Estimated_Time");

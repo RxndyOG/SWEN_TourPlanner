@@ -24,7 +24,7 @@
 
         async function geocode(address) {
             console.log(`Geocoding address: ${address}`);
-            const apiKey = '';      // API key hier hinzufügen
+            const apiKey = '5b3ce3597851110001cf624857b4283d9f2a4e1d97376e736fb89f5d';      // API key hier hinzufügen
             const url = `https://api.openrouteservice.org/geocode/search?api_key=${apiKey}&text=${encodeURIComponent(address)}`;
             const response = await fetch(url);
             const data = await response.json();
@@ -37,7 +37,7 @@
 
         async function getRoute(fromCoords, toCoords) {
             console.log(`Routing from: ${fromCoords}, to: ${toCoords}`);
-            const apiKey = '';        // API key hier hinzufügen
+            const apiKey = '5b3ce3597851110001cf624857b4283d9f2a4e1d97376e736fb89f5d';        // API key hier hinzufügen
             const url = 'https://api.openrouteservice.org/v2/directions/driving-car/geojson';
 
             const body = {
