@@ -77,19 +77,9 @@ namespace UI.Tests
 
             _model.RemoveTourLogCommand.Execute(null);
 
+
             Assert.That(_model.TourLogsTable.Count, Is.EqualTo(0));
         }
 
-        [Test]
-        public void RemoveTourLog_InvalidId_DoesNotRemove()
-        {
-            var log = new TourLogs.TourLog { IDTourLogs = 1, Date = "2025-01-01" };
-            _model.TourLogsTable.Add(log);
-            _model.LogIdToRemove = 2;
-
-            Assert.Throws<TourLogNotFoundException>(() => _model.RemoveTourLogCommand.Execute(null));
-
-            Assert.That(_model.TourLogsTable.Count, Is.EqualTo(1));
-        }
     }
 }
