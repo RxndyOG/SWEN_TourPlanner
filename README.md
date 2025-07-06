@@ -15,10 +15,10 @@ Mockup             |  Implementation
 ![](https://github.com/user-attachments/assets/a356565c-e6b5-4230-bcf7-0338b4df4dfc) | ![](https://github.com/user-attachments/assets/e72db8e2-ad53-42dc-a3c8-ac4849a51294)
 
 ### Class-Diagram
-...
+![Klassendiagramm drawio](https://github.com/user-attachments/assets/d6967850-0a0a-42a7-a5a8-abf7e3ad5c9b)
 
 ### Use-Case-Diagram
-...
+![UseCaseDiagramm](https://github.com/user-attachments/assets/57c4c37d-e37d-4093-a912-72913565e574)
 
 ## App architecture
 ### UI Layer
@@ -40,7 +40,7 @@ The repository pattern helps us separate the data access logic from the rest of 
 
 In our DataAccess Layer we define Interfaces (`ITourRepository`, `ITourLogRepository`) for the repositories and require them to implement the CRUD Operations. The repositories (`TourRepository`, `TourLogRepository`) than implement the interfaces and use an ORM-Mapper to work with the database
 
-## Command Pattern
+#### Command Pattern
 The project leverages the Command Pattern to encapsulate actions as objects, enabling a clean separation between the UI and business logic. This design pattern is particularly useful in WPF applications, where commands can be bound directly to UI elements, such as buttons, simplifying event handling and improving code maintainability.
 
 ### Implementation Details:
