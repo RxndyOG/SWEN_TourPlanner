@@ -16,66 +16,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="log4net.config" />
-		<None Remove="Views\Images\hero_maps_static_api.png" />
-		<None Remove="Views\Images\HomeIcon.png" />
-		<None Remove="Views\Images\HomeIcon2.png" />
-		<None Remove="Views\Images\LiberationSans-Regular.ttf" />
-		<None Remove="Views\Images\ListIcon.png" />
-		<None Remove="Views\Images\ListIcon2.png" />
-		<None Remove="Views\Images\MapIcon.png" />
-		<None Remove="Views\Images\MapIcon2.png" />
-		<None Remove="Views\Images\SearchIcon.png" />
-		<None Remove="Views\Images\SearchIcon2.png" />
-		<None Remove="Views\Images\SettingsIcon.png" />
-		<None Remove="Views\Images\SettingsIcon2.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Views\Images\hero_maps_static_api.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\HomeIcon.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\HomeIcon2.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\LiberationSans-Regular.ttf">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\ListIcon.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\ListIcon2.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\MapIcon.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\MapIcon2.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\SearchIcon.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\SearchIcon2.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\SettingsIcon.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\Images\SettingsIcon2.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="CopilotDev.NET.Api" Version="1.1.0" />
 	  <PackageReference Include="Jering.Javascript.NodeJS" Version="7.0.0" />
 	  <PackageReference Include="log4net" Version="3.1.0" />
 	  <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48" />
-	  <PackageReference Include="PDFsharp" Version="6.2.0" />
+	  <PackageReference Include="PDFsharp" Version="6.2.0" /><!--Remove-->
 	  <PackageReference Include="System.Drawing.Common" Version="9.0.6" />
 	  <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.6" />
 	  <PackageReference Include="WebView2.Runtime.X64" Version="138.0.3351.65" />
@@ -83,6 +28,9 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\Scripts\L.Routing.OpenRouteServiceV2.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
