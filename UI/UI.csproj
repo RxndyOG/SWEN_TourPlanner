@@ -16,12 +16,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CopilotDev.NET.Api" Version="1.1.0" />
 	  <PackageReference Include="Jering.Javascript.NodeJS" Version="7.0.0" />
 	  <PackageReference Include="log4net" Version="3.1.0" />
 	  <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48" />
-	  <PackageReference Include="PDFsharp" Version="6.2.0" /><!--Remove-->
-	  <PackageReference Include="System.Drawing.Common" Version="9.0.6" />
 	  <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.6" />
 	  <PackageReference Include="WebView2.Runtime.X64" Version="138.0.3351.65" />
 	  <PackageReference Include="WebView2.Runtime.X86" Version="138.0.3351.65" />

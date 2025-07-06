@@ -39,7 +39,7 @@ namespace UI.Views
                 MapWebView.NavigationCompleted += async (s, e) =>
                 {
                     Debug.WriteLine("WebView finished loading (NavigationCompleted)");
-                    string script = $"setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
+                    string script = $" setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
                     Debug.WriteLine($"Executing script: {script}");
                     await MapWebView.ExecuteScriptAsync(script);
                 };
