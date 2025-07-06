@@ -4,6 +4,7 @@ using DataAccess.Database;
 using Model;
 using Npgsql;
 using Dapper;
+using log4net;
 
 namespace DataAccess.Repositories
 {
@@ -11,6 +12,7 @@ namespace DataAccess.Repositories
     {
         private readonly IDatabase _db;
         private NpgsqlConnection? connection;
+        private static readonly ILog log = LogManager.GetLogger(typeof(TourLogRepository));
 
         public TourLogRepository(IDatabase db)
         {
@@ -27,11 +29,14 @@ namespace DataAccess.Repositories
                 {
                     tourlogs = connection.Query<TourLog>("SELECT * FROM tour_logs WHERE tour_id = @tour_id ORDER BY id ASC", new { tour_id = tourID }).ToList<TourLog>();
                 }
+
+                log.Info($"[Database] Retrieved {tourlogs.Count} Tourlogs");
                 return tourlogs;
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
 
@@ -47,10 +52,12 @@ namespace DataAccess.Repositories
                         """;
                     connection.Query<TourLog>(query, tourlog);
                 }
+                log.Info($"[Database] Added Tourlog");
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
 
@@ -62,10 +69,12 @@ namespace DataAccess.Repositories
                 {
                     connection.Query("DELETE FROM tour_logs WHERE id = @id", new { id });
                 }
+                log.Info($"[Database] Deleted Tourlog with id: {id}");
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
 
@@ -81,10 +90,12 @@ namespace DataAccess.Repositories
                         """;
                     connection.Query<Tour>(query, tourlog);
                 }
+                log.Info($"[Database] Updated Tourlog with id: {tourlog.Id}");
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
     }

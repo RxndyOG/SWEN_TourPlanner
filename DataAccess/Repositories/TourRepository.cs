@@ -4,6 +4,7 @@ using DataAccess.Database;
 using Model;
 using Npgsql;
 using Dapper;
+using log4net;
 
 namespace DataAccess.Repositories
 {
@@ -11,6 +12,7 @@ namespace DataAccess.Repositories
     {
         private readonly IDatabase _db;
         private NpgsqlConnection? connection;
+        private static readonly ILog log = LogManager.GetLogger(typeof(TourRepository));
 
         public TourRepository(IDatabase db)
         {
@@ -27,11 +29,14 @@ namespace DataAccess.Repositories
                 {
                     tour = connection.Query<Tour>("SELECT * FROM tours WHERE id = @id LIMIT 1", new { id }).ToList().FirstOrDefault();
                 }
+
+                log.Info($"[Database] Retrieved Tour with id: {id}");
                 return tour;
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database] ", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
 
@@ -45,23 +50,35 @@ namespace DataAccess.Repositories
                 {
                     tours = connection.Query<Tour>("SELECT * FROM tours ORDER BY id ASC").ToList();
                 }
+
+                log.Info($"[Database] Retrieved {tours.Count} Tours");
                 return tours;
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
 
         public void AddTour(Tour tour)
         {
-            using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+            try 
             {
-                string query = """
-                    INSERT INTO tours (name, description, from_location, to_location, transportation_type, distance, estimated_time, route_information, image_path)
-                    VALUES (@Name, @Description, @From_location, @To_location, @Transportation_type, @Distance, @Estimated_time, @Route_information, @Image_Path)
-                    """;
-                connection.Query<Tour>(query, tour);
+                using (connection = new NpgsqlConnection(_db.GetConnectionString()))
+                {
+                    string query = """
+                        INSERT INTO tours (name, description, from_location, to_location, transportation_type, distance, estimated_time, route_information)
+                        VALUES (@Name, @Description, @From_location, @To_location, @Transportation_type, @Distance, @Estimated_time, @Route_information)
+                        """;
+                    connection.Query<Tour>(query, tour);
+                }
+                log.Info($"[Database] Added Tour");
+            }
+            catch (Exception ex)
+            {
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
 
@@ -81,17 +98,18 @@ namespace DataAccess.Repositories
                 {
                     connection.Query("DELETE FROM tours WHERE id = @id", new { id });
                 }
+                log.Info($"[Database] Deleted Tour with id: {id}");
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
 
         public void UpdateTour(Tour tour)
         {
             try {
-                // Update tour
                 using (connection = new NpgsqlConnection(_db.GetConnectionString()))
                 {
                     string query = """
@@ -100,10 +118,12 @@ namespace DataAccess.Repositories
                         """;
                     connection.Query<Tour>(query, tour);
                 }
+                log.Info($"[Database] Updated Tour with id: {tour.Id}");
             }
             catch (Exception ex)
             {
-                throw new FailedDatabaseConnectionException();
+                log.Error("[Database]", ex);
+                throw new DatabaseException(ex.Message);
             }
         }
     }

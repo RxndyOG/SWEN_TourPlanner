@@ -134,49 +134,46 @@ namespace UI.ViewModels
                     NewTour.Distance <= 0 ||
                     NewTour.Estimated_Time <= 0)
                 {
-                    Exception e = new MissingRequiredFieldException();
-                    log.Warn($"SaveTour aborted: {e.Message}.");
-                    throw e;
+                    throw new MissingRequiredFieldException();
                 }
             }
             catch (Exception ex)
             {
-                log.Error("Error saving tour.", ex);
-                MessageBox.Show("Fehler beim Speichern der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                log.Warn($"SaveTour aborted: {ex.Message}.");
+                MessageBox.Show(ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
 
             var tourModel = new AddTourModel
-                {
-                    Name = NewTour.Name,
-                    From_Location = NewTour.From_Location,
-                    To_Location = NewTour.To_Location,
-                    Description = NewTour.Description,
-                    Transportation_Type = NewTour.Transportation_Type,
-                    Distance = NewTour.Distance,
-                    Estimated_Time = NewTour.Estimated_Time,
-                    Route_Information = NewTour.Route_Information,
-                    Image_Path = NewTour.Image_Path
-                };
+            {
+                Name = NewTour.Name,
+                From_Location = NewTour.From_Location,
+                To_Location = NewTour.To_Location,
+                Description = NewTour.Description,
+                Transportation_Type = NewTour.Transportation_Type,
+                Distance = NewTour.Distance,
+                Estimated_Time = NewTour.Estimated_Time,
+                Route_Information = NewTour.Route_Information
+            };
 
 
-                _tourService.AddTour(tourModel.Tour);
+            _tourService.AddTour(tourModel.Tour);
 
-                var allTours = _tourService.GetAllTours();
-                var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
+            var allTours = _tourService.GetAllTours();
+            var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
 
-                if (savedTour != null)
-                {
-                    tourModel.Id = savedTour.Id;
-                }
+            if (savedTour != null)
+            {
+                tourModel.Id = savedTour.Id;
+            }
 
-                Tours.Add(tourModel);
-                AddTourBlock(tourModel);
+            Tours.Add(tourModel);
+            AddTourBlock(tourModel);
 
-                log.Info($"Tour saved: {tourModel.Name} (ID: {tourModel.Id})");
+            log.Info($"Tour saved: {tourModel.Name} (ID: {tourModel.Id})");
 
-                NewTour = new AddTourModel();
+            NewTour = new AddTourModel();
             
         }
 
@@ -221,9 +218,7 @@ namespace UI.ViewModels
                     }
                     else
                     {
-                        Exception e = new TourNotFoundException(tourID);
-                        log.Warn(e.Message);
-                        throw e;
+                        throw new TourNotFoundException(tourID);
                     }
                 }
                 else if (parameter is AddTourModel tourModel)
@@ -244,7 +239,7 @@ namespace UI.ViewModels
             catch (Exception ex)
             {
                 log.Error("Error deleting tour.", ex);
-                MessageBox.Show("Fehler beim Löschen der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                MessageBox.Show("Fehler beim Löschen der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -258,9 +253,7 @@ namespace UI.ViewModels
                     log.Info($"ExportTour called for TourID: {tourModel.Id}");
                     if (Tours == null || Tours.Count == 0)
                     {
-                        Exception e = new EmptyListException();
-                        MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
-                        throw e;
+                        throw new EmptyListException();
                     }
 
                     SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -277,10 +270,11 @@ namespace UI.ViewModels
                         MessageBox.Show("Tour Exported!");
                     }
                 }
-               }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 log.Error("Error exporting tour.", ex);
-                MessageBox.Show("Fehler beim Exportieren der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                MessageBox.Show("Fehler beim Exportieren der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -307,16 +301,14 @@ namespace UI.ViewModels
                     }
                     else
                     {
-                        Exception e = new TourNotFoundException(tourModel.Id);
-                        MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // Ebene weiter runter
-                        throw e;
+                        throw new TourNotFoundException(tourModel.Id);
                     }
                 }
             }
             catch (Exception ex)
             {
                 log.Error("Error modifying tour.", ex);
-                MessageBox.Show("Fehler beim Modifizieren der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error); // Ebene weiter runter
+                MessageBox.Show("Fehler beim Modifizieren der Tour:\n" + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
         }
@@ -375,7 +367,7 @@ namespace UI.ViewModels
                 catch (Exception ex)
                 {
                     log.Error("Error importing tour.", ex);
-                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message); // Ebene weiter runter
+                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message);
                 }
             }
         }
@@ -417,7 +409,7 @@ namespace UI.ViewModels
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        NewTour.Image_Path = filePath;
+                        NewTour.Route_Information = filePath;
                         OnPropertyChanged(nameof(NewTour));
                         mapWindow.Close();
                     });
@@ -526,9 +518,7 @@ namespace UI.ViewModels
 
                     if (string.IsNullOrWhiteSpace(filePath))
                     {
-                        Exception e = new Exception("Invalid file path selected");
-                        MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);    // Ebene runter
-                        throw e;
+                        throw new Exception("Invalid file path selected");
                     }
 
                     PdfDocument document = new PdfDocument();
@@ -608,7 +598,7 @@ namespace UI.ViewModels
             catch (Exception ex)
             {
                 log.Error("Error generating PDF report", ex);
-                MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);  // Ebene weiter runter
+                MessageBox.Show($"An error occurred while generating the PDF report:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
