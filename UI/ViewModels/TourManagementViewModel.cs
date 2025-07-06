@@ -250,28 +250,28 @@ namespace UI.ViewModels
         {
             try
             {
-                if (parameter is AddTourModel tourModel)
-                {
-                    log.Info($"ExportTour called for TourID: {tourModel.Id}");
                 if (Tours == null || Tours.Count == 0)
                 {
                     throw new EmptyListException();
                 }
-
-                    SaveFileDialog saveFileDialog = new SaveFileDialog
+                if (parameter is AddTourModel tourModel)
                 {
-                        Filter = "JSON Datei (*.json)|*.json",
-                        Title = "Tour speichern"
+                    var tour = new Tour
+                    {
+                        Id = tourModel.Id,
+                        Name = tourModel.Name,
+                        From_Location = tourModel.From_Location,
+                        To_Location = tourModel.To_Location,
+                        Description = tourModel.Description,
+                        Transportation_Type = tourModel.Transportation_Type,
+                        Distance = tourModel.Distance,
+                        Estimated_Time = tourModel.Estimated_Time,
+                        Route_Information = tourModel.Route_Information
                     };
 
-                    if (saveFileDialog.ShowDialog() == true)
-                    {
-                        string json = JsonSerializer.Serialize(tourModel, new JsonSerializerOptions { WriteIndented = true });
-                        File.WriteAllText(saveFileDialog.FileName, json);
-                        log.Info($"Tour exported to {saveFileDialog.FileName}");
-                        MessageBox.Show("Tour Exported!");
-                    }
+                    _tourService.ExportTour(tour, _tourLogService);
                 }
+               MessageBox.Show("Tour Exported!");
             }
             catch (Exception ex)
             {
@@ -317,60 +317,46 @@ namespace UI.ViewModels
 
         private void ImportTour(object parameter)
         {
-            log.Info("ImportTour called.");
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Filter = "JSON Datei (*.json)|*.json",
-                Title = "Benutzerdaten laden"
-            };
-
-            if (openFileDialog.ShowDialog() == true)
-            {
             try
             {
-                    string json = File.ReadAllText(openFileDialog.FileName);
-                    AddTourModel tourModel = JsonSerializer.Deserialize<AddTourModel>(json);
+                Tour tour = _tourService.ImportTour(_tourLogService);
 
-                    if (tourModel != null)
+                AddTourModel tourModel = new AddTourModel
                 {
-                        // Tour in die Datenbank speichern
-                        _tourService.AddTour(tourModel.Tour);
+                    Name = tour.Name,
+                    From_Location = tour.From_Location,
+                    To_Location = tour.To_Location,
+                    Description = tour.Description,
+                    Transportation_Type = tour.Transportation_Type,
+                    Distance = tour.Distance,
+                    Estimated_Time = tour.Estimated_Time,
+                    Route_Information = tour.Route_Information
+                };
 
-                        // Nach dem Speichern die neue ID aus der DB holen
-                        var allTours = _tourService.GetAllTours();
-                        var savedTour = allTours.OrderByDescending(t => t.Id).FirstOrDefault();
-                        if (savedTour != null)
-                        {
-                            tourModel.Id = savedTour.Id;
-
-                            // Save imported TourLogs to the database
-                            foreach (var log in tourModel.TourLogsTable)
-                            {
-                                var dbLog = new TourLog
-                                {
-                                    Tour_Id = tourModel.Id,
-                                    Logdate = DateTime.TryParse($"{log.Date} {log.Time}", out var dt) ? dt : DateTime.Now,
-                                    Comment = log.Comment,
-                                    Difficulty = log.Difficulty,
-                                    Total_Distance = int.TryParse(log.Distance, out var dist) ? dist : 0,
-                                    Total_Time = int.TryParse(log.Duration, out var dur) ? dur : 0,
-                                    Rating = int.TryParse(log.Rating, out var rat) ? rat : 1
-                                };
-
-                                _tourLogService.AddTourLog(dbLog);
-                            }
-                        }
-
-                        Tours.Add(tourModel);
-                        AddTourBlock(tourModel);
-                        log.Info($"Tour imported from {openFileDialog.FileName} as ID {tourModel.Id}");
-                    }
-                }
-                catch (Exception ex)
+                // Load TourLogs from database
+                var logs = _tourLogService.GetTourLogs(tour.Id);
+                foreach (var log in logs)
                 {
-                    log.Error("Error importing tour.", ex);
-                    MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message);
+                    tourModel.TourLogsTable.Add(new TourLogs.TourLog
+                    {
+                        IDTourLogs = log.Id,
+                        Date = log.Logdate.ToShortDateString(),
+                        Time = log.Logdate.ToShortTimeString(),
+                        Comment = log.Comment,
+                        Difficulty = log.Difficulty.ToString(),
+                        Distance = log.Total_Distance.ToString(),
+                        Duration = log.Total_Time.ToString(),
+                        Rating = log.Rating.ToString()
+                    });
                 }
+
+                Tours.Add(tourModel);
+                AddTourBlock(tourModel);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error importing tour.", ex);
+                MessageBox.Show("Fehler beim Laden der Datei:\n" + ex.Message);
             }
         }
 

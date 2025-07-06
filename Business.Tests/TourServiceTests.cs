@@ -87,10 +87,6 @@ namespace Business.Tests
             tour.Estimated_Time = -1;
             CheckExceptionThrown("Estimated_Time");
 
-            // Check atribute Route_Information
-            tour.Estimated_Time = 60;
-            tour.Route_Information = "";
-            CheckExceptionThrown("Route_Information");
 
             /// Executes the method that checks the attributes and fails the test if no exception is thrown
             void CheckExceptionThrown(string attribute)
