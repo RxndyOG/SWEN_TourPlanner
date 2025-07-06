@@ -56,6 +56,7 @@ namespace UI.ViewModels
         private NavigationViewModel _navigationViewModel;
         private TourService _tourService;
         private TourLogService _tourLogService;
+        private ReportService _reportService;
 
         public TourManagementViewModel(NavigationViewModel nv, MainViewModel mv)
         {
@@ -64,6 +65,7 @@ namespace UI.ViewModels
 
             _tourService = new TourService(new TourRepository(new Database()));
             _tourLogService = new TourLogService(new TourLogRepository(new Database()));
+            _reportService = new ReportService(_tourLogService);
             _navigationViewModel = nv;
             _mainViewModel = mv;
 
@@ -154,7 +156,6 @@ namespace UI.ViewModels
                 Transportation_Type = NewTour.Transportation_Type,
                 Distance = NewTour.Distance,
                 Estimated_Time = NewTour.Estimated_Time,
-                //Route_Information = NewTour.Route_Information,
                 Route_Information = NewTour.Route_Information,
             };
 
@@ -252,13 +253,13 @@ namespace UI.ViewModels
                 if (parameter is AddTourModel tourModel)
                 {
                     log.Info($"ExportTour called for TourID: {tourModel.Id}");
-                    if (Tours == null || Tours.Count == 0)
-                    {
-                        throw new EmptyListException();
-                    }
+                if (Tours == null || Tours.Count == 0)
+                {
+                    throw new EmptyListException();
+                }
 
                     SaveFileDialog saveFileDialog = new SaveFileDialog
-                    {
+                {
                         Filter = "JSON Datei (*.json)|*.json",
                         Title = "Tour speichern"
                     };
@@ -325,13 +326,13 @@ namespace UI.ViewModels
 
             if (openFileDialog.ShowDialog() == true)
             {
-                try
-                {
+            try
+            {
                     string json = File.ReadAllText(openFileDialog.FileName);
                     AddTourModel tourModel = JsonSerializer.Deserialize<AddTourModel>(json);
 
                     if (tourModel != null)
-                    {
+                {
                         // Tour in die Datenbank speichern
                         _tourService.AddTour(tourModel.Tour);
 
@@ -420,85 +421,32 @@ namespace UI.ViewModels
             mapWindow.ShowDialog();
         }
 
-        void DrawImage(XGraphics gfx, string jpegSamplePath, int x, int y, int width, int height)
-        {
-            XImage image = XImage.FromFile(jpegSamplePath);
-            gfx.DrawImage(image, x, y, width, height);
-        }
-
         public void GeneratePdfReportTour(object parameter)
         {
             try
             {
-                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-
-                SaveFileDialog saveFileDialog = new SaveFileDialog
+                // Die ausgewählte Tour bestimmen
+                AddTourModel selectedTour = parameter as AddTourModel ?? NewTour;
+                if (selectedTour == null)
                 {
-                    Filter = "PDF Files (*.pdf)|*.pdf",
-                    Title = "Save PDF Report"
+                    throw new Exception("No tour selected");
+                }
+
+                Tour tour = new Tour
+                {
+                    Id = selectedTour.Id,
+                    Name = selectedTour.Name,
+                    From_Location = selectedTour.From_Location,
+                    To_Location = selectedTour.To_Location,
+                    Description = selectedTour.Description,
+                    Transportation_Type = selectedTour.Transportation_Type,
+                    Distance = selectedTour.Distance,
+                    Estimated_Time = selectedTour.Estimated_Time,
+                    Route_Information = selectedTour.Route_Information
                 };
 
-                if (saveFileDialog.ShowDialog() == true)
-                {
-                    string filePath = saveFileDialog.FileName;
-
-                    if (string.IsNullOrWhiteSpace(filePath))
-                    {
-                        MessageBox.Show("Invalid file path selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                    // Die ausgewählte Tour bestimmen
-                    AddTourModel selectedTour = parameter as AddTourModel ?? NewTour;
-                    if (selectedTour == null)
-                    {
-                        MessageBox.Show("No tour selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                    PdfDocument document = new PdfDocument();
-                    document.Info.Title = "Tour Report";
-
-                    PdfPage page = document.AddPage();
-                    XGraphics gfx = XGraphics.FromPdfPage(page);
-
-                    var titleFont = new XFont("Arial", 10, XFontStyleEx.Regular);
-                    var contentFont = new XFont("Arial", 10, XFontStyleEx.Regular);
-
-                    double y = 40;
-                    gfx.DrawString("Tour Report", titleFont, XBrushes.Black, new XRect(0, y, page.Width, 30), XStringFormats.TopCenter);
-                    y += 40;
-
-                    gfx.DrawString($"Name: {selectedTour.Name}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                    gfx.DrawString($"From: {selectedTour.From_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                    gfx.DrawString($"To: {selectedTour.To_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                    gfx.DrawString($"Transport: {selectedTour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                    gfx.DrawString($"Distance: {selectedTour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                    gfx.DrawString($"Description: {selectedTour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                    DrawImage(gfx, selectedTour.Route_Information, 60, 230, 450, 250);
-                    gfx.DrawString($"Estimated Time: {selectedTour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
-
-                    if (selectedTour.TourLogsTable != null && selectedTour.TourLogsTable.Count > 0)
-                    {
-                        gfx.DrawString("Tour Logs:", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        foreach (var log in selectedTour.TourLogsTable)
-                        {
-                            gfx.DrawString($"  - Date: {log.Date}, Time: {log.Time}, Difficulty: {log.Difficulty}, Distance: {log.Distance}, Comment: {log.Comment}, Duration: {log.Duration}", contentFont, XBrushes.Black, new XPoint(50, y));
-                            y += 20;
-                            if (y > page.Height - 60)
-                            {
-                                page = document.AddPage();
-                                gfx = XGraphics.FromPdfPage(page);
-                                y = 40;
-                            }
-                        }
-                        y += 10;
-                    }
-
-                    document.Save(filePath);
-
-                    MessageBox.Show("PDF report generated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                _reportService.GeneratePdfReportSingleTour(tour);
+                MessageBox.Show("PDF report generated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -511,96 +459,28 @@ namespace UI.ViewModels
         {
             try
             {
-                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+                List<Tour> tours = new List<Tour>();
 
-                SaveFileDialog saveFileDialog = new SaveFileDialog
+                foreach (AddTourModel tourModel in Tours)
                 {
-                    Filter = "PDF Files (*.pdf)|*.pdf",
-                    Title = "Save PDF Report"
-                };
-
-                if (saveFileDialog.ShowDialog() == true)
-                {
-                    string filePath = saveFileDialog.FileName;
-
-                    if (string.IsNullOrWhiteSpace(filePath))
+                    Tour tour = new Tour
                     {
-                        throw new Exception("Invalid file path selected");
-                    }
+                        Id = tourModel.Id,
+                        Name = tourModel.Name,
+                        From_Location = tourModel.From_Location,
+                        To_Location = tourModel.To_Location,
+                        Description = tourModel.Description,
+                        Transportation_Type = tourModel.Transportation_Type,
+                        Distance = tourModel.Distance,
+                        Estimated_Time = tourModel.Estimated_Time,
+                        Route_Information = tourModel.Route_Information
+                    };
 
-                    PdfDocument document = new PdfDocument();
-                    document.Info.Title = "Tour Report";
-
-                    PdfPage page = document.AddPage();
-                    XGraphics gfx = XGraphics.FromPdfPage(page);
-
-                    var titleFont = new XFont("Arial", 10, XFontStyleEx.Regular);
-                    var contentFont = new XFont("Arial", 10, XFontStyleEx.Regular);
-
-                    double y = 40;
-                    gfx.DrawString("Tour Report", titleFont, XBrushes.Black, new XRect(0, y, page.Width, 30), XStringFormats.TopCenter);
-                    y += 40;
-
-                    if (Tours != null && Tours.Count > 0)
-                    {
-                        // Durchschnittswerte berechnen
-                        double avgTourDistance = Tours.Average(t => t.Distance);
-                        double avgTourEstimatedTime = Tours.Average(t => t.Estimated_Time);
-
-                        var allLogs = Tours.SelectMany(t => t.TourLogsTable).ToList();
-                        double avgLogDistance = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Distance, out var d) ? d : 0) : 0;
-                        double avgLogDuration = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Duration, out var d) ? d : 0) : 0;
-                        double avgLogDifficulty = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Difficulty, out var d) ? d : 0) : 0;
-                        double avgLogRating = allLogs.Count > 0 ? allLogs.Average(l => double.TryParse(l.Rating, out var d) ? d : 0) : 0;
-
-                        gfx.DrawString($"Anzahl Tours: {Tours.Count}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        gfx.DrawString($"Durchschnittliche Länge aller Tours: {avgTourDistance:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        gfx.DrawString($"Durchschnittliche geschätzte Zeit aller Tours: {avgTourEstimatedTime:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        gfx.DrawString($"Anzahl aller TourLogs: {allLogs.Count}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        gfx.DrawString($"Durchschnittliche Distanz aller TourLogs: {avgLogDistance:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        gfx.DrawString($"Durchschnittliche Dauer aller TourLogs: {avgLogDuration:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        gfx.DrawString($"Durchschnittliche Difficulty aller TourLogs: {avgLogDifficulty:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                        gfx.DrawString($"Durchschnittliches Rating aller TourLogs: {avgLogRating:F2}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
-
-                        foreach (var tour in Tours)
-                        {
-                            gfx.DrawString($"Name: {tour.Name}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"From: {tour.From_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"To: {tour.To_Location}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Transport: {tour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Distance: {tour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Description: {tour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Image Path: {tour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Estimated Time: {tour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
-
-                            if (tour.TourLogsTable != null && tour.TourLogsTable.Count > 0)
-                            {
-                                gfx.DrawString("Tour Logs:", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                                foreach (var log in tour.TourLogsTable)
-                                {
-                                    gfx.DrawString($"  - Date: {log.Date}, Time: {log.Time}, Difficulty: {log.Difficulty}, Distance: {log.Distance}, Comment: {log.Comment}, Duration: {log.Duration}, Rating: {log.Rating}", contentFont, XBrushes.Black, new XPoint(50, y));
-                                    y += 20;
-                                }
-                                y += 10;
-                            }
-                            y += 10;
-                            if (y > page.Height - 60)
-                            {
-                                page = document.AddPage();
-                                gfx = XGraphics.FromPdfPage(page);
-                                y = 40;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        gfx.DrawString("No tours available.", contentFont, XBrushes.Black, new XPoint(40, y));
-                    }
-
-                    document.Save(filePath);
-
-                    MessageBox.Show("PDF report generated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    tours.Add(tour);
                 }
+
+                _reportService.GeneratePdfReport(tours);
+                MessageBox.Show("PDF report generated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

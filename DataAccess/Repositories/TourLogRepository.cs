@@ -30,7 +30,7 @@ namespace DataAccess.Repositories
                     tourlogs = connection.Query<TourLog>("SELECT * FROM tour_logs WHERE tour_id = @tour_id ORDER BY id ASC", new { tour_id = tourID }).ToList<TourLog>();
                 }
 
-                log.Info($"[Database] Retrieved {tourlogs.Count} Tourlogs");
+                log.Info($"[Database] Retrieved {tourlogs.Count} Tourlogs from Tour with ID: {tourID}");
                 return tourlogs;
             }
             catch (Exception ex)
