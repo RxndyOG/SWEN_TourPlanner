@@ -162,6 +162,7 @@
                     <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="32" Text="{Binding NewTour.EstimatedTime, UpdateSourceTrigger=PropertyChanged}"></TextBox>       -->
                 </Grid>
             </Grid>
+            <!--
             <Grid Grid.Row="3" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" MaxWidth="50"></ColumnDefinition>
@@ -176,9 +177,10 @@
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Rout Information:</Label>
                 <ScrollViewer Grid.Column="1" Grid.Row="2" VerticalScrollBarVisibility="Auto">
                     <custom:PlaceholderTextBoxControl Grid.Column="1" Grid.Row="2" FontSize="26" Placeholder="Rout Information" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.Route_Information, UpdateSourceTrigger=PropertyChanged}"></custom:PlaceholderTextBoxControl>
-                    <!-- <TextBox Grid.Column="1" Grid.Row="2" FontSize="26" FontWeight="Bold" MaxLength="400" TextWrapping="Wrap" Text="{Binding NewTour.RouteInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>    -->
                 </ScrollViewer>
             </Grid>
+            
+            -->
             <Grid Grid.Row="3" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" MaxWidth="32"></ColumnDefinition>
@@ -193,7 +195,7 @@
                 <Label Grid.Column="1" Grid.Row="0" Foreground="White" FontSize="32" VerticalAlignment="Bottom">Map:</Label>
                 <Button Background="#1F1F1F" Grid.Column="1" Grid.Row="2" Command="{Binding ShowMapCommand}">
                     <Grid>
-                        <Image Grid.Column="1" Grid.Row="2" Stretch="UniformToFill" Source="{Binding NewTour.Image_Path, Converter={StaticResource ImagePathToBitmapConverter}}" />
+                        <Image Grid.Column="1" Grid.Row="2" Stretch="UniformToFill" Source="{Binding NewTour.Route_Information, Converter={StaticResource ImagePathToBitmapConverter}}" />
                         <Image Grid.Column="1" Grid.Row="2" Source="F:\FHTechnikum\Semester 4\Swen\UI\bin\Debug\net8.0-windows\Views\Images\Map_20250701_110152.png" Stretch="Fill"/>
                         <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="48" Foreground="White" FontWeight="Bold">Upload Image</Label>
                     </Grid>

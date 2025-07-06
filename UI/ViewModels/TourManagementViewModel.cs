@@ -154,8 +154,8 @@ namespace UI.ViewModels
                 Transportation_Type = NewTour.Transportation_Type,
                 Distance = NewTour.Distance,
                 Estimated_Time = NewTour.Estimated_Time,
+                //Route_Information = NewTour.Route_Information,
                 Route_Information = NewTour.Route_Information,
-                Image_Path = NewTour.Image_Path,
             };
 
 
@@ -410,7 +410,7 @@ namespace UI.ViewModels
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        NewTour.Image_Path = filePath;
+                        NewTour.Route_Information = filePath;
                         OnPropertyChanged(nameof(NewTour));
                         mapWindow.Close();
                     });
@@ -418,6 +418,12 @@ namespace UI.ViewModels
             }
 
             mapWindow.ShowDialog();
+        }
+
+        void DrawImage(XGraphics gfx, string jpegSamplePath, int x, int y, int width, int height)
+        {
+            XImage image = XImage.FromFile(jpegSamplePath);
+            gfx.DrawImage(image, x, y, width, height);
         }
 
         public void GeneratePdfReportTour(object parameter)
@@ -469,7 +475,7 @@ namespace UI.ViewModels
                     gfx.DrawString($"Transport: {selectedTour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                     gfx.DrawString($"Distance: {selectedTour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                     gfx.DrawString($"Description: {selectedTour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                    gfx.DrawString($"Route Info: {selectedTour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                    DrawImage(gfx, selectedTour.Route_Information, 60, 230, 450, 250);
                     gfx.DrawString($"Estimated Time: {selectedTour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
 
                     if (selectedTour.TourLogsTable != null && selectedTour.TourLogsTable.Count > 0)
@@ -564,7 +570,7 @@ namespace UI.ViewModels
                             gfx.DrawString($"Transport: {tour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Distance: {tour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Description: {tour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Route Info: {tour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Image Path: {tour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Estimated Time: {tour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
 
                             if (tour.TourLogsTable != null && tour.TourLogsTable.Count > 0)
