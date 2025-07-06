@@ -2,5 +2,6 @@
 bin/
 obj/
 *.user
+*.tar
 appsettings.json
 ExportedTours

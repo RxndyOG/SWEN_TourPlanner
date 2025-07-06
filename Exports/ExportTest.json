@@ -1,0 +1,62 @@
+{
+  "AddTourLogCommand": {},
+  "RemoveTourLogCommand": {},
+  "ModifyTourLogsCommand": {},
+  "Tour": {
+    "Id": 93,
+    "Name": "Export Tour",
+    "Description": "Export Discription",
+    "From_Location": "Wien",
+    "To_Location": "Graz",
+    "Transportation_Type": "Car",
+    "Distance": 86,
+    "Estimated_Time": 320,
+    "Route_Information": "F:\\FHTechnikum\\Semester 4\\Swen\\UI\\bin\\Debug\\net8.0-windows\\Views\\Images\\Map_20250706_203100.png"
+  },
+  "TourLogs": {
+    "TourLogsTable": [
+      {
+        "IDTourLogs": 42,
+        "Date": "01.07.2025",
+        "Time": "14:15",
+        "Comment": "Tour Log Comment",
+        "Difficulty": "2",
+        "Distance": "86",
+        "Duration": "312",
+        "Rating": "4"
+      }
+    ],
+    "IDTourLogs": 0,
+    "Date": null,
+    "Comment": null,
+    "Difficulty": null,
+    "Duration": null,
+    "Rating": null,
+    "Distance": null,
+    "Time": null,
+    "RouteInfo": null
+  },
+  "Id": 93,
+  "Name": "Export Tour",
+  "Description": "Export Discription",
+  "From_Location": "Wien",
+  "To_Location": "Graz",
+  "Transportation_Type": "Car",
+  "Distance": 86,
+  "Estimated_Time": 320,
+  "Route_Information": "F:\\FHTechnikum\\Semester 4\\Swen\\UI\\bin\\Debug\\net8.0-windows\\Views\\Images\\Map_20250706_203100.png",
+  "Image_Path": null,
+  "TourLogsTable": [
+    {
+      "IDTourLogs": 42,
+      "Date": "01.07.2025",
+      "Time": "14:15",
+      "Comment": "Tour Log Comment",
+      "Difficulty": "2",
+      "Distance": "86",
+      "Duration": "312",
+      "Rating": "4"
+    }
+  ],
+  "LogIdToRemove": 0
+}

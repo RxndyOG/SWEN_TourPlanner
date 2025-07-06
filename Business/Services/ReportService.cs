@@ -59,7 +59,7 @@ namespace Business.Services
             gfx.DrawString($"Transport: {tour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
             gfx.DrawString($"Distance: {tour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
             gfx.DrawString($"Description: {tour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-            DrawImage(gfx, tour.Route_Information, 60, 230, 450, 250);
+            DrawImage(gfx, tour.Route_Information, 60, 280, 450, 250);
             gfx.DrawString($"Estimated Time: {tour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
 
             void DrawImage(XGraphics gfx, string jpegSamplePath, int x, int y, int width, int height)

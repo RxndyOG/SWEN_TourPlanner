@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Database;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -26,6 +27,7 @@ namespace UI.Views
 
         public async Task SetRoute(string from, string to)
         {
+        
             if (MapWebView.CoreWebView2 != null)
             {
                 Debug.WriteLine("WebView2 already initialized — executing script directly");
@@ -39,7 +41,7 @@ namespace UI.Views
                 MapWebView.NavigationCompleted += async (s, e) =>
                 {
                     Debug.WriteLine("WebView finished loading (NavigationCompleted)");
-                    string script = $"setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
+                    string script = $" setRoute({System.Text.Json.JsonSerializer.Serialize(from)}, {System.Text.Json.JsonSerializer.Serialize(to)})";
                     Debug.WriteLine($"Executing script: {script}");
                     await MapWebView.ExecuteScriptAsync(script);
                 };
