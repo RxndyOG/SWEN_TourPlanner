@@ -154,7 +154,8 @@ namespace UI.ViewModels
                 Transportation_Type = NewTour.Transportation_Type,
                 Distance = NewTour.Distance,
                 Estimated_Time = NewTour.Estimated_Time,
-                Route_Information = NewTour.Route_Information
+                Route_Information = NewTour.Route_Information,
+                Image_Path = NewTour.Image_Path,
             };
 
 
@@ -409,7 +410,7 @@ namespace UI.ViewModels
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        NewTour.Route_Information = filePath;
+                        NewTour.Image_Path = filePath;
                         OnPropertyChanged(nameof(NewTour));
                         mapWindow.Close();
                     });
