@@ -27,7 +27,7 @@ namespace Business.Services
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw;
             }
 
             _tourlogRepository.AddTourLog(tourlog);
@@ -46,7 +46,7 @@ namespace Business.Services
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw;
             }
 
             _tourlogRepository.UpdateTourLog(tourlog);

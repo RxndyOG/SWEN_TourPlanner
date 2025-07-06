@@ -135,20 +135,17 @@ namespace UI.ViewModels
 
         private void SaveTourLog(object parameter)
         {
-
             try
             {
-
                 // Beispiel: Einfache Validierung, kann angepasst werden
                 if (string.IsNullOrWhiteSpace(TourLogs.Date) ||
                     string.IsNullOrWhiteSpace(TourLogs.Comment))
                 {
-                    Exception e = new MissingRequiredFieldException();
-                    MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // TODO eine ebene runter
-                    throw e;
+                    throw new MissingRequiredFieldException();
                 }
 
-            }catch (MissingRequiredFieldException e)
+            }
+            catch (MissingRequiredFieldException e)
             {
                 MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return; // Abbrechen, wenn Validierung fehlschlägt
@@ -223,11 +220,12 @@ namespace UI.ViewModels
                     }
                     else
                     {
-                        Debug.WriteLine($"Kein TourLog mit ID {log.IDTourLogs} gefunden.");
+                        throw new TourLogNotFoundException(log.IDTourLogs);
                     }
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine(ex.Message);
                     MessageBox.Show($"Fehler beim Speichern des Logs mit ID {log.IDTourLogs}: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -238,30 +236,35 @@ namespace UI.ViewModels
 
         private void RemoveTourLog(object parameter)
         {
-            var log = TourLogs.TourLogsTable.FirstOrDefault(t => t.IDTourLogs == LogIdToRemove);
-            if (log != null)
+            try
             {
-                // Versuche, das Log auch aus der Datenbank zu löschen (falls vorhanden)
-                // Suche das passende DB-Log über TourId und evtl. weitere Felder
-                var dbLogs = _tourLogService.GetTourLogs(this.Id);
-                var dbLog = dbLogs.FirstOrDefault(l =>
-                    l.Comment == log.Comment &&
-                    l.Tour_Id == this.Id &&
-                    l.Logdate.ToShortDateString() == log.Date &&
-                    l.Logdate.ToShortTimeString() == log.Time
-                );
-                if (dbLog != null)
+                var log = TourLogs.TourLogsTable.FirstOrDefault(t => t.IDTourLogs == LogIdToRemove);
+                if (log != null)
                 {
-                    _tourLogService.DeleteTourLog(dbLog.Id);
-                }
+                    // Versuche, das Log auch aus der Datenbank zu löschen (falls vorhanden)
+                    // Suche das passende DB-Log über TourId und evtl. weitere Felder
+                    var dbLogs = _tourLogService.GetTourLogs(this.Id);
+                    var dbLog = dbLogs.FirstOrDefault(l =>
+                        l.Comment == log.Comment &&
+                        l.Tour_Id == this.Id &&
+                        l.Logdate.ToShortDateString() == log.Date &&
+                        l.Logdate.ToShortTimeString() == log.Time
+                    );
+                    if (dbLog != null)
+                    {
+                        _tourLogService.DeleteTourLog(dbLog.Id);
+                    }
 
-                TourLogs.TourLogsTable.Remove(log);
+                    TourLogs.TourLogsTable.Remove(log);
+                }
+                else
+                {
+                    throw new TourLogNotFoundException(LogIdToRemove);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                Exception e = new TourLogNotFoundException(LogIdToRemove);
-                MessageBox.Show(e.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning); // TODO eine ebene runter
-                return;
+                MessageBox.Show(ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

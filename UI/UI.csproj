@@ -32,9 +32,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="log4net.config">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Views\Images\hero_maps_static_api.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

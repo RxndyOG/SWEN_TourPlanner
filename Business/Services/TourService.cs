@@ -32,7 +32,7 @@ namespace Business.Services
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw;
             }
 
             _tourRepository.AddTour(tour);
@@ -51,7 +51,7 @@ namespace Business.Services
             }
             catch (Exception e) 
             { 
-                throw new Exception(e.Message);
+                throw;
             }
 
             _tourRepository.UpdateTour(tour);
