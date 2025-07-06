@@ -570,7 +570,7 @@ namespace UI.ViewModels
                             gfx.DrawString($"Transport: {tour.Transportation_Type}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Distance: {tour.Distance}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Description: {tour.Description}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
-                            gfx.DrawString($"Route Info: {tour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
+                            gfx.DrawString($"Image Path: {tour.Route_Information}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 20;
                             gfx.DrawString($"Estimated Time: {tour.Estimated_Time}", contentFont, XBrushes.Black, new XPoint(40, y)); y += 30;
 
                             if (tour.TourLogsTable != null && tour.TourLogsTable.Count > 0)
