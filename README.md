@@ -40,8 +40,19 @@ The repository pattern helps us separate the data access logic from the rest of 
 
 In our DataAccess Layer we define Interfaces (`ITourRepository`, `ITourLogRepository`) for the repositories and require them to implement the CRUD Operations. The repositories (`TourRepository`, `TourLogRepository`) than implement the interfaces and use an ORM-Mapper to work with the database
 
-#### Command Pattern
-... #TODO
+## Command Pattern
+The project leverages the Command Pattern to encapsulate actions as objects, enabling a clean separation between the UI and business logic. This design pattern is particularly useful in WPF applications, where commands can be bound directly to UI elements, such as buttons, simplifying event handling and improving code maintainability.
+
+### Implementation Details:
+- RelayCommand: A reusable implementation of the `ICommand` interface, used extensively across ViewModels like `TourManagementViewModel` and `NavigationViewModel`. It allows the execution of methods and the evaluation of whether a command can be executed.
+- Examples:
+  - `SaveTourCommand`: Encapsulates the logic for saving a new tour.
+  - `DeleteCommand`: Handles the deletion of tours from both the UI and the database.
+  - `NavigateCommand`: Facilitates navigation between different pages in the application.
+- Benefits:
+  - Decouples UI elements from the underlying logic.
+  - Enhances testability by allowing commands to be tested independently of the UI.
+  - Promotes reusability and consistency across the application.
 
 ### Library decisions
 * **O/R Mapper**: Dapper, because of its easy use and high ranking in the market
@@ -52,11 +63,28 @@ In our DataAccess Layer we define Interfaces (`ITourRepository`, `ITourLogReposi
 ### Testing
 For each layer there is an own testing project where the the most important functions are tested. This keeps the project organized and lets us test layers separately. The unit tests were written in the way to test the behaviour in valid and invalid inputs. 
 
-### Unique feature
-*Placeholder*
 
-... #TODO
+## Unique Feature
+### PlaceholderTextBoxControl
+The project introduces a custom WPF control called `PlaceholderTextBoxControl`, which extends the functionality of the standard `TextBox` by adding support for placeholder text. This feature improves user experience by providing contextual hints when the text box is empty.
 
+### Key Features:
+- Dependency Properties:
+  - `Placeholder`: A string property that defines the placeholder text displayed when the text box is empty.
+  - `IsEmpty`: A boolean property that indicates whether the text box is empty, updated dynamically based on user input.
+- Dynamic Behavior:
+  - The placeholder text is automatically shown or hidden depending on the content of the text box.
+  - The control overrides `OnTextChanged` and `OnInitialized` to ensure seamless updates to the `IsEmpty` property.
+- Integration:
+  - Can be easily incorporated into WPF layouts using XAML.
+  - Supports styling and customization to match the application's design.
+
+### Benefits:
+- Enhances usability by guiding users with placeholder text.
+- Reduces the need for additional labels or instructions in the UI.
+- Provides a polished and modern user experience.
+
+### Example Usage:
 ### Tracked time
 * UI: ~ 100 hours
 * Business: ~ 15 hours
