@@ -51,6 +51,7 @@ namespace UI.ViewModels
         public ICommand ShowMapCommand { get; }
 
         public ICommand ReportCommandTour { get; }
+        public ICommand RandomTourCommand { get; }
 
         private MainViewModel _mainViewModel;
         private NavigationViewModel _navigationViewModel;
@@ -118,6 +119,27 @@ namespace UI.ViewModels
             ExportCommand = new RelayCommand(ExportTour);
             RemoveBlockCommand = new RelayCommand(RemoveBlock);
             ShowMapCommand = new RelayCommand(_ => ShowMapAndCaptureImage());
+            RandomTourCommand = new RelayCommand(_ => GenerateRandomTour());
+        }
+
+        private void GenerateRandomTour()
+        {
+            var random = new Random();
+
+
+            NewTour.Name = $"Tour {random.Next(1, 100)}";
+            NewTour.Description = "Eine zufällige Beschreibung für die Tour.";
+            NewTour.From_Location = $"Ort {random.Next(1, 50)}";
+            NewTour.To_Location = $"Ort {random.Next(51, 100)}";
+            NewTour.Transportation_Type = random.Next(0, 2) == 0 ? "Auto" : "Fahrrad";
+            NewTour.Distance = random.Next(5, 500);
+            NewTour.Estimated_Time = random.Next(10, 300);
+
+
+            NewTour.Route_Information = string.Empty;
+
+
+            OnPropertyChanged(nameof(NewTour));
         }
 
         private void SaveTour(object parameter)
