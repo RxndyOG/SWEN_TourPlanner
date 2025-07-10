@@ -126,14 +126,22 @@ namespace UI.ViewModels
         {
             var random = new Random();
 
+            var austrianCities = new List<string>
+            {
+                "Wien", "Graz", "Linz", "Salzburg", "Innsbruck", "Klagenfurt", "Villach", "Wels", "St. Pölten", "Dornbirn"
+            };
+            var transportModes = new List<string>
+            {
+                "Car", "Bycicle", "Bus", "Train", "Bike", "Taxi", "Walking"
+            };
 
             NewTour.Name = $"Tour {random.Next(1, 100)}";
-            NewTour.Description = "Eine zufällige Beschreibung für die Tour.";
-            NewTour.From_Location = $"Ort {random.Next(1, 50)}";
-            NewTour.To_Location = $"Ort {random.Next(51, 100)}";
-            NewTour.Transportation_Type = random.Next(0, 2) == 0 ? "Auto" : "Fahrrad";
+            NewTour.Description = "Pls Enter A Description For this Random Tour";
+            NewTour.From_Location = austrianCities[random.Next(austrianCities.Count)];
+            NewTour.To_Location = austrianCities[random.Next(austrianCities.Count)];
+            NewTour.Transportation_Type = transportModes[random.Next(transportModes.Count)];
             NewTour.Distance = random.Next(5, 500);
-            NewTour.Estimated_Time = random.Next(10, 300);
+            NewTour.Estimated_Time = NewTour.Distance * 50;
 
 
             NewTour.Route_Information = string.Empty;
@@ -168,7 +176,7 @@ namespace UI.ViewModels
                 return;
             }
 
-
+            // neue Add Tour Model für Tours
             var tourModel = new AddTourModel
             {
                 Name = NewTour.Name,
