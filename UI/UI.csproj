@@ -16,6 +16,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Views\Images\HomeIcon2.png" />
+	  <None Remove="Views\Images\ListIcon2.png" />
+	  <None Remove="Views\Images\MapIcon2.png" />
+	  <None Remove="Views\Images\SearchIcon2.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CopilotDev.NET.Api" Version="1.1.0" />
 	  <PackageReference Include="Jering.Javascript.NodeJS" Version="7.0.0" />
 	  <PackageReference Include="log4net" Version="3.1.0" />
@@ -29,6 +36,16 @@
 
   <ItemGroup>
     <Content Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Images\HomeIcon2.png" />
+    <Content Include="Views\Images\ListIcon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Images\MapIcon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Images\SearchIcon2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Scripts\L.Routing.OpenRouteServiceV2.js">
