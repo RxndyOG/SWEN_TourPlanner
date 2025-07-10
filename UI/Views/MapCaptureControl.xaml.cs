@@ -1,5 +1,4 @@
-﻿using DataAccess.Database;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -27,7 +26,6 @@ namespace UI.Views
 
         public async Task SetRoute(string from, string to)
         {
-        
             if (MapWebView.CoreWebView2 != null)
             {
                 Debug.WriteLine("WebView2 already initialized — executing script directly");

@@ -9,5 +9,7 @@ namespace Business.Services.Interfaces
         void AddTour(Tour tour);
         void DeleteTour(int id);
         void UpdateTour(Tour tour);
+        Tour ImportTour(TourLogService tourLogService);
+        void ExportTour(Tour tour, TourLogService tourLogService);
     }
 }

@@ -30,7 +30,6 @@ namespace DataAccess.Database
             connectionString = $"Host={host};Port={port};Username={username};Password={password};Database={databaseName}";
         }
 
-
         /// <summary>
         ///     Connects to the database via config file in base directory
         /// </summary>
